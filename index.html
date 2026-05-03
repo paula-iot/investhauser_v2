@@ -1091,6 +1091,152 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 @keyframes marquee   { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
 @keyframes scan      { 0%   { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
 @keyframes spinBadge { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+/* =========================================================
+   RESPONSIVIDADE — tablet (≤ 1024px)
+   ========================================================= */
+@media (max-width: 1024px) {
+  :root { --section-padding: 100px 40px; }
+
+  /* nav */
+  .nav { gap: 24px; padding: 10px 20px; }
+  .nav__links { gap: 20px; }
+
+  /* hero */
+  .hero__content { padding: 0 40px 56px; }
+  .hero__scroll  { right: 40px; }
+  .hero__bottom  { flex-direction: column; align-items: flex-start; gap: 28px; }
+
+  /* sobre */
+  .about { grid-template-columns: 1fr; gap: 60px; }
+  .about__visual { height: 420px; }
+
+  /* números */
+  .numbers__grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* projetos */
+  .projects__header { padding: 0 40px; }
+  .projects__track  { padding: 0 40px; }
+  .project-card     { width: 360px; }
+
+  /* serviços */
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* airbnb */
+  .airbnb__inner { grid-template-columns: 1fr; gap: 60px; }
+  .airbnb__visual { height: 380px; }
+
+  /* cta */
+  .cta { grid-template-columns: 1fr; gap: 48px; padding: 100px 40px; }
+
+  /* footer */
+  .footer { flex-direction: column; gap: 28px; text-align: center; padding: 40px; }
+  .footer__copy { text-align: center; }
+}
+
+/* =========================================================
+   RESPONSIVIDADE — mobile (≤ 768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  :root { --section-padding: 80px 24px; }
+
+  /* cursor — esconde em touch */
+  .cursor { display: none; }
+  body    { cursor: auto; }
+
+  /* badge — esconde em touch */
+  .mag-badge { display: none; }
+
+  /* nav — colapsa links */
+  .nav {
+    top: 16px;
+    padding: 10px 18px;
+    gap: 16px;
+    width: calc(100% - 32px);
+    justify-content: space-between;
+  }
+  .nav__links { display: none; }
+
+  /* hero */
+  .hero__content { padding: 0 24px 48px; gap: 20px; }
+  .hero__title   { font-size: clamp(2.4rem, 9vw, 4rem); }
+  .hero__bottom  { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero__actions { flex-direction: column; width: 100%; }
+  .hero__actions .btn { width: 100%; text-align: center; }
+  .hero__scroll  { display: none; }
+
+  /* overlay mais opaco para leitura sobre vídeo */
+  .hero__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.30) 0%,
+      rgba(255,255,255,0.65) 40%,
+      rgba(255,255,255,0.97) 100%
+    );
+  }
+
+  /* marquee */
+  .marquee__item { padding: 12px 28px; font-size: .85rem; }
+
+  /* sobre */
+  .about { grid-template-columns: 1fr; gap: 40px; padding: 80px 24px; }
+  .about__visual { height: 300px; }
+  .about__media  { width: 85%; height: 85%; }
+  .about__media-secondary { width: 55%; height: 55%; }
+
+  /* números */
+  .numbers__grid { grid-template-columns: repeat(2, 1fr); }
+  .section--numbers { padding: 60px 24px; }
+  .numbers__value { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+
+  /* projetos */
+  .projects { padding: 80px 0; }
+  .projects__header { padding: 0 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .projects__track  { padding: 0 24px; gap: 16px; }
+  .project-card     { width: 300px; }
+  .project-card__media        { height: 380px; }
+  .project-card__media--tall  { height: 400px; }
+  .project-card__media--mid   { height: 360px; }
+  .project-card__media--short { height: 320px; }
+
+  /* serviços */
+  .services__grid { grid-template-columns: 1fr; }
+  .service-card   { padding: 40px 28px; }
+
+  /* airbnb */
+  .airbnb { padding: 80px 24px; }
+  .airbnb__inner { grid-template-columns: 1fr; gap: 40px; }
+  .airbnb__visual { height: 280px; }
+  .airbnb__claim  { font-size: clamp(1.5rem, 5vw, 2rem); }
+
+  /* depoimento */
+  .testimonial { padding: 80px 24px; }
+  .testimonial__text { font-size: clamp(1.3rem, 5vw, 2rem); }
+  .testimonial__mark { font-size: 5rem; }
+
+  /* cta */
+  .cta { padding: 80px 24px; grid-template-columns: 1fr; gap: 36px; }
+  .cta__title { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+  .cta__body .btn { width: 100%; text-align: center; }
+
+  /* section title */
+  .section__title { font-size: clamp(2rem, 7vw, 3rem); }
+
+  /* footer */
+  .footer { flex-direction: column; gap: 24px; padding: 32px 24px; text-align: center; }
+  .footer__links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .footer__copy  { text-align: center; }
+}
+
+/* =========================================================
+   RESPONSIVIDADE — mobile pequeno (≤ 390px)
+   ========================================================= */
+@media (max-width: 390px) {
+  .hero__title { font-size: clamp(2rem, 10vw, 2.8rem); }
+  .nav__logo   { font-size: .85rem; }
+  .project-card { width: 260px; }
+  .numbers__grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1135,22 +1281,10 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="hero">
-  <!--
-    VÍDEO DO HERO
-    Descomente e aponte para seu arquivo:
-    <source src="video/hero.webm" type="video/webm">
-    <source src="video/hero.mp4"  type="video/mp4">
-    Recomendado: 1920×1080, H.264, loop suave, < 8MB
-  -->
   <video class="hero__video" id="heroVideo" autoplay muted loop playsinline>
-    <!-- <source src="video/hero.webm" type="video/webm"> -->
-    <!-- <source src="video/hero.mp4"  type="video/mp4"> -->
+    <source src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto,f_auto/hero_k86ebv.webm" type="video/webm">
+    <source src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto,f_auto/hero_k86ebv.mp4"  type="video/mp4">
   </video>
-
-  <div class="hero__placeholder" id="heroPlaceholder">
-    <div class="hero__placeholder-icon"></div>
-    <div class="hero__placeholder-label">Inserir vídeo · video/hero.mp4</div>
-  </div>
 
   <div class="hero__overlay"      aria-hidden="true"></div>
   <div class="hero__overlay-side" aria-hidden="true"></div>
@@ -1170,8 +1304,8 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
         Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência. Cada projeto é tratado como um investimento.
       </p>
       <div class="hero__actions" id="heroActions">
-        <a href="#projetos" class="btn btn--primary"><span class="btn--primary__label">Ver projetos</span></a>
-        <a href="#cta"      class="btn btn--ghost">Solicitar orçamento</a>
+        <a href="#cta" class="btn btn--primary"><span class="btn--primary__label">Solicitar orçamento</span></a>
+        <a href="#projetos"      class="btn btn--ghost">Ver projetos</a>
       </div>
     </div>
   </div>
