@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invest Hauser — Construção & Incorporação</title>
+<meta name="description" content="Construção de alto padrão, vendas e gestão de Airbnb. Cada projeto é uma obra de valor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; font-size: 16px; }
+
+/* =========================================================
+   TOKENS
+   ========================================================= */
+:root {
+  /* backgrounds */
+  --color-bg:       #ffffff;
+  --color-bg-2:     #f5f5f5;
+  --color-bg-3:     #efefef;
+
+  /* text */
+  --color-text:     #000000;
+  --color-muted:    #777777;
+
+  /* accent (preto como cor de destaque) */
+  --color-accent:   #000000;
+  --color-accent-dim: rgba(0,0,0,0.10);
+
+  /* opacidades neutras */
+  --color-black-4:  rgba(0,0,0,0.04);
+  --color-black-8:  rgba(0,0,0,0.08);
+  --color-black-12: rgba(0,0,0,0.12);
+  --color-black-20: rgba(0,0,0,0.20);
+  --color-line:     rgba(0,0,0,0.08);
+
+  /* tipografia */
+  --font-sans:   'Nunito', sans-serif;
+  --font-serif:  'Cormorant Garamond', Georgia, serif;
+
+  /* espaçamento interno de seção */
+  --section-padding: 140px 64px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* =========================================================
+   CURSOR
+   ========================================================= */
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+}
+.cursor__dot {
+  width: 8px;
+  height: 8px;
+  background: var(--color-text);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .25s, height .25s;
+}
+.cursor__ring {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--color-black-20);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .35s, height .35s, border-color .3s;
+}
+body:has(a:hover, button:hover) .cursor__dot { width: 12px; height: 12px; }
+body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; border-color: var(--color-text); }
+
+/* =========================================================
+   LOADER
+   ========================================================= */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 28px;
+  transition: opacity .7s ease, visibility .7s ease;
+}
+.loader--hidden { opacity: 0; visibility: hidden; }
+
+.loader__percentage {
+  font-family: var(--font-sans);
+  font-size: clamp(5rem, 15vw, 12rem);
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.loader__track {
+  width: 180px;
+  height: 1px;
+  background: var(--color-black-12);
+}
+.loader__fill {
+  height: 100%;
+  width: 0;
+  background: var(--color-text);
+}
+.loader__label {
+  font-size: .6rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav {
+  position: fixed;
+  top: 28px;
+  left: 50%;
+  z-index: 100;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--color-black-12);
+  border-radius: 100px;
+  padding: 12px 28px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  transition: background .3s ease;
+}
+.nav__logo {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav__links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav__link {
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color .3s;
+}
+.nav__link:hover { color: var(--color-text); }
+.nav__cta {
+  font-size: .6rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: var(--color-text);
+  padding: 8px 20px;
+  border-radius: 100px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity .3s;
+}
+.nav__cta:hover { opacity: .75; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero__placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--color-bg-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.hero__placeholder-icon {
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--color-black-12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero__placeholder-icon::after {
+  content: '';
+  border-left: 22px solid var(--color-black-12);
+  border-top: 13px solid transparent;
+  border-bottom: 13px solid transparent;
+  margin-left: 6px;
+}
+.hero__placeholder-label {
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.15) 0%,
+    rgba(255,255,255,0.50) 50%,
+    rgba(255,255,255,0.95) 100%
+  );
+}
+.hero__overlay-side {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to right, rgba(255,255,255,0.75) 30%, transparent 70%);
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 0 64px 64px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.hero__eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--color-text);
+  flex-shrink: 0;
+}
+.hero__title {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--color-text);
+}
+.hero__title em { font-style: italic; font-weight: 300; }
+.hero__title-line { display: block; }
+.hero__title-char { display: inline-block; }
+.hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 60px;
+}
+.hero__desc {
+  font-size: .82rem;
+  line-height: 1.9;
+  color: var(--color-muted);
+  max-width: 380px;
+  border-left: 1px solid var(--color-accent-dim);
+  padding-left: 20px;
+}
+.hero__actions { display: flex; gap: 14px; }
+.hero__scroll {
+  position: absolute;
+  bottom: 44px;
+  right: 64px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .55rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.hero__scroll-line {
+  width: 36px;
+  height: 1px;
+  background: var(--color-black-12);
+  position: relative;
+  overflow: hidden;
+}
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-text);
+  transform: translateX(-100%);
+  animation: scan 2s 3s infinite ease-in-out;
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: var(--font-sans);
+}
+.btn--primary {
+  padding: 14px 36px;
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  transition: color .4s;
+}
+.btn--primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #333333;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .4s ease;
+}
+.btn--primary:hover { color: var(--color-bg); }
+.btn--primary:hover::before { transform: scaleX(1); transform-origin: left; }
+.btn--primary__label { position: relative; z-index: 1; }
+
+.btn--ghost {
+  padding: 14px 36px;
+  border: 1px solid var(--color-black-12);
+  color: var(--color-muted);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: border-color .3s, color .3s;
+}
+.btn--ghost:hover { border-color: var(--color-black-20); color: var(--color-text); }
+
+/* =========================================================
+   MARQUEE
+   ========================================================= */
+.marquee {
+  border-top: 1px solid var(--color-line);
+  border-bottom: 1px solid var(--color-line);
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+.marquee__item {
+  padding: 16px 48px;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-right: 1px solid var(--color-line);
+}
+.marquee__dot {
+  color: var(--color-accent);
+  font-style: normal;
+  font-size: .9rem;
+}
+
+/* =========================================================
+   SEÇÃO BASE
+   ========================================================= */
+.section { padding: var(--section-padding); }
+.section--alt   { background: var(--color-bg-3); }
+.section--alt-2 { background: var(--color-bg-2); }
+.section--numbers { padding: 100px 64px; }
+
+.section__label {
+  font-size: .58rem;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section__label::before {
+  content: '';
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  background: var(--color-accent);
+}
+.section__title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  color: var(--color-text);
+}
+.section__title em { font-style: italic; font-weight: 300; }
+.section__title--spaced { margin-bottom: 28px; }
+.section__title--flush  { margin-bottom: 0; }
+
+/* =========================================================
+   SOBRE
+   ========================================================= */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: center;
+}
+.about__visual { position: relative; height: 620px; }
+.about__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 78%;
+  height: 78%;
+  background: var(--color-bg-2);
+  overflow: hidden;
+}
+.about__media-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1d1f, #0e1113);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__media-placeholder {
+  font-family: var(--font-sans);
+  font-size: 6rem;
+  color: var(--color-black-4);
+  font-weight: 300;
+  user-select: none;
+}
+.about__media-secondary {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 52%;
+  height: 52%;
+  background: var(--color-bg-2);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+.about__media-secondary-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #151819, #0b0e10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about__media-placeholder--small {
+  font-size: 2.5rem;
+  color: var(--color-black-4);
+}
+.about__body {
+  display: flex;
+  flex-direction: column;
+}
+.about__paragraph {
+  font-size: .82rem;
+  line-height: 1.95;
+  color: var(--color-muted);
+  margin-bottom: 18px;
+}
+.about__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-black-12);
+  padding-bottom: 4px;
+  margin-top: 12px;
+  align-self: flex-start;
+  transition: color .3s, border-color .3s;
+}
+.about__link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.about__link::after { content: '→'; transition: transform .3s; }
+.about__link:hover::after { transform: translateX(4px); }
+
+/* =========================================================
+   NÚMEROS
+   ========================================================= */
+.numbers__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--color-line);
+  margin-top: 60px;
+}
+.numbers__item {
+  background: var(--color-bg-3);
+  padding: 48px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.numbers__item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .5s ease;
+}
+.numbers__item:hover::after { transform: scaleX(1); }
+.numbers__value {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: -.03em;
+}
+.numbers__value-suffix {
+  color: var(--color-accent);
+  font-style: normal;
+  font-size: .65em;
+}
+.numbers__label {
+  font-size: .6rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+/* =========================================================
+   PROJETOS
+   ========================================================= */
+.projects { padding: 140px 0; overflow: hidden; }
+.projects__header {
+  padding: 0 64px;
+  margin-bottom: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.projects__drag-hint {
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.projects__drag-hint::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--color-muted);
+}
+.projects__overflow { overflow: hidden; }
+.projects__track {
+  display: flex;
+  gap: 20px;
+  padding: 0 64px;
+  width: max-content;
+}
+
+/* project card */
+.project-card { width: 440px; flex-shrink: 0; }
+.project-card__media {
+  height: 560px;
+  background: var(--color-bg-2);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.project-card__media--tall  { height: 600px; }
+.project-card__media--mid   { height: 520px; }
+.project-card__media--short { height: 480px; }
+
+.project-card__media-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(160deg, #1c2022, #0e1214);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .7s cubic-bezier(.4,0,.2,1);
+}
+.project-card__media-inner--2 { background: linear-gradient(145deg, #181e22, #0c1214); }
+.project-card__media-inner--3 { background: linear-gradient(145deg, #1a1e20, #0e1214); }
+.project-card__media-inner--4 { background: linear-gradient(145deg, #1c2224, #101618); }
+.project-card__media-inner--5 { background: linear-gradient(145deg, #161c1e, #0a1012); }
+
+.project-card:hover .project-card__media-inner { transform: scale(1.04); }
+.project-card__num {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-family: var(--font-sans);
+  font-size: 6rem;
+  color: var(--color-black-4);
+  line-height: 1;
+  user-select: none;
+}
+.project-card__tag {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  font-size: .55rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--color-bg);
+  background: rgba(0,0,0,.75);
+  padding: 6px 14px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.project-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.5), transparent);
+}
+.project-card__placeholder {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--color-muted);
+  letter-spacing: .05em;
+}
+.project-card__title {
+  font-family: var(--font-sans);
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-text);
+  margin-bottom: 6px;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+}
+.project-card__meta {
+  font-size: .62rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* =========================================================
+   SERVIÇOS
+   ========================================================= */
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--color-line);
+  margin-top: 60px;
+}
+.service-card {
+  background: var(--color-bg-3);
+  padding: 52px 44px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #000000;
+  opacity: 0;
+  transition: opacity .4s;
+  z-index: 0;
+}
+.service-card > * { position: relative; z-index: 1; }
+.service-card:hover::before { opacity: 1; }
+
+.service-card__accent {
+  width: 0;
+  height: 1px;
+  background: var(--color-text);
+  margin-bottom: 36px;
+  transition: width .5s ease;
+}
+.service-card:hover .service-card__accent { width: 36px; background: #ffffff; }
+
+.service-card__num {
+  font-family: var(--font-sans);
+  font-size: 4rem;
+  color: var(--color-black-4);
+  line-height: 1;
+  margin-bottom: 20px;
+  transition: color .4s;
+}
+.service-card:hover .service-card__num { color: rgba(255,255,255,.1); }
+
+.service-card__title {
+  font-family: var(--font-sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 14px;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  transition: color .4s;
+}
+.service-card:hover .service-card__title { color: #ffffff; }
+
+.service-card__desc {
+  font-size: .75rem;
+  color: var(--color-muted);
+  line-height: 1.85;
+  transition: color .4s;
+}
+.service-card:hover .service-card__desc { color: rgba(255,255,255,.6); }
+
+.service-card__arrow {
+  position: absolute;
+  bottom: 44px;
+  right: 44px;
+  z-index: 1;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  opacity: 0;
+  transform: translate(-5px, 5px);
+  transition: opacity .3s, transform .3s, color .4s;
+}
+.service-card:hover .service-card__arrow { opacity: 1; transform: translate(0,0); color: #ffffff; }
+
+/* =========================================================
+   AIRBNB
+   ========================================================= */
+.airbnb {
+  min-height: 100vh;
+  background: var(--color-bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.airbnb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(0,0,0,.02), transparent);
+}
+.airbnb::after {
+  content: 'AIRBNB';
+  position: absolute;
+  bottom: -80px;
+  right: -40px;
+  font-family: var(--font-sans);
+  font-size: clamp(10rem, 20vw, 22rem);
+  color: rgba(0,0,0,.02);
+  line-height: 1;
+  user-select: none;
+  letter-spacing: -.02em;
+}
+.airbnb__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+.airbnb__quote-mark {
+  font-family: var(--font-sans);
+  font-size: 7rem;
+  color: var(--color-accent-dim);
+  line-height: .5;
+  margin-bottom: 32px;
+}
+.airbnb__claim {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  font-style: italic;
+  color: var(--color-text);
+  margin-bottom: 36px;
+}
+.airbnb__claim em { color: var(--color-accent); font-style: normal; }
+.airbnb__body {
+  font-size: .8rem;
+  color: var(--color-muted);
+  line-height: 1.9;
+  margin-bottom: 36px;
+}
+.airbnb__features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.airbnb__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: .72rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+.airbnb__feature::before {
+  content: '◆';
+  color: var(--color-accent);
+  flex-shrink: 0;
+  font-size: .5rem;
+  margin-top: .3em;
+}
+.airbnb__visual { position: relative; height: 500px; }
+.airbnb__media {
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-3);
+  border: 1px solid var(--color-line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.airbnb__media-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #181c1e, #0d1012);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.airbnb__media-placeholder {
+  font-family: var(--font-sans);
+  font-size: .9rem;
+  font-style: italic;
+  color: var(--color-black-12);
+  letter-spacing: .08em;
+}
+.airbnb__media-tag {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,.75);
+  backdrop-filter: blur(10px);
+}
+.airbnb__media-tag-label {
+  font-size: .55rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 4px;
+}
+.airbnb__media-tag-value {
+  font-family: var(--font-sans);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #ffffff;
+  line-height: 1;
+}
+
+/* =========================================================
+   DEPOIMENTO
+   ========================================================= */
+.testimonial {
+  min-height: 100vh;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 64px;
+  text-align: center;
+  position: relative;
+}
+.testimonial::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,0,0,.02), transparent);
+}
+.testimonial__inner {
+  max-width: 860px;
+  position: relative;
+  z-index: 1;
+}
+.testimonial__mark {
+  font-family: var(--font-serif);
+  font-size: 8rem;
+  color: var(--color-accent-dim);
+  line-height: .5;
+  margin-bottom: 48px;
+}
+.testimonial__text {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.25;
+  color: var(--color-text);
+  margin-bottom: 44px;
+}
+.testimonial__text em { color: var(--color-accent); font-style: normal; }
+.testimonial__author {
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.testimonial__author-name {
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 400;
+  letter-spacing: .2em;
+}
+
+/* =========================================================
+   CTA
+   ========================================================= */
+.cta {
+  background: var(--color-bg-2);
+  padding: 160px 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 80px;
+  align-items: center;
+  border-top: 1px solid var(--color-line);
+}
+.cta__title {
+  font-family: var(--font-sans);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.02em;
+  color: var(--color-text);
+}
+.cta__title em { font-style: italic; font-weight: 300; color: var(--color-accent); }
+.cta__body {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: flex-start;
+}
+.cta__desc {
+  font-size: .78rem;
+  color: var(--color-muted);
+  line-height: 1.8;
+  max-width: 320px;
+}
+.cta__link-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color .3s;
+}
+.cta__link-ghost:hover { color: var(--color-accent); }
+.cta__link-ghost::after { content: '↗'; transition: transform .3s; }
+.cta__link-ghost:hover::after { transform: translate(3px,-3px); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: var(--color-bg);
+  padding: 44px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-line);
+}
+.footer__logo {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: .1em;
+  color: var(--color-muted);
+}
+.footer__links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.footer__link {
+  font-size: .58rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color .3s;
+}
+.footer__link:hover { color: var(--color-text); }
+.footer__copy {
+  font-size: .55rem;
+  color: var(--color-muted);
+  letter-spacing: .08em;
+  text-align: right;
+  line-height: 1.7;
+}
+
+/* =========================================================
+   GRAIN
+   ========================================================= */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: .6;
+}
+
+/* =========================================================
+   BADGE MAGNÉTICO
+   ========================================================= */
+.mag-badge {
+  position: fixed;
+  z-index: 8999;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  animation: spinBadge 10s linear infinite;
+  color: var(--color-text);
+}
+.mag-badge--visible { opacity: 1; }
+.mag-badge__svg { width: 100%; height: 100%; }
+
+/* =========================================================
+   KEYFRAMES
+   ========================================================= */
+@keyframes marquee   { from { transform: translateX(0); }    to { transform: translateX(-50%); } }
+@keyframes scan      { 0%   { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+@keyframes spinBadge { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- badge magnético -->
+<div class="mag-badge" id="magBadge" aria-hidden="true">
+  <svg class="mag-badge__svg" viewBox="0 0 120 120">
+    <path id="magTextPath" fill="none" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"/>
+    <text font-family="Nunito,sans-serif" font-size="10.5" fill="currentColor" letter-spacing="3.5">
+      <textPath href="#magTextPath">+10 ANOS DE EXPERIÊNCIA · </textPath>
+    </text>
+  </svg>
+</div>
+
+<!-- cursor -->
+<div class="cursor" id="cursorDot" style="position:fixed;top:0;left:0;">
+  <div class="cursor__dot"></div>
+</div>
+<div class="cursor" id="cursorRing" style="position:fixed;top:0;left:0;">
+  <div class="cursor__ring"></div>
+</div>
+
+<!-- loader -->
+<div class="loader" id="loader">
+  <div class="loader__percentage" id="loaderPct">0</div>
+  <div class="loader__track"><div class="loader__fill" id="loaderFill"></div></div>
+  <div class="loader__label">Invest Hauser</div>
+</div>
+
+<!-- nav -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">Invest.Hauser</a>
+  <ul class="nav__links">
+    <li><a href="#sobre"    class="nav__link">Empresa</a></li>
+    <li><a href="#projetos" class="nav__link">Projetos</a></li>
+    <li><a href="#airbnb"   class="nav__link">Airbnb</a></li>
+  </ul>
+  <a href="#cta" class="nav__cta">Falar conosco</a>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <!--
+    VÍDEO DO HERO
+    Descomente e aponte para seu arquivo:
+    <source src="video/hero.webm" type="video/webm">
+    <source src="video/hero.mp4"  type="video/mp4">
+    Recomendado: 1920×1080, H.264, loop suave, < 8MB
+  -->
+  <video class="hero__video" id="heroVideo" autoplay muted loop playsinline>
+    <!-- <source src="video/hero.webm" type="video/webm"> -->
+    <!-- <source src="video/hero.mp4"  type="video/mp4"> -->
+  </video>
+
+  <div class="hero__placeholder" id="heroPlaceholder">
+    <div class="hero__placeholder-icon"></div>
+    <div class="hero__placeholder-label">Inserir vídeo · video/hero.mp4</div>
+  </div>
+
+  <div class="hero__overlay"      aria-hidden="true"></div>
+  <div class="hero__overlay-side" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <div class="hero__eyebrow" id="heroEyebrow">
+      <div class="hero__eyebrow-line"></div>
+      Construção · Vendas · Airbnb — SP
+    </div>
+    <h1 class="hero__title" id="heroTitle">
+      <span class="hero__title-line"><span id="titleL1"></span></span>
+      <span class="hero__title-line"><span id="titleL2"></span></span>
+      <span class="hero__title-line"><em id="titleL3"></em></span>
+    </h1>
+    <div class="hero__bottom">
+      <p class="hero__desc" id="heroDesc">
+        Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência. Cada projeto é tratado como um investimento.
+      </p>
+      <div class="hero__actions" id="heroActions">
+        <a href="#projetos" class="btn btn--primary"><span class="btn--primary__label">Ver projetos</span></a>
+        <a href="#cta"      class="btn btn--ghost">Solicitar orçamento</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll" id="heroScroll">
+    <div class="hero__scroll-line"></div>Scroll
+  </div>
+</section>
+
+<!-- marquee -->
+<div class="marquee">
+  <div class="marquee__track">
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Construção Residencial</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Venda de Imóveis</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Gestão Airbnb</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Empreitada Geral</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Incorporação</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Alto Padrão</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Construção Residencial</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Venda de Imóveis</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Gestão Airbnb</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Empreitada Geral</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Incorporação</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Alto Padrão</div>
+  </div>
+</div>
+
+<!-- ===================== SOBRE ===================== -->
+<section class="section" id="sobre">
+  <div class="about">
+    <div class="about__visual" id="aboutVisual">
+      <div class="about__media">
+        <!--
+          IMAGEM PRINCIPAL SOBRE
+          <img src="imagens/sobre.jpg" alt="Equipe Invest Hauser" style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="about__media-inner">
+          <div class="about__media-placeholder">IH</div>
+        </div>
+      </div>
+      <div class="about__media-secondary">
+        <!--
+          IMAGEM SECUNDÁRIA SOBRE
+          <img src="imagens/sobre-2.jpg" alt="Obra Invest Hauser" style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="about__media-secondary-inner">
+          <div class="about__media-placeholder about__media-placeholder--small">◆</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about__body" id="aboutText">
+      <div class="section__label">Quem somos</div>
+      <h2 class="section__title section__title--spaced">
+        Valor real em<br>cada <em>tijolo.</em>
+      </h2>
+      <p class="about__paragraph">A Invest Hauser nasceu da crença de que construção e investimento imobiliário precisam caminhar juntos. Não apenas erguemos estruturas — criamos patrimônio duradouro para quem confia na nossa execução.</p>
+      <p class="about__paragraph">Atuamos em construção sob medida, empreitada geral, venda de imóveis e gestão profissional de temporada via Airbnb. Uma empresa, múltiplas soluções.</p>
+      <a href="#cta" class="about__link">Falar com nossa equipe</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NÚMEROS ===================== -->
+<section class="section section--alt section--numbers" id="numeros">
+  <div class="section__label">Em números</div>
+  <h2 class="section__title">Resultados que<br><em>falam por si.</em></h2>
+  <div class="numbers__grid">
+    <div class="numbers__item">
+      <div class="numbers__value"><span class="js-count" data-target="10">0</span><span class="numbers__value-suffix">+ anos</span></div>
+      <div class="numbers__label">No mercado de<br>construção civil</div>
+    </div>
+    <div class="numbers__item">
+      <div class="numbers__value"><span class="js-count" data-target="80">0</span><span class="numbers__value-suffix">+</span></div>
+      <div class="numbers__label">Obras entregues<br>no prazo</div>
+    </div>
+    <div class="numbers__item">
+      <div class="numbers__value"><span class="js-count" data-target="30">0</span><span class="numbers__value-suffix">+</span></div>
+      <div class="numbers__label">Imóveis gerenciados<br>no Airbnb</div>
+    </div>
+    <div class="numbers__item">
+      <div class="numbers__value"><span class="js-count" data-target="96">0</span><span class="numbers__value-suffix">%</span></div>
+      <div class="numbers__label">Taxa de satisfação<br>dos clientes</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROJETOS ===================== -->
+<section class="projects" id="projetos">
+  <div class="projects__header">
+    <div>
+      <div class="section__label">Portfólio</div>
+      <h2 class="section__title">Nossas <em>obras.</em></h2>
+    </div>
+    <div class="projects__drag-hint">Arraste para ver</div>
+  </div>
+  <div class="projects__overflow">
+    <div class="projects__track" id="projectsTrack">
+
+      <article class="project-card">
+        <div class="project-card__media">
+          <!-- <img src="projetos/residencia-alphaville.jpg" alt="Residência Alphaville" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card__media-inner">
+            <span class="project-card__placeholder">Foto do projeto</span>
+          </div>
+          <div class="project-card__overlay" aria-hidden="true"></div>
+          <span class="project-card__num" aria-hidden="true">01</span>
+          <div class="project-card__tag">Residencial</div>
+        </div>
+        <h3 class="project-card__title">Residência Alphaville</h3>
+        <p class="project-card__meta">Alphaville, SP · 420m² · 2024</p>
+      </article>
+
+      <article class="project-card">
+        <div class="project-card__media project-card__media--short">
+          <!-- <img src="projetos/chale-campos.jpg" alt="Chalé Campos do Jordão" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card__media-inner project-card__media-inner--2">
+            <span class="project-card__placeholder">Foto do projeto</span>
+          </div>
+          <div class="project-card__overlay" aria-hidden="true"></div>
+          <span class="project-card__num" aria-hidden="true">02</span>
+          <div class="project-card__tag">Airbnb</div>
+        </div>
+        <h3 class="project-card__title">Chalé Campos do Jordão</h3>
+        <p class="project-card__meta">Campos do Jordão, SP · Temporada · 2023</p>
+      </article>
+
+      <article class="project-card">
+        <div class="project-card__media project-card__media--tall">
+          <!-- <img src="projetos/comercial-granja.jpg" alt="Comercial Granja Viana" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card__media-inner project-card__media-inner--3">
+            <span class="project-card__placeholder">Foto do projeto</span>
+          </div>
+          <div class="project-card__overlay" aria-hidden="true"></div>
+          <span class="project-card__num" aria-hidden="true">03</span>
+          <div class="project-card__tag">Comercial</div>
+        </div>
+        <h3 class="project-card__title">Comercial Granja Viana</h3>
+        <p class="project-card__meta">Cotia, SP · 280m² · 2023</p>
+      </article>
+
+      <article class="project-card">
+        <div class="project-card__media">
+          <!-- <img src="projetos/condominio-embu.jpg" alt="Condomínio Embu Hills" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card__media-inner project-card__media-inner--4">
+            <span class="project-card__placeholder">Foto do projeto</span>
+          </div>
+          <div class="project-card__overlay" aria-hidden="true"></div>
+          <span class="project-card__num" aria-hidden="true">04</span>
+          <div class="project-card__tag">Incorporação</div>
+        </div>
+        <h3 class="project-card__title">Condomínio Embu Hills</h3>
+        <p class="project-card__meta">Embu das Artes, SP · 12 unid. · 2022</p>
+      </article>
+
+      <article class="project-card">
+        <div class="project-card__media project-card__media--mid">
+          <!-- <img src="projetos/casa-temporada.jpg" alt="Casa de Temporada Ibiúna" style="width:100%;height:100%;object-fit:cover;"> -->
+          <div class="project-card__media-inner project-card__media-inner--5">
+            <span class="project-card__placeholder">Foto do projeto</span>
+          </div>
+          <div class="project-card__overlay" aria-hidden="true"></div>
+          <span class="project-card__num" aria-hidden="true">05</span>
+          <div class="project-card__tag">Airbnb</div>
+        </div>
+        <h3 class="project-card__title">Casa de Temporada Ibiúna</h3>
+        <p class="project-card__meta">Ibiúna, SP · Alta ocupação · 2024</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVIÇOS ===================== -->
+<section class="section section--alt-2" id="servicos">
+  <div class="section__label">Especialidades</div>
+  <h2 class="section__title section__title--flush">O que <em>fazemos.</em></h2>
+  <div class="services__grid">
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">01</span>
+      <h3 class="service-card__title">Construção Residencial</h3>
+      <p class="service-card__desc">Casas, sobrados e condomínios construídos com materiais de primeira linha, equipe própria e cronograma rigoroso. Do alicerce à entrega das chaves.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">02</span>
+      <h3 class="service-card__title">Empreitada Geral</h3>
+      <p class="service-card__desc">Assumimos obras como empreiteiros gerais para construtoras e incorporadoras. Gestão completa de mão de obra, materiais e subcontratados.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">03</span>
+      <h3 class="service-card__title">Venda de Imóveis</h3>
+      <p class="service-card__desc">Comercializamos imóveis próprios e de parceiros com consultoria completa para compradores e investidores. Transparência do primeiro ao último passo.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">04</span>
+      <h3 class="service-card__title">Gestão Airbnb</h3>
+      <p class="service-card__desc">Administramos seu imóvel como se fosse nosso. Anúncio, precificação dinâmica, check-in, limpeza e manutenção — zero preocupação para você.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">05</span>
+      <h3 class="service-card__title">Reformas e Upgrades</h3>
+      <p class="service-card__desc">Reformas estruturais e de acabamento para valorizar o imóvel antes da venda ou locação. Projeto, execução e entrega sem dor de cabeça.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+    <div class="service-card">
+      <div class="service-card__accent"></div>
+      <span class="service-card__num" aria-hidden="true">06</span>
+      <h3 class="service-card__title">Consultoria de Investimento</h3>
+      <p class="service-card__desc">Ajudamos investidores a identificar terrenos e imóveis com potencial, calcular retorno e executar a estratégia de construção e locação.</p>
+      <span class="service-card__arrow" aria-hidden="true">↗</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== AIRBNB ===================== -->
+<section class="airbnb" id="airbnb">
+  <div class="airbnb__inner">
+    <div class="airbnb__text">
+      <div class="section__label" style="margin-bottom:28px;">Gestão de Temporada</div>
+      <div class="airbnb__quote-mark">"</div>
+      <p class="airbnb__claim">Seu imóvel trabalhando por você — <em>todos os dias.</em></p>
+      <p class="airbnb__body">A Invest Hauser cuida de tudo para que seu imóvel gere renda máxima no Airbnb, sem que você precise mover um dedo. Da publicação do anúncio até a limpeza pós-hóspede.</p>
+      <ul class="airbnb__features">
+        <li class="airbnb__feature">Fotografia profissional e anúncio otimizado</li>
+        <li class="airbnb__feature">Precificação dinâmica com base na demanda</li>
+        <li class="airbnb__feature">Check-in automatizado e suporte 24h ao hóspede</li>
+        <li class="airbnb__feature">Limpeza, manutenção e reposição de itens</li>
+        <li class="airbnb__feature">Relatório mensal de performance e repasse</li>
+      </ul>
+      <a href="#cta" class="btn btn--primary"><span class="btn--primary__label">Quero gerir meu imóvel</span></a>
+    </div>
+    <div class="airbnb__visual">
+      <div class="airbnb__media">
+        <!--
+          FOTO/VÍDEO AIRBNB
+          <img src="imagens/airbnb.jpg" alt="Imóvel gerenciado Invest Hauser" style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="airbnb__media-inner">
+          <span class="airbnb__media-placeholder">Foto do imóvel</span>
+        </div>
+        <div class="airbnb__media-tag">
+          <div class="airbnb__media-tag-label">Taxa de ocupação média</div>
+          <div class="airbnb__media-tag-value"><span class="js-count" data-target="87">0</span>%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DEPOIMENTO ===================== -->
+<section class="testimonial" id="depoimento">
+  <div class="testimonial__inner">
+    <div class="testimonial__mark">"</div>
+    <blockquote class="testimonial__text">
+      A Invest Hauser entregou nossa casa <em>30 dias antes do prazo</em> e ainda gerencia o Airbnb desde então. É a parceria que todo investidor precisava encontrar.
+    </blockquote>
+    <p class="testimonial__author">
+      <strong class="testimonial__author-name">Ricardo Mantovani</strong>
+      Investidor imobiliário · Alphaville, SP
+    </p>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="cta" id="cta">
+  <h2 class="cta__title">Vamos construir<br><em>juntos?</em></h2>
+  <div class="cta__body">
+    <p class="cta__desc">Conte seu projeto ou imóvel. Nossa equipe responde em até 24 horas com uma proposta honesta e detalhada.</p>
+    <a href="https://wa.me/5511000000000" class="btn btn--primary"><span class="btn--primary__label">Falar pelo WhatsApp</span></a>
+    <a href="tel:+5511000000000" class="cta__link-ghost">Ligar agora</a>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer__logo">Invest.Hauser</div>
+  <nav aria-label="Rodapé">
+    <ul class="footer__links">
+      <li><a href="#sobre"      class="footer__link">Empresa</a></li>
+      <li><a href="#projetos"   class="footer__link">Projetos</a></li>
+      <li><a href="#servicos"   class="footer__link">Serviços</a></li>
+      <li><a href="#airbnb"     class="footer__link">Airbnb</a></li>
+      <li><a href="#cta"        class="footer__link">Contato</a></li>
+    </ul>
+  </nav>
+  <div class="footer__copy">
+    CRECI-SP 000000-J<br>
+    © 2025 Invest Hauser · Embu das Artes, SP
+  </div>
+</footer>
+
+<!-- ===================== JS ===================== -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── BADGE MAGNÉTICO ── */
+const magBadge  = document.getElementById('magBadge');
+const aboutSec  = document.getElementById('sobre');
+let badgeX = window.innerWidth / 2;
+let badgeY = window.innerHeight / 2;
+let targetX = badgeX;
+let targetY = badgeY;
+let badgeVisible = false;
+
+document.addEventListener('mousemove', e => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+
+  const rect   = aboutSec.getBoundingClientRect();
+  const inside = e.clientY >= rect.top  && e.clientY <= rect.bottom
+              && e.clientX >= rect.left && e.clientX <= rect.right;
+
+  if (inside && !badgeVisible) {
+    magBadge.classList.add('mag-badge--visible');
+    badgeVisible = true;
+  } else if (!inside && badgeVisible) {
+    magBadge.classList.remove('mag-badge--visible');
+    badgeVisible = false;
+  }
+});
+
+(function animBadge() {
+  badgeX += (targetX - badgeX) * 0.08;
+  badgeY += (targetY - badgeY) * 0.08;
+  magBadge.style.left = badgeX + 'px';
+  magBadge.style.top  = badgeY + 'px';
+  requestAnimationFrame(animBadge);
+})();
+
+/* ── CURSOR ── */
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  cursorDot.style.left = mx + 'px';
+  cursorDot.style.top  = my + 'px';
+});
+
+(function animRing() {
+  rx += (mx - rx) * 0.1;
+  ry += (my - ry) * 0.1;
+  cursorRing.style.left = rx + 'px';
+  cursorRing.style.top  = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+/* ── VIDEO PLACEHOLDER ── */
+const heroVideo  = document.getElementById('heroVideo');
+const heroHolder = document.getElementById('heroPlaceholder');
+if (heroVideo) {
+  heroVideo.addEventListener('canplay', () => {
+    gsap.to(heroHolder, {
+      opacity: 0,
+      duration: .5,
+      onComplete: () => { heroHolder.style.display = 'none'; }
+    });
+  });
+}
+
+/* ── LOADER ── */
+const pctEl  = document.getElementById('loaderPct');
+const fillEl = document.getElementById('loaderFill');
+let p = 0, done = false;
+
+const loaderInterval = setInterval(() => {
+  p = Math.min(p + Math.random() * 9 + 2, 99);
+  pctEl.textContent  = Math.floor(p);
+  fillEl.style.width = p + '%';
+
+  if (p >= 99 && !done) {
+    done = true;
+    clearInterval(loaderInterval);
+    setTimeout(() => {
+      pctEl.textContent  = '100';
+      fillEl.style.width = '100%';
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('loader--hidden');
+        boot();
+      }, 400);
+    }, 200);
+  }
+}, 80);
+
+/* ── SPLIT CHARS ── */
+function splitChars(el, text) {
+  el.innerHTML = text.split('').map(c =>
+    c === ' '
+      ? '<span class="hero__title-char" style="display:inline-block;width:.25em"> </span>'
+      : `<span class="hero__title-char" style="display:inline-block">${c}</span>`
+  ).join('');
+  return el.querySelectorAll('.hero__title-char');
+}
+
+/* ── BOOT ── */
+function boot() {
+  /* nav */
+  gsap.from('#nav', { y: -40, opacity: 0, duration: .9, ease: 'power3.out', delay: .1 });
+
+  /* hero chars */
+  const l1 = splitChars(document.getElementById('titleL1'), 'Construímos');
+  const l2 = splitChars(document.getElementById('titleL2'), 'com visão');
+  const l3 = splitChars(document.getElementById('titleL3'), 'e precisão.');
+
+  gsap.from([...l1, ...l2, ...l3], {
+    opacity: 0,
+    y: 30,
+    duration: 1.1,
+    ease: 'power4.out',
+    stagger: { amount: .7, from: 'start' }
+  });
+
+  gsap.from('#heroEyebrow', { opacity: 0, y: 20, duration: .9, delay: .5,  ease: 'power3.out' });
+  gsap.from('#heroDesc',    { opacity: 0, y: 20, duration: .9, delay: .8,  ease: 'power3.out' });
+  gsap.from('#heroActions', { opacity: 0, y: 20, duration: .9, delay: 1.0, ease: 'power3.out' });
+  gsap.from('#heroScroll',  { opacity: 0,         duration: .8, delay: 1.6, ease: 'power3.out' });
+
+  /* hero parallax */
+  gsap.to('.hero__overlay', {
+    yPercent: 15,
+    ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+
+  /* sobre */
+  gsap.from('#aboutVisual', {
+    x: -70, opacity: 0, duration: 1.2, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#sobre', start: 'top 75%', toggleActions: 'play none none none' }
+  });
+  gsap.from('#aboutText > *', {
+    y: 40, opacity: 0, duration: .9, stagger: .12, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#sobre', start: 'top 70%', toggleActions: 'play none none none' }
+  });
+
+  /* section titles + labels — ignora os que já são animados pelo container pai */
+  const animatedParents = ['#aboutText'];
+  document.querySelectorAll('.section__title, .section__label').forEach(el => {
+    const alreadyHandled = animatedParents.some(sel => el.closest(sel));
+    if (alreadyHandled) return;
+    gsap.from(el, {
+      y: 36, opacity: 0, duration: .9, ease: 'power3.out',
+      immediateRender: false,
+      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+    });
+  });
+
+  /* counters */
+  document.querySelectorAll('.js-count').forEach(el => {
+    const target = +el.dataset.target;
+    const obj = { n: 0 };
+    gsap.to(obj, {
+      n: target,
+      duration: 2.2,
+      ease: 'power2.out',
+      onUpdate: () => { el.textContent = Math.floor(obj.n); },
+      scrollTrigger: {
+        trigger: el.closest('section') || el,
+        start: 'top 70%',
+        toggleActions: 'play none none none'
+      }
+    });
+  });
+
+  /* números stagger */
+  gsap.from('.numbers__item', {
+    y: 50, opacity: 0, duration: .85, stagger: .1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#numeros', start: 'top 72%', toggleActions: 'play none none none' }
+  });
+
+  /* projetos horizontal */
+  const track  = document.getElementById('projectsTrack');
+  const trackW = track.scrollWidth;
+  const vw     = window.innerWidth;
+
+  gsap.to(track, {
+    x: -(trackW - vw + 128),
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.projects',
+      start: 'top top',
+      end: () => `+=${trackW - vw + 200}`,
+      pin: true,
+      scrub: 1,
+      anticipatePin: 1,
+    }
+  });
+  gsap.from('.project-card', {
+    y: 60, opacity: 0, duration: 1, stagger: .14, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '.projects', start: 'top 80%', toggleActions: 'play none none none' }
+  });
+
+  /* serviços */
+  gsap.from('.service-card', {
+    y: 50, opacity: 0, duration: .8, stagger: .07, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#servicos', start: 'top 75%', toggleActions: 'play none none none' }
+  });
+
+  /* airbnb */
+  gsap.from('.airbnb__text > *', {
+    y: 40, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#airbnb', start: 'top 70%', toggleActions: 'play none none none' }
+  });
+  gsap.from('.airbnb__visual', {
+    x: 60, opacity: 0, duration: 1.1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#airbnb', start: 'top 70%', toggleActions: 'play none none none' }
+  });
+  ScrollTrigger.create({
+    trigger: '#airbnb',
+    start: 'top top',
+    end: '+=70%',
+    pin: true,
+    pinSpacing: true,
+  });
+
+  /* depoimento */
+  gsap.from('.testimonial__inner > *', {
+    y: 50, opacity: 0, duration: 1, stagger: .14, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#depoimento', start: 'top 68%', toggleActions: 'play none none none' }
+  });
+  ScrollTrigger.create({
+    trigger: '#depoimento',
+    start: 'top top',
+    end: '+=60%',
+    pin: true,
+    pinSpacing: true,
+  });
+
+  /* cta */
+  gsap.from('.cta__title', {
+    x: -60, opacity: 0, duration: 1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#cta', start: 'top 78%', toggleActions: 'play none none none' }
+  });
+  gsap.from('.cta__body > *', {
+    x: 60, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out',
+    immediateRender: false,
+    scrollTrigger: { trigger: '#cta', start: 'top 78%', toggleActions: 'play none none none' }
+  });
+}
+
+/* ── NAV scroll ── */
+ScrollTrigger.create({
+  start: 'top -80',
+  end: 99999,
+  onUpdate: self => {
+    document.getElementById('nav').style.background = self.direction === 1
+      ? 'rgba(255,255,255,0.97)'
+      : 'rgba(255,255,255,0.88)';
+  }
+});
+</script>
+</body>
+</html>
