@@ -1298,7 +1298,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
     </h1>
     <div class="hero__bottom">
       <p class="hero__desc" id="heroDesc">
-        Da obra ao lucro. Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência. 
+        Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência. 
       </p>
       <div class="hero__actions" id="heroActions">
         <a href="#cta" class="btn btn--primary"><span class="btn--primary__label">Fale conosco</span></a>
@@ -1709,9 +1709,9 @@ function boot() {
   gsap.from('#nav', { y: -40, opacity: 0, duration: .9, ease: 'power3.out', delay: .1 });
 
   /* hero chars */
-  const l1 = splitChars(document.getElementById('titleL1'), 'Construímos');
-  const l2 = splitChars(document.getElementById('titleL2'), 'com visão');
-  const l3 = splitChars(document.getElementById('titleL3'), 'e precisão.');
+  const l1 = splitChars(document.getElementById('titleL1'), 'Da obra');
+  const l2 = splitChars(document.getElementById('titleL2'), 'ao');
+  const l3 = splitChars(document.getElementById('titleL3'), 'lucro.');
 
   gsap.from([...l1, ...l2, ...l3], {
     opacity: 0,
