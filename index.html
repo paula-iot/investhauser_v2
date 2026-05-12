@@ -41,174 +41,72 @@ body {
 
 /* CURSOR */
 .cursor { position: fixed; pointer-events: none; z-index: 9999; }
-.cursor__dot {
-  width: 8px; height: 8px;
-  background: var(--color-text);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width .25s, height .25s;
-}
-.cursor__ring {
-  width: 40px; height: 40px;
-  border: 1.5px solid var(--color-black-20);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width .35s, height .35s, border-color .3s;
-}
+.cursor__dot { width: 8px; height: 8px; background: var(--color-text); border-radius: 50%; transform: translate(-50%, -50%); transition: width .25s, height .25s; }
+.cursor__ring { width: 40px; height: 40px; border: 1.5px solid var(--color-black-20); border-radius: 50%; transform: translate(-50%, -50%); transition: width .35s, height .35s, border-color .3s; }
 body:has(a:hover, button:hover) .cursor__dot { width: 12px; height: 12px; }
 body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; border-color: var(--color-text); }
 
 /* LOADER */
-.loader {
-  position: fixed; inset: 0; z-index: 2000;
-  background: var(--color-bg);
-  display: flex; align-items: center; justify-content: center;
-  flex-direction: column; gap: 28px;
-  transition: opacity .7s ease, visibility .7s ease;
-}
+.loader { position: fixed; inset: 0; z-index: 2000; background: var(--color-bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity .7s ease, visibility .7s ease; }
 .loader--hidden { opacity: 0; visibility: hidden; }
-.loader__percentage {
-  font-family: var(--font-sans);
-  font-size: clamp(5rem, 15vw, 12rem);
-  font-weight: 300; color: var(--color-text);
-  line-height: 1; letter-spacing: -.02em;
-}
+.loader__percentage { font-family: var(--font-sans); font-size: clamp(5rem, 15vw, 12rem); font-weight: 300; color: var(--color-text); line-height: 1; letter-spacing: -.02em; }
 .loader__track { width: 180px; height: 1px; background: var(--color-black-12); }
 .loader__fill  { height: 100%; width: 0; background: var(--color-text); }
 .loader__label { font-size: .6rem; letter-spacing: .35em; text-transform: uppercase; color: var(--color-muted); }
 
 /* NAV */
-.nav {
-  position: fixed; top: 28px; left: 50%; z-index: 100;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-black-12);
-  border-radius: 100px; padding: 12px 28px;
-  display: flex; align-items: center; gap: 40px;
-  transition: background .3s ease;
-}
-.nav__logo {
-  font-family: var(--font-sans); font-size: 1rem; font-weight: 600;
-  letter-spacing: .08em; color: var(--color-text); text-decoration: none; white-space: nowrap;
-}
+.nav { position: fixed; top: 28px; left: 50%; z-index: 500; transform: translateX(-50%); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--color-black-12); border-radius: 100px; padding: 12px 28px; display: flex; align-items: center; gap: 40px; transition: background .3s ease; }
+.nav__logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: .08em; color: var(--color-text); text-decoration: none; white-space: nowrap; }
 .nav__links { display: flex; gap: 28px; list-style: none; }
-.nav__link {
-  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--color-muted); text-decoration: none; transition: color .3s;
-}
+.nav__link { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
 .nav__link:hover { color: var(--color-text); }
-.nav__cta {
-  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--color-bg); background: var(--color-text);
-  padding: 8px 20px; border-radius: 100px; text-decoration: none;
-  white-space: nowrap; transition: opacity .3s;
-}
+.nav__cta { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-bg); background: var(--color-text); padding: 8px 20px; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: opacity .3s; }
 .nav__cta:hover { opacity: .75; }
 
 /* HERO */
-.hero {
-  position: relative; height: 100vh;
-  display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden;
-}
-.hero__video {
-  position: absolute; inset: 0; z-index: 0;
-  width: 100%; height: 100%; object-fit: cover; object-position: center;
-}
-.hero__overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to bottom,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.50) 50%,rgba(255,255,255,0.95) 100%);
-}
-.hero__overlay-side {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(to right, rgba(255,255,255,0.75) 30%, transparent 70%);
-}
-.hero__content {
-  position: relative; z-index: 2;
-  padding: 0 64px 64px; width: 100%;
-  display: flex; flex-direction: column; gap: 24px;
-}
-.hero__eyebrow {
-  display: flex; align-items: center; gap: 14px;
-  font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-accent);
-}
+.hero { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+.hero__video { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.50) 50%,rgba(255,255,255,0.95) 100%); }
+.hero__overlay-side { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(255,255,255,0.75) 30%, transparent 70%); }
+.hero__content { position: relative; z-index: 2; padding: 0 64px 64px; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+.hero__eyebrow { display: flex; align-items: center; gap: 14px; font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-accent); }
 .hero__eyebrow-line { width: 32px; height: 1px; background: var(--color-text); flex-shrink: 0; }
-.hero__title {
-  font-family: var(--font-sans); font-size: clamp(3rem, 7vw, 7.5rem);
-  font-weight: 400; line-height: 1; letter-spacing: -.03em; color: var(--color-text);
-}
+.hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 400; line-height: 1; letter-spacing: -.03em; color: var(--color-text); }
 .hero__title em { font-style: italic; font-weight: 300; }
 .hero__title-line { display: block; }
 .hero__title-char { display: inline-block; }
 .hero__bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 60px; }
-.hero__desc {
-  font-size: .82rem; line-height: 1.9; color: var(--color-muted);
-  max-width: 380px; border-left: 1px solid var(--color-accent-dim); padding-left: 20px;
-}
+.hero__desc { font-size: 1rem; line-height: 1.9; color: var(--color-muted); max-width: 380px; border-left: 1px solid var(--color-accent-dim); padding-left: 20px; }
 .hero__actions { display: flex; gap: 14px; }
-.hero__scroll {
-  position: absolute; bottom: 44px; right: 64px; z-index: 2;
-  display: flex; align-items: center; gap: 10px;
-  font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-muted);
-}
-.hero__scroll-line {
-  width: 36px; height: 1px; background: var(--color-black-12);
-  position: relative; overflow: hidden;
-}
-.hero__scroll-line::after {
-  content: ''; position: absolute; inset: 0;
-  background: var(--color-text); transform: translateX(-100%);
-  animation: scan 2s 3s infinite ease-in-out;
-}
+.hero__scroll { position: absolute; bottom: 44px; right: 64px; z-index: 2; display: flex; align-items: center; gap: 10px; font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-muted); }
+.hero__scroll-line { width: 36px; height: 1px; background: var(--color-black-12); position: relative; overflow: hidden; }
+.hero__scroll-line::after { content: ''; position: absolute; inset: 0; background: var(--color-text); transform: translateX(-100%); animation: scan 2s 3s infinite ease-in-out; }
 
 /* BOTÕES */
 .btn { display: inline-block; text-decoration: none; font-family: var(--font-sans); }
-.btn--primary {
-  padding: 14px 36px; background: var(--color-text); color: var(--color-bg);
-  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
-  border-radius: 2px; position: relative; overflow: hidden; transition: color .4s;
-}
-.btn--primary::before {
-  content: ''; position: absolute; inset: 0; background: #333333;
-  transform: scaleX(0); transform-origin: right; transition: transform .4s ease;
-}
+.btn--primary { padding: 14px 36px; background: var(--color-text); color: var(--color-bg); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; position: relative; overflow: hidden; transition: color .4s; }
+.btn--primary::before { content: ''; position: absolute; inset: 0; background: #333333; transform: scaleX(0); transform-origin: right; transition: transform .4s ease; }
 .btn--primary:hover { color: var(--color-bg); }
 .btn--primary:hover::before { transform: scaleX(1); transform-origin: left; }
 .btn--primary__label { position: relative; z-index: 1; }
-.btn--ghost {
-  padding: 14px 36px; border: 1px solid var(--color-black-12); color: var(--color-muted);
-  font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
-  border-radius: 2px; transition: border-color .3s, color .3s;
-}
+.btn--ghost { padding: 14px 36px; border: 1px solid var(--color-black-12); color: var(--color-muted); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: border-color .3s, color .3s; }
 .btn--ghost:hover { border-color: var(--color-black-20); color: var(--color-text); }
+.btn--outline-light { padding: 14px 36px; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.6); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: border-color .3s, color .3s; text-decoration: none; display: inline-block; font-family: var(--font-sans); }
+.btn--outline-light:hover { border-color: rgba(255,255,255,.6); color: #fff; }
 
 /* MARQUEE */
 .marquee { border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); overflow: hidden; }
 .marquee__track { display: flex; width: max-content; animation: marquee 24s linear infinite; }
-.marquee__item {
-  padding: 16px 48px; font-family: var(--font-sans); font-size: 1rem; font-style: italic;
-  color: var(--color-muted); white-space: nowrap; display: flex; align-items: center; gap: 20px;
-  border-right: 1px solid var(--color-line);
-}
+.marquee__item { padding: 16px 48px; font-family: var(--font-sans); font-size: 1rem; font-style: italic; color: var(--color-muted); white-space: nowrap; display: flex; align-items: center; gap: 20px; border-right: 1px solid var(--color-line); }
 .marquee__dot { color: var(--color-accent); font-style: normal; font-size: .9rem; }
 
 /* SEÇÃO BASE */
 .section { padding: var(--section-padding); }
 .section--alt   { background: var(--color-bg-3); }
 .section--alt-2 { background: var(--color-bg-2); }
-.section--numbers { padding: 100px 64px; }
-.section__label {
-  font-size: .58rem; letter-spacing: .38em; text-transform: uppercase;
-  color: var(--color-accent); margin-bottom: 18px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section__label::before {
-  content: ''; display: inline-block; width: 22px; height: 1px; background: var(--color-accent);
-}
-.section__title {
-  font-family: var(--font-sans); font-size: clamp(2.8rem, 5.5vw, 5.5rem);
-  font-weight: 400; line-height: 1.05; letter-spacing: -.03em; color: var(--color-text);
-}
+.section__label { font-size: .75rem; letter-spacing: .38em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.section__label::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--color-accent); }
+.section__title { font-family: var(--font-sans); font-size: clamp(2.8rem, 5.5vw, 5.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.03em; color: var(--color-text); }
 .section__title em { font-style: italic; font-weight: 300; }
 .section__title--spaced { margin-bottom: 28px; }
 .section__title--flush  { margin-bottom: 0; }
@@ -217,187 +115,228 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
 .about__visual { position: relative; height: 620px; }
 .about__media { position: absolute; top: 0; left: 0; width: 78%; height: 78%; background: var(--color-bg-2); overflow: hidden; }
-.about__media-inner {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #1a1d1f, #0e1113);
-  display: flex; align-items: center; justify-content: center;
-}
+.about__media-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1d1f, #0e1113); display: flex; align-items: center; justify-content: center; }
 .about__media-placeholder { font-family: var(--font-sans); font-size: 6rem; color: var(--color-black-4); font-weight: 300; user-select: none; }
-.about__media-secondary {
-  position: absolute; bottom: 0; right: 0; width: 52%; height: 52%;
-  background: var(--color-bg-2); border: 1px solid var(--color-line); overflow: hidden;
-}
-.about__media-secondary-inner {
-  width: 100%; height: 100%;
-  background: linear-gradient(135deg, #151819, #0b0e10);
-  display: flex; align-items: center; justify-content: center;
-}
+.about__media-secondary { position: absolute; bottom: 0; right: 0; width: 52%; height: 52%; background: var(--color-bg-2); border: 1px solid var(--color-line); overflow: hidden; }
+.about__media-secondary-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #151819, #0b0e10); display: flex; align-items: center; justify-content: center; }
 .about__media-placeholder--small { font-size: 2.5rem; color: var(--color-black-4); }
 .about__body { display: flex; flex-direction: column; }
-.about__paragraph { font-size: .82rem; line-height: 1.95; color: var(--color-muted); margin-bottom: 18px; }
-.about__link {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: .62rem; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--color-text); text-decoration: none;
-  border-bottom: 1px solid var(--color-black-12); padding-bottom: 4px;
-  margin-top: 12px; align-self: flex-start; transition: color .3s, border-color .3s;
-}
+.about__paragraph { font-size: 1rem; line-height: 1.95; color: var(--color-muted); margin-bottom: 18px; }
+.about__link { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-text); text-decoration: none; border-bottom: 1px solid var(--color-black-12); padding-bottom: 4px; margin-top: 12px; align-self: flex-start; transition: color .3s, border-color .3s; }
 .about__link:hover { color: var(--color-accent); border-color: var(--color-accent); }
 .about__link::after { content: '→'; transition: transform .3s; }
 .about__link:hover::after { transform: translateX(4px); }
 
-/* NÚMEROS */
-.numbers__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--color-line); margin-top: 60px; }
-.numbers__item { background: var(--color-bg-3); padding: 48px 36px; position: relative; overflow: hidden; }
-.numbers__item::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: var(--color-text); transform: scaleX(0); transform-origin: left; transition: transform .5s ease;
-}
-.numbers__item:hover::after { transform: scaleX(1); }
-.numbers__value { font-family: var(--font-sans); font-size: clamp(3rem, 5vw, 5rem); font-weight: 300; color: var(--color-text); line-height: 1; margin-bottom: 10px; letter-spacing: -.03em; }
-.numbers__value-suffix { color: var(--color-accent); font-style: normal; font-size: .65em; }
-.numbers__label { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--color-muted); line-height: 1.6; }
+/* DIFERENCIAIS */
+.pillars { padding: var(--section-padding); background: var(--color-bg-2); }
+.pillars__header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 72px; }
+.pillars__intro { font-size: 1rem; color: var(--color-muted); line-height: 1.9; max-width: 400px; }
+.pillars__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line); }
+.pillar-card { background: var(--color-bg-2); padding: 52px 44px 48px; position: relative; overflow: hidden; transition: background .45s ease; }
+.pillar-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--color-text); transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
+.pillar-card:hover { background: var(--color-bg-3); }
+.pillar-card:hover::after { transform: scaleX(1); }
+.pillar-card__num { font-family: var(--font-serif); font-size: 5rem; font-weight: 300; color: var(--color-black-4); line-height: 1; margin-bottom: 32px; letter-spacing: -.02em; display: block; transition: color .4s; }
+.pillar-card:hover .pillar-card__num { color: var(--color-black-8); }
+.pillar-card h3 { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 600; color: var(--color-text); letter-spacing: -.01em; line-height: 1.2; margin-bottom: 16px; }
+.pillar-card p { font-size: 1rem; color: var(--color-muted); line-height: 1.9; }
+.pillar-card__tag { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); border: 1px solid var(--color-line); padding: 5px 12px; margin-top: 28px; border-radius: 100px; transition: border-color .3s, color .3s; }
+.pillar-card:hover .pillar-card__tag { border-color: var(--color-black-20); color: var(--color-text); }
 
-/* PROJETOS */
-.projects { padding: 140px 0; overflow: hidden; }
-.projects__header { padding: 0 64px; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; }
-.projects__drag-hint {
-  font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted);
-  display: flex; align-items: center; gap: 10px;
+/* ═══════════════════════════════════════════
+   PROPOSTA DE VALOR — imagem + texto + cover
+   ═══════════════════════════════════════════ */
+#proposta {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--color-bg-3);
+  /* z-index baixo — seção seguinte vai cobrir por cima */
+  z-index: 1;
 }
+
+/* LADO ESQUERDO — imagem com parallax interno */
+.valor__image {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.valor__image-inner {
+  /* ligeiramente maior que o container para o parallax ter espaço */
+  position: absolute;
+  inset: -15% 0;
+  background: linear-gradient(160deg, #1c2022 0%, #0c0e10 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+/* marcadores de placeholder — removidos quando a imagem for inserida */
+.valor__image-placeholder {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+.valor__image-placeholder-label {
+  font-size: .6rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+  margin-top: 1rem;
+}
+/* cantos decorativos */
+.valor__image-corner {
+  position: absolute;
+  width: 1.5rem; height: 1.5rem;
+  z-index: 2;
+}
+.valor__image-corner.tl { top: 1.5rem; left: 1.5rem; border-top: 1px solid rgba(255,255,255,.15); border-left: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.tr { top: 1.5rem; right: 1.5rem; border-top: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.bl { bottom: 1.5rem; left: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-left: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.br { bottom: 1.5rem; right: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
+/* linha vertical separadora */
+.valor__divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--color-line);
+  z-index: 3;
+}
+
+/* LADO DIREITO — conteúdo */
+.valor__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px 80px 64px;
+  position: relative;
+  z-index: 2;
+}
+.valor__eyebrow {
+  font-size: .75rem;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.valor__eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--color-accent);
+}
+.valor__claim {
+  font-family: var(--font-sans);
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 28px;
+}
+.valor__claim em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text);
+}
+.valor__body {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 2;
+  border-left: 1px solid var(--color-accent-dim);
+  padding-left: 22px;
+  margin-bottom: 36px;
+}
+.valor__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 44px;
+}
+.valor__list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  transition: color .3s;
+}
+.valor__list-item:last-child { border-bottom: none; }
+.valor__list-item:hover { color: var(--color-text); }
+.valor__list-item::before {
+  content: '◆';
+  color: var(--color-black-12);
+  font-size: .42rem;
+  flex-shrink: 0;
+  margin-top: .42em;
+  transition: color .3s;
+}
+.valor__list-item:hover::before { color: var(--color-accent); }
+.valor__actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* PROJETOS — z-index alto para cobrir #proposta */
+.projects {
+  padding: 140px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 10; /* cobre o #proposta ao rolar */
+  background: var(--color-bg);
+}
+.projects__header { padding: 0 64px; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; }
+.projects__drag-hint { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); display: flex; align-items: center; gap: 10px; }
 .projects__drag-hint::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--color-muted); }
 .projects__overflow { overflow: hidden; }
 .projects__track { display: flex; gap: 20px; padding: 0 64px; width: max-content; }
 
 /* PROJECT CARD */
-.project-card {
-  width: 440px; flex-shrink: 0;
-  text-decoration: none; color: inherit; display: block;
-}
-.project-card__media {
-  height: 560px; background: var(--color-bg-2);
-  position: relative; overflow: hidden; margin-bottom: 22px;
-}
+.project-card { width: 440px; flex-shrink: 0; text-decoration: none; color: inherit; display: block; }
+.project-card__media { height: 560px; background: var(--color-bg-2); position: relative; overflow: hidden; margin-bottom: 22px; }
 .project-card__media--tall  { height: 600px; }
 .project-card__media--mid   { height: 520px; }
 .project-card__media--short { height: 480px; }
-.project-card__media-inner {
-  width: 100%; height: 100%;
-  background: linear-gradient(160deg, #1c2022, #0e1214);
-  display: flex; align-items: center; justify-content: center;
-  transition: transform .7s cubic-bezier(.4,0,.2,1);
-}
+.project-card__media-inner { width: 100%; height: 100%; background: linear-gradient(160deg, #1c2022, #0e1214); display: flex; align-items: center; justify-content: center; transition: transform .7s cubic-bezier(.4,0,.2,1); }
 .project-card__media-inner--2 { background: linear-gradient(145deg, #181e22, #0c1214); }
 .project-card__media-inner--3 { background: linear-gradient(145deg, #1a1e20, #0e1214); }
 .project-card__media-inner--4 { background: linear-gradient(145deg, #1c2224, #101618); }
 .project-card__media-inner--5 { background: linear-gradient(145deg, #161c1e, #0a1012); }
 .project-card:hover .project-card__media-inner { transform: scale(1.04); }
-.project-card__num {
-  position: absolute; top: 24px; left: 24px;
-  font-family: var(--font-sans); font-size: 6rem;
-  color: var(--color-black-4); line-height: 1; user-select: none;
-}
-.project-card__tag {
-  position: absolute; bottom: 24px; left: 24px;
-  font-size: .55rem; letter-spacing: .25em; text-transform: uppercase;
-  color: var(--color-bg); background: rgba(0,0,0,.75);
-  padding: 6px 14px; backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.2);
-}
+.project-card__num { position: absolute; top: 24px; left: 24px; font-family: var(--font-sans); font-size: 6rem; color: var(--color-black-4); line-height: 1; user-select: none; }
+.project-card__tag { position: absolute; bottom: 24px; left: 24px; font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-bg); background: rgba(0,0,0,.75); padding: 6px 14px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); }
 .project-card__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5), transparent); }
 .project-card__placeholder { font-family: var(--font-sans); font-size: 1rem; font-style: italic; color: var(--color-muted); letter-spacing: .05em; }
-.project-card__title {
-  font-family: var(--font-sans); font-size: 1.6rem; font-weight: 300; font-style: italic;
-  color: var(--color-text); margin-bottom: 6px; line-height: 1.1; letter-spacing: -.02em;
-}
-.project-card__meta { font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); }
-
-/* ─── STATUS DO PROJETO ─── */
-.project-card__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-line);
-}
-
-.project-card__status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: .55rem;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-  font-family: var(--font-sans);
-}
-
-/* ponto de status */
-.project-card__status::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* Concluído — preto sólido */
-.project-card__status--done {
-  color: var(--color-text);
-}
-.project-card__status--done::before {
-  background: var(--color-text);
-}
-
-/* Em andamento — cinza médio com pulso */
-.project-card__status--progress {
-  color: #888888;
-}
-.project-card__status--progress::before {
-  background: #888888;
-  animation: statusPulse 2.4s ease-in-out infinite;
-}
-
-/* Em breve — cinza claro, quase etéreo */
-.project-card__status--soon {
-  color: #c0c0c0;
-}
-.project-card__status--soon::before {
-  background: #c0c0c0;
-}
-
-/* seta "Ver projeto" — aparece no hover */
-.project-card__access {
-  font-size: .55rem;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--color-black-20);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-sans);
-  transition: color .3s;
-}
-.project-card__access::after {
-  content: '→';
-  display: inline-block;
-  transition: transform .3s;
-}
-.project-card:hover .project-card__access {
-  color: var(--color-text);
-}
-.project-card:hover .project-card__access::after {
-  transform: translateX(4px);
-}
-
-/* card "Em breve" — ligeiramente desvanecido */
+.project-card__title { font-family: var(--font-sans); font-size: 1.6rem; font-weight: 300; font-style: italic; color: var(--color-text); margin-bottom: 6px; line-height: 1.1; letter-spacing: -.02em; }
+.project-card__meta { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); }
+.project-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-line); }
+.project-card__status { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; letter-spacing: .28em; text-transform: uppercase; font-family: var(--font-sans); }
+.project-card__status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.project-card__status--done { color: var(--color-text); }
+.project-card__status--done::before { background: var(--color-text); }
+.project-card__status--progress { color: #888888; }
+.project-card__status--progress::before { background: #888888; animation: statusPulse 2.4s ease-in-out infinite; }
+.project-card__status--soon { color: #c0c0c0; }
+.project-card__status--soon::before { background: #c0c0c0; }
+.project-card__access { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-black-20); display: flex; align-items: center; gap: 5px; font-family: var(--font-sans); transition: color .3s; }
+.project-card__access::after { content: '→'; display: inline-block; transition: transform .3s; }
+.project-card:hover .project-card__access { color: var(--color-text); }
+.project-card:hover .project-card__access::after { transform: translateX(4px); }
 .project-card--soon { opacity: .65; transition: opacity .4s; }
 .project-card--soon:hover { opacity: 1; }
-
-@keyframes statusPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: .3; transform: scale(.75); }
-}
 
 /* SERVIÇOS */
 .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line); margin-top: 60px; }
@@ -411,7 +350,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .service-card:hover .service-card__num { color: rgba(255,255,255,.1); }
 .service-card__title { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 600; color: var(--color-text); margin-bottom: 14px; line-height: 1.2; letter-spacing: -.01em; transition: color .4s; }
 .service-card:hover .service-card__title { color: #ffffff; }
-.service-card__desc { font-size: .75rem; color: var(--color-muted); line-height: 1.85; transition: color .4s; }
+.service-card__desc { font-size: 1rem; color: var(--color-muted); line-height: 1.85; transition: color .4s; }
 .service-card:hover .service-card__desc { color: rgba(255,255,255,.6); }
 .service-card__arrow { position: absolute; bottom: 44px; right: 44px; z-index: 1; color: var(--color-text); font-size: 1.1rem; opacity: 0; transform: translate(-5px, 5px); transition: opacity .3s, transform .3s, color .4s; }
 .service-card:hover .service-card__arrow { opacity: 1; transform: translate(0,0); color: #ffffff; }
@@ -424,16 +363,16 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .airbnb__quote-mark { font-family: var(--font-sans); font-size: 7rem; color: var(--color-accent-dim); line-height: .5; margin-bottom: 32px; }
 .airbnb__claim { font-family: var(--font-sans); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.2; font-style: italic; color: var(--color-text); margin-bottom: 36px; }
 .airbnb__claim em { color: var(--color-accent); font-style: normal; }
-.airbnb__body { font-size: .8rem; color: var(--color-muted); line-height: 1.9; margin-bottom: 36px; }
+.airbnb__body { font-size: 1rem; color: var(--color-muted); line-height: 1.9; margin-bottom: 36px; }
 .airbnb__features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
-.airbnb__feature { display: flex; align-items: flex-start; gap: 14px; font-size: .72rem; color: var(--color-muted); line-height: 1.6; }
+.airbnb__feature { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; color: var(--color-muted); line-height: 1.6; }
 .airbnb__feature::before { content: '◆'; color: var(--color-accent); flex-shrink: 0; font-size: .5rem; margin-top: .3em; }
 .airbnb__visual { position: relative; height: 500px; }
 .airbnb__media { width: 100%; height: 100%; background: var(--color-bg-3); border: 1px solid var(--color-line); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
 .airbnb__media-inner { width: 100%; height: 100%; background: linear-gradient(145deg, #181c1e, #0d1012); display: flex; align-items: center; justify-content: center; }
 .airbnb__media-placeholder { font-family: var(--font-sans); font-size: .9rem; font-style: italic; color: var(--color-black-12); letter-spacing: .08em; }
 .airbnb__media-tag { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; border-top: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,.75); backdrop-filter: blur(10px); }
-.airbnb__media-tag-label { font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+.airbnb__media-tag-label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
 .airbnb__media-tag-value { font-family: var(--font-sans); font-size: 1.8rem; font-weight: 300; color: #ffffff; line-height: 1; }
 
 /* CTA */
@@ -441,8 +380,8 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .cta__title { font-family: var(--font-sans); font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 400; line-height: .95; letter-spacing: -.02em; color: var(--color-text); }
 .cta__title em { font-style: italic; font-weight: 300; color: var(--color-accent); }
 .cta__body { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
-.cta__desc { font-size: .78rem; color: var(--color-muted); line-height: 1.8; max-width: 320px; }
-.cta__link-ghost { display: inline-flex; align-items: center; gap: 8px; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
+.cta__desc { font-size: 1rem; color: var(--color-muted); line-height: 1.8; max-width: 320px; }
+.cta__link-ghost { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
 .cta__link-ghost:hover { color: var(--color-accent); }
 .cta__link-ghost::after { content: '↗'; transition: transform .3s; }
 .cta__link-ghost:hover::after { transform: translate(3px,-3px); }
@@ -451,14 +390,14 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .footer { background: var(--color-bg); padding: 44px 64px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--color-line); }
 .footer__logo { font-family: var(--font-sans); font-size: 1.2rem; font-weight: 300; letter-spacing: .1em; color: var(--color-muted); }
 .footer__links { display: flex; gap: 28px; list-style: none; }
-.footer__link { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
+.footer__link { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
 .footer__link:hover { color: var(--color-text); }
-.footer__copy { font-size: .55rem; color: var(--color-muted); letter-spacing: .08em; text-align: right; line-height: 1.7; }
+.footer__copy { font-size: .75rem; color: var(--color-muted); letter-spacing: .08em; text-align: right; line-height: 1.7; }
 
 /* GRAIN */
 .grain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); opacity: .6; }
 
-/* BADGE MAGNÉTICO */
+/* BADGE */
 .mag-badge { position: fixed; z-index: 8999; width: 120px; height: 120px; pointer-events: none; transform: translate(-50%, -50%); opacity: 0; transition: opacity .4s ease; animation: spinBadge 10s linear infinite; color: var(--color-text); }
 .mag-badge--visible { opacity: 1; }
 .mag-badge__svg { width: 100%; height: 100%; }
@@ -467,81 +406,54 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 @keyframes marquee   { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes scan      { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
 @keyframes spinBadge { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+@keyframes statusPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .3; transform: scale(.75); } }
 
-/* RESPONSIVIDADE — tablet */
+/* RESPONSIVO */
 @media (max-width: 1024px) {
   :root { --section-padding: 100px 40px; }
   .nav { gap: 24px; padding: 10px 20px; }
-  .nav__links { gap: 20px; }
-  .hero__content { padding: 0 40px 56px; }
-  .hero__scroll  { right: 40px; }
-  .hero__bottom  { flex-direction: column; align-items: flex-start; gap: 28px; }
   .about { grid-template-columns: 1fr; gap: 60px; }
   .about__visual { height: 420px; }
-  .numbers__grid { grid-template-columns: repeat(2, 1fr); }
+  .pillars__header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+  .pillars__grid { grid-template-columns: 1fr; }
+  #proposta { grid-template-columns: 1fr; height: auto; }
+  .valor__image { height: 50vw; min-height: 320px; }
+  .valor__content { padding: 60px 40px; }
   .projects__header { padding: 0 40px; }
-  .projects__track  { padding: 0 40px; }
-  .project-card     { width: 360px; }
+  .projects__track { padding: 0 40px; }
+  .project-card { width: 360px; }
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .airbnb__inner { grid-template-columns: 1fr; gap: 60px; }
-  .airbnb__visual { height: 380px; }
   .cta { grid-template-columns: 1fr; gap: 48px; padding: 100px 40px; }
-  .footer { flex-direction: column; gap: 28px; text-align: center; padding: 40px; }
+  .footer { flex-direction: column; gap: 28px; text-align: center; }
   .footer__copy { text-align: center; }
 }
-
-/* RESPONSIVIDADE — mobile */
 @media (max-width: 768px) {
   :root { --section-padding: 80px 24px; }
   .cursor { display: none; }
-  body    { cursor: auto; }
+  body { cursor: auto; }
   .mag-badge { display: none; }
   .nav { top: 16px; padding: 10px 18px; gap: 16px; width: calc(100% - 32px); justify-content: space-between; }
   .nav__links { display: none; }
-  .hero__content { padding: 0 24px 48px; gap: 20px; }
-  .hero__title   { font-size: clamp(2.4rem, 9vw, 4rem); }
-  .hero__bottom  { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero__content { padding: 0 24px 48px; }
+  .hero__title { font-size: clamp(2.4rem, 9vw, 4rem); }
+  .hero__bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
   .hero__actions { flex-direction: column; width: 100%; }
-  .hero__actions .btn { width: 100%; text-align: center; }
-  .hero__scroll  { display: none; }
-  .hero__overlay { background: linear-gradient(to bottom,rgba(255,255,255,0.30) 0%,rgba(255,255,255,0.65) 40%,rgba(255,255,255,0.97) 100%); }
-  .marquee__item { padding: 12px 28px; font-size: .85rem; }
-  .about { grid-template-columns: 1fr; gap: 40px; padding: 80px 24px; }
-  .about__visual { height: 300px; }
-  .about__media  { width: 85%; height: 85%; }
-  .about__media-secondary { width: 55%; height: 55%; }
-  .numbers__grid { grid-template-columns: repeat(2, 1fr); }
-  .section--numbers { padding: 60px 24px; }
-  .numbers__value { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+  .hero__scroll { display: none; }
+  .pillars__grid { grid-template-columns: 1fr; }
+  #proposta { grid-template-columns: 1fr; height: auto; }
+  .valor__image { height: 60vw; min-height: 260px; }
+  .valor__content { padding: 48px 24px; }
+  .valor__actions { flex-direction: column; }
   .projects { padding: 80px 0; }
-  .projects__header { padding: 0 24px; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .projects__track  { padding: 0 24px; gap: 16px; }
-  .project-card     { width: 300px; }
-  .project-card__media        { height: 380px; }
-  .project-card__media--tall  { height: 400px; }
-  .project-card__media--mid   { height: 360px; }
-  .project-card__media--short { height: 320px; }
-  .project-card__access { display: none; }
+  .projects__header { padding: 0 24px; flex-direction: column; gap: 12px; }
+  .projects__track { padding: 0 24px; gap: 16px; }
+  .project-card { width: 300px; }
   .services__grid { grid-template-columns: 1fr; }
-  .service-card   { padding: 40px 28px; }
   .airbnb { padding: 80px 24px; }
   .airbnb__inner { grid-template-columns: 1fr; gap: 40px; }
-  .airbnb__visual { height: 280px; }
-  .airbnb__claim  { font-size: clamp(1.5rem, 5vw, 2rem); }
   .cta { padding: 80px 24px; grid-template-columns: 1fr; gap: 36px; }
-  .cta__title { font-size: clamp(2.2rem, 8vw, 3.5rem); }
-  .cta__body .btn { width: 100%; text-align: center; }
-  .section__title { font-size: clamp(2rem, 7vw, 3rem); }
   .footer { flex-direction: column; gap: 24px; padding: 32px 24px; text-align: center; }
-  .footer__links { flex-wrap: wrap; justify-content: center; gap: 16px; }
-  .footer__copy  { text-align: center; }
-}
-
-@media (max-width: 390px) {
-  .hero__title { font-size: clamp(2rem, 10vw, 2.8rem); }
-  .nav__logo   { font-size: .85rem; }
-  .project-card { width: 260px; }
-  .numbers__grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -570,9 +482,10 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <nav class="nav" id="nav">
   <a href="#" class="nav__logo">Invest.Hauser</a>
   <ul class="nav__links">
-    <li><a href="#sobre"    class="nav__link">Empresa</a></li>
-    <li><a href="#projetos" class="nav__link">Projetos</a></li>
-    <li><a href="#airbnb"   class="nav__link">Airbnb</a></li>
+    <li><a href="#sobre"       class="nav__link">Empresa</a></li>
+    <li><a href="#diferenciais" class="nav__link">Diferenciais</a></li>
+    <li><a href="#projetos"    class="nav__link">Projetos</a></li>
+    <li><a href="#airbnb"      class="nav__link">Airbnb</a></li>
   </ul>
   <a href="#cta" class="nav__cta">Falar conosco</a>
 </nav>
@@ -596,18 +509,14 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
       <span class="hero__title-line"><em id="titleL3"></em></span>
     </h1>
     <div class="hero__bottom">
-      <p class="hero__desc" id="heroDesc">
-        Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência.
-      </p>
+      <p class="hero__desc" id="heroDesc">Construímos com precisão, vendemos com visão e gerenciamos seu imóvel no Airbnb com inteligência.</p>
       <div class="hero__actions" id="heroActions">
         <a href="#cta" class="btn btn--primary"><span class="btn--primary__label">Fale conosco</span></a>
         <a href="#projetos" class="btn btn--ghost">Ver projetos</a>
       </div>
     </div>
   </div>
-  <div class="hero__scroll" id="heroScroll">
-    <div class="hero__scroll-line"></div>Scroll
-  </div>
+  <div class="hero__scroll" id="heroScroll"><div class="hero__scroll-line"></div>Scroll</div>
 </section>
 
 <!-- MARQUEE -->
@@ -649,31 +558,93 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   </div>
 </section>
 
-<!-- NÚMEROS -->
-<section class="section section--alt section--numbers" id="numeros">
-  <div class="section__label">Em números</div>
-  <h2 class="section__title">Resultados que<br><em>falam por si.</em></h2>
-  <div class="numbers__grid">
-    <div class="numbers__item">
-      <div class="numbers__value"><span class="js-count" data-target="10">0</span><span class="numbers__value-suffix">+ anos</span></div>
-      <div class="numbers__label">No mercado de<br>construção civil</div>
+<!-- DIFERENCIAIS -->
+<section class="pillars" id="diferenciais">
+  <div class="pillars__header">
+    <div>
+      <div class="section__label">Por que a Invest Hauser</div>
+      <h2 class="section__title">O que nos<br><em>diferencia.</em></h2>
     </div>
-    <div class="numbers__item">
-      <div class="numbers__value"><span class="js-count" data-target="80">0</span><span class="numbers__value-suffix">+</span></div>
-      <div class="numbers__label">Obras entregues<br>no prazo</div>
+    <p class="pillars__intro">Enquanto o mercado separa quem constrói de quem administra, a Invest Hauser reúne tudo sob uma única responsabilidade — do primeiro tijolo ao último check-out.</p>
+  </div>
+  <div class="pillars__grid" id="pillarsGrid">
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">01</span>
+      <h3>Integração total</h3>
+      <p>Uma empresa responsável por construção, decoração e gestão. Você não coordena fornecedores — nós fazemos isso por você, com uma única linha de comunicação do início ao fim.</p>
+      <span class="pillar-card__tag">Exclusivo em Curitiba</span>
     </div>
-    <div class="numbers__item">
-      <div class="numbers__value"><span class="js-count" data-target="30">0</span><span class="numbers__value-suffix">+</span></div>
-      <div class="numbers__label">Imóveis gerenciados<br>no Airbnb</div>
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">02</span>
+      <h3>Construído para performar</h3>
+      <p>Cada projeto é desenvolvido com foco em ocupação máxima no Airbnb. Layout, materiais e comodidades são escolhidos para gerar avaliações 5 estrelas e reservas constantes.</p>
+      <span class="pillar-card__tag">Design orientado ao retorno</span>
     </div>
-    <div class="numbers__item">
-      <div class="numbers__value"><span class="js-count" data-target="96">0</span><span class="numbers__value-suffix">%</span></div>
-      <div class="numbers__label">Taxa de satisfação<br>dos clientes</div>
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">03</span>
+      <h3>Transparência garantida</h3>
+      <p>Relatório mensal com receita, ocupação e histórico de crescimento. Prazo de obra definido em contrato. Sem surpresas, sem intermediários, sem desculpas.</p>
+      <span class="pillar-card__tag">Relatório mensal incluso</span>
     </div>
   </div>
 </section>
 
-<!-- PROJETOS -->
+<!-- ═══ PROPOSTA DE VALOR — imagem esquerda + texto direita + efeito cover ═══ -->
+<section id="proposta" aria-label="Nossa proposta">
+
+  <!-- ESQUERDA: imagem full-height com parallax -->
+  <div class="valor__image" id="valorImage">
+    <div class="valor__image-inner" id="valorImageInner">
+      <!--
+        PRODUÇÃO: substituir o bloco abaixo por:
+        <img src="sua-imagem.jpg" alt="Obra Invest Hauser"
+             style="width:100%;height:100%;object-fit:cover;object-position:center">
+      -->
+      <div class="valor__image-placeholder">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="46" height="46" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+          <path d="M8 36l10-12 8 9 6-7 8 10" stroke="rgba(255,255,255,.2)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="32" cy="16" r="4" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/>
+        </svg>
+        <div class="valor__image-placeholder-label">Inserir imagem aqui</div>
+      </div>
+    </div>
+    <!-- cantos decorativos -->
+    <div class="valor__image-corner tl"></div>
+    <div class="valor__image-corner tr"></div>
+    <div class="valor__image-corner bl"></div>
+    <div class="valor__image-corner br"></div>
+  </div>
+
+  <div class="valor__divider" aria-hidden="true"></div>
+
+  <!-- DIREITA: texto -->
+  <div class="valor__content" id="valorContent">
+    <div class="valor__eyebrow">Nossa proposta</div>
+    <h2 class="valor__claim">
+      Do terreno vazio<br>
+      à renda passiva —<br>
+      <em>sem você mover um dedo.</em>
+    </h2>
+    <p class="valor__body">
+      A Invest Hauser existe para transformar imóveis em ativos que trabalham por você. Seja construindo do zero, reformando o que já existe ou gerenciando a operação no Airbnb — o resultado é sempre o mesmo: mais renda, menos trabalho.
+    </p>
+    <ul class="valor__list">
+      <li class="valor__list-item">Projeto arquitetônico com foco em rentabilidade</li>
+      <li class="valor__list-item">Mobiliação e decoração estratégica para o Airbnb</li>
+      <li class="valor__list-item">Publicação, precificação e gestão de hóspedes</li>
+      <li class="valor__list-item">Limpeza, manutenção e reposição de itens</li>
+      <li class="valor__list-item">Relatório mensal de performance e repasse</li>
+    </ul>
+    <div class="valor__actions">
+      <a href="#cta" class="btn btn--primary"><span class="btn--primary__label">Quero meu imóvel rentável</span></a>
+      <a href="#projetos" class="btn btn--ghost">Ver projetos</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROJETOS — z-index alto, cobre #proposta ao rolar -->
 <section class="projects" id="projetos">
   <div class="projects__header">
     <div>
@@ -684,97 +655,36 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   </div>
   <div class="projects__overflow">
     <div class="projects__track" id="projectsTrack">
-
-      <!-- 01 — Concluído -->
       <a href="/projetos/residencia-alphaville" class="project-card">
-        <div class="project-card__media">
-          <div class="project-card__media-inner">
-            <span class="project-card__placeholder">Foto do projeto</span>
-          </div>
-          <div class="project-card__overlay" aria-hidden="true"></div>
-          <span class="project-card__num" aria-hidden="true">01</span>
-          <div class="project-card__tag">Residencial</div>
-        </div>
+        <div class="project-card__media"><div class="project-card__media-inner"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">01</span><div class="project-card__tag">Residencial</div></div>
         <h3 class="project-card__title">Residência Alphaville</h3>
         <p class="project-card__meta">Alphaville, SP · 420m² · 2024</p>
-        <div class="project-card__footer">
-          <span class="project-card__status project-card__status--done">Concluído</span>
-          <span class="project-card__access">Ver projeto</span>
-        </div>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-
-      <!-- 02 — Concluído -->
       <a href="/projetos/chale-campos-do-jordao" class="project-card">
-        <div class="project-card__media project-card__media--short">
-          <div class="project-card__media-inner project-card__media-inner--2">
-            <span class="project-card__placeholder">Foto do projeto</span>
-          </div>
-          <div class="project-card__overlay" aria-hidden="true"></div>
-          <span class="project-card__num" aria-hidden="true">02</span>
-          <div class="project-card__tag">Airbnb</div>
-        </div>
+        <div class="project-card__media project-card__media--short"><div class="project-card__media-inner project-card__media-inner--2"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">02</span><div class="project-card__tag">Airbnb</div></div>
         <h3 class="project-card__title">Chalé Campos do Jordão</h3>
         <p class="project-card__meta">Campos do Jordão, SP · Temporada · 2023</p>
-        <div class="project-card__footer">
-          <span class="project-card__status project-card__status--done">Concluído</span>
-          <span class="project-card__access">Ver projeto</span>
-        </div>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-
-      <!-- 03 — Em andamento -->
       <a href="/projetos/comercial-granja-viana" class="project-card">
-        <div class="project-card__media project-card__media--tall">
-          <div class="project-card__media-inner project-card__media-inner--3">
-            <span class="project-card__placeholder">Foto do projeto</span>
-          </div>
-          <div class="project-card__overlay" aria-hidden="true"></div>
-          <span class="project-card__num" aria-hidden="true">03</span>
-          <div class="project-card__tag">Comercial</div>
-        </div>
+        <div class="project-card__media project-card__media--tall"><div class="project-card__media-inner project-card__media-inner--3"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">03</span><div class="project-card__tag">Comercial</div></div>
         <h3 class="project-card__title">Comercial Granja Viana</h3>
         <p class="project-card__meta">Cotia, SP · 280m² · 2023</p>
-        <div class="project-card__footer">
-          <span class="project-card__status project-card__status--progress">Em andamento</span>
-          <span class="project-card__access">Ver projeto</span>
-        </div>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--progress">Em andamento</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-
-      <!-- 04 — Concluído -->
       <a href="/projetos/condominio-hills" class="project-card">
-        <div class="project-card__media">
-          <div class="project-card__media-inner project-card__media-inner--4">
-            <span class="project-card__placeholder">Foto do projeto</span>
-          </div>
-          <div class="project-card__overlay" aria-hidden="true"></div>
-          <span class="project-card__num" aria-hidden="true">04</span>
-          <div class="project-card__tag">Incorporação</div>
-        </div>
+        <div class="project-card__media"><div class="project-card__media-inner project-card__media-inner--4"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">04</span><div class="project-card__tag">Incorporação</div></div>
         <h3 class="project-card__title">Condomínio Hills</h3>
         <p class="project-card__meta">Vila Mariana, SP · 12 unid. · 2022</p>
-        <div class="project-card__footer">
-          <span class="project-card__status project-card__status--done">Concluído</span>
-          <span class="project-card__access">Ver projeto</span>
-        </div>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-
-      <!-- 05 — Em breve -->
       <a href="/projetos/casa-temporada-ibiuna" class="project-card project-card--soon">
-        <div class="project-card__media project-card__media--mid">
-          <div class="project-card__media-inner project-card__media-inner--5">
-            <span class="project-card__placeholder">Foto do projeto</span>
-          </div>
-          <div class="project-card__overlay" aria-hidden="true"></div>
-          <span class="project-card__num" aria-hidden="true">05</span>
-          <div class="project-card__tag">Airbnb</div>
-        </div>
+        <div class="project-card__media project-card__media--mid"><div class="project-card__media-inner project-card__media-inner--5"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">05</span><div class="project-card__tag">Airbnb</div></div>
         <h3 class="project-card__title">Casa de Temporada Ibiúna</h3>
         <p class="project-card__meta">Ibiúna, SP · Alta ocupação · 2024</p>
-        <div class="project-card__footer">
-          <span class="project-card__status project-card__status--soon">Em breve</span>
-          <span class="project-card__access">Em breve</span>
-        </div>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--soon">Em breve</span><span class="project-card__access">Em breve</span></div>
       </a>
-
     </div>
   </div>
 </section>
@@ -784,48 +694,12 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   <div class="section__label">Especialidades</div>
   <h2 class="section__title section__title--flush">O que <em>fazemos.</em></h2>
   <div class="services__grid">
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">01</span>
-      <h3 class="service-card__title">Construção Residencial</h3>
-      <p class="service-card__desc">Casas, sobrados e condomínios construídos com materiais de primeira linha, equipe própria e cronograma rigoroso. Do alicerce à entrega das chaves.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">02</span>
-      <h3 class="service-card__title">Empreitada Geral</h3>
-      <p class="service-card__desc">Assumimos obras como empreiteiros gerais para construtoras e incorporadoras. Gestão completa de mão de obra, materiais e subcontratados.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">03</span>
-      <h3 class="service-card__title">Venda de Imóveis</h3>
-      <p class="service-card__desc">Comercializamos imóveis próprios e de parceiros com consultoria completa para compradores e investidores. Transparência do primeiro ao último passo.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">04</span>
-      <h3 class="service-card__title">Gestão Airbnb</h3>
-      <p class="service-card__desc">Administramos seu imóvel como se fosse nosso. Anúncio, precificação dinâmica, check-in, limpeza e manutenção — zero preocupação para você.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">05</span>
-      <h3 class="service-card__title">Reformas e Upgrades</h3>
-      <p class="service-card__desc">Reformas estruturais e de acabamento para valorizar o imóvel antes da venda ou locação. Projeto, execução e entrega sem dor de cabeça.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
-    <div class="service-card">
-      <div class="service-card__accent"></div>
-      <span class="service-card__num" aria-hidden="true">06</span>
-      <h3 class="service-card__title">Consultoria de Investimento</h3>
-      <p class="service-card__desc">Ajudamos investidores a identificar terrenos e imóveis com potencial, calcular retorno e executar a estratégia de construção e locação.</p>
-      <span class="service-card__arrow" aria-hidden="true">↗</span>
-    </div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">01</span><h3 class="service-card__title">Construção Residencial</h3><p class="service-card__desc">Casas, sobrados e condomínios construídos com materiais de primeira linha, equipe própria e cronograma rigoroso.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">02</span><h3 class="service-card__title">Empreitada Geral</h3><p class="service-card__desc">Assumimos obras como empreiteiros gerais para construtoras e incorporadoras. Gestão completa de mão de obra e materiais.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">03</span><h3 class="service-card__title">Venda de Imóveis</h3><p class="service-card__desc">Comercializamos imóveis próprios e de parceiros com consultoria completa para compradores e investidores.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">04</span><h3 class="service-card__title">Gestão Airbnb</h3><p class="service-card__desc">Administramos seu imóvel como se fosse nosso. Anúncio, precificação dinâmica, check-in, limpeza e manutenção.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">05</span><h3 class="service-card__title">Reformas e Upgrades</h3><p class="service-card__desc">Reformas estruturais e de acabamento para valorizar o imóvel antes da venda ou locação.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">06</span><h3 class="service-card__title">Consultoria de Investimento</h3><p class="service-card__desc">Ajudamos investidores a identificar terrenos com potencial, calcular retorno e executar a estratégia.</p><span class="service-card__arrow">↗</span></div>
   </div>
 </section>
 
@@ -836,7 +710,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
       <div class="section__label" style="margin-bottom:28px;">Gestão de Temporada</div>
       <div class="airbnb__quote-mark">"</div>
       <p class="airbnb__claim">Seu imóvel trabalhando por você — <em>todos os dias.</em></p>
-      <p class="airbnb__body">A Invest Hauser cuida de tudo para que seu imóvel gere renda máxima no Airbnb, sem que você precise mover um dedo. Da publicação do anúncio até a limpeza pós-hóspede.</p>
+      <p class="airbnb__body">A Invest Hauser cuida de tudo para que seu imóvel gere renda máxima no Airbnb, sem que você precise mover um dedo.</p>
       <ul class="airbnb__features">
         <li class="airbnb__feature">Fotografia profissional e anúncio otimizado</li>
         <li class="airbnb__feature">Precificação dinâmica com base na demanda</li>
@@ -848,9 +722,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
     </div>
     <div class="airbnb__visual">
       <div class="airbnb__media">
-        <div class="airbnb__media-inner">
-          <span class="airbnb__media-placeholder">Foto do imóvel</span>
-        </div>
+        <div class="airbnb__media-inner"><span class="airbnb__media-placeholder">Foto do imóvel</span></div>
         <div class="airbnb__media-tag">
           <div class="airbnb__media-tag-label">Taxa de ocupação média</div>
           <div class="airbnb__media-tag-value"><span class="js-count" data-target="87">0</span>%</div>
@@ -875,17 +747,15 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   <div class="footer__logo">Invest.Hauser</div>
   <nav aria-label="Rodapé">
     <ul class="footer__links">
-      <li><a href="#sobre"    class="footer__link">Empresa</a></li>
-      <li><a href="#projetos" class="footer__link">Projetos</a></li>
-      <li><a href="#servicos" class="footer__link">Serviços</a></li>
-      <li><a href="#airbnb"   class="footer__link">Airbnb</a></li>
-      <li><a href="#cta"      class="footer__link">Contato</a></li>
+      <li><a href="#sobre"        class="footer__link">Empresa</a></li>
+      <li><a href="#diferenciais" class="footer__link">Diferenciais</a></li>
+      <li><a href="#projetos"     class="footer__link">Projetos</a></li>
+      <li><a href="#servicos"     class="footer__link">Serviços</a></li>
+      <li><a href="#airbnb"       class="footer__link">Airbnb</a></li>
+      <li><a href="#cta"          class="footer__link">Contato</a></li>
     </ul>
   </nav>
-  <div class="footer__copy">
-    CRECI-SP 000000-J<br>
-    © 2026 Invest Hauser · Curitiba
-  </div>
+  <div class="footer__copy">© 2026 Invest Hauser · Curitiba, PR</div>
 </footer>
 
 <script>
@@ -894,98 +764,165 @@ gsap.registerPlugin(ScrollTrigger);
 /* BADGE MAGNÉTICO */
 const magBadge = document.getElementById('magBadge');
 const aboutSec = document.getElementById('sobre');
-let badgeX = window.innerWidth / 2, badgeY = window.innerHeight / 2;
-let targetX = badgeX, targetY = badgeY, badgeVisible = false;
-
+let badgeX = window.innerWidth/2, badgeY = window.innerHeight/2, targetX = badgeX, targetY = badgeY, badgeVisible = false;
 document.addEventListener('mousemove', e => {
   targetX = e.clientX; targetY = e.clientY;
-  const rect = aboutSec.getBoundingClientRect();
-  const inside = e.clientY >= rect.top && e.clientY <= rect.bottom && e.clientX >= rect.left && e.clientX <= rect.right;
-  if (inside && !badgeVisible) { magBadge.classList.add('mag-badge--visible'); badgeVisible = true; }
-  else if (!inside && badgeVisible) { magBadge.classList.remove('mag-badge--visible'); badgeVisible = false; }
+  const r = aboutSec.getBoundingClientRect();
+  const inside = e.clientY >= r.top && e.clientY <= r.bottom && e.clientX >= r.left && e.clientX <= r.right;
+  if (inside && !badgeVisible)  { magBadge.classList.add('mag-badge--visible');    badgeVisible = true; }
+  if (!inside && badgeVisible)  { magBadge.classList.remove('mag-badge--visible'); badgeVisible = false; }
 });
-(function animBadge() {
-  badgeX += (targetX - badgeX) * 0.08; badgeY += (targetY - badgeY) * 0.08;
-  magBadge.style.left = badgeX + 'px'; magBadge.style.top = badgeY + 'px';
-  requestAnimationFrame(animBadge);
-})();
+(function animBadge() { badgeX += (targetX-badgeX)*.08; badgeY += (targetY-badgeY)*.08; magBadge.style.left=badgeX+'px'; magBadge.style.top=badgeY+'px'; requestAnimationFrame(animBadge); })();
 
 /* CURSOR */
 const cursorDot = document.getElementById('cursorDot'), cursorRing = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx + 'px'; cursorDot.style.top = my + 'px'; });
-(function animRing() { rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1; cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursorDot.style.left=mx+'px'; cursorDot.style.top=my+'px'; });
+(function animRing() { rx+=(mx-rx)*.1; ry+=(my-ry)*.1; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
 
 /* LOADER */
-const pctEl = document.getElementById('loaderPct'), fillEl = document.getElementById('loaderFill');
-let p = 0, done = false;
+const pctEl=document.getElementById('loaderPct'), fillEl=document.getElementById('loaderFill');
+let p=0, done=false;
 const loaderInterval = setInterval(() => {
-  p = Math.min(p + Math.random() * 9 + 2, 99);
-  pctEl.textContent = Math.floor(p); fillEl.style.width = p + '%';
-  if (p >= 99 && !done) {
-    done = true; clearInterval(loaderInterval);
-    setTimeout(() => {
-      pctEl.textContent = '100'; fillEl.style.width = '100%';
-      setTimeout(() => { document.getElementById('loader').classList.add('loader--hidden'); boot(); }, 400);
+  p = Math.min(p + Math.random()*9+2, 99);
+  pctEl.textContent = Math.floor(p); fillEl.style.width = p+'%';
+  if (p>=99 && !done) {
+    done=true; clearInterval(loaderInterval);
+    setTimeout(()=>{ pctEl.textContent='100'; fillEl.style.width='100%';
+      setTimeout(()=>{ document.getElementById('loader').classList.add('loader--hidden'); boot(); }, 400);
     }, 200);
   }
 }, 80);
 
-/* SPLIT CHARS */
 function splitChars(el, text) {
-  el.innerHTML = text.split('').map(c => c === ' ' ? '<span class="hero__title-char" style="display:inline-block;width:.25em"> </span>' : `<span class="hero__title-char" style="display:inline-block">${c}</span>`).join('');
+  el.innerHTML = text.split('').map(c => c===' '
+    ? '<span class="hero__title-char" style="display:inline-block;width:.25em"> </span>'
+    : `<span class="hero__title-char" style="display:inline-block">${c}</span>`
+  ).join('');
   return el.querySelectorAll('.hero__title-char');
 }
 
-/* BOOT */
 function boot() {
-  gsap.from('#nav', { y: -40, opacity: 0, duration: .9, ease: 'power3.out', delay: .1 });
+  gsap.from('#nav', { y:-40, opacity:0, duration:.9, ease:'power3.out', delay:.1 });
 
   const l1 = splitChars(document.getElementById('titleL1'), 'Da obra');
   const l2 = splitChars(document.getElementById('titleL2'), 'ao');
   const l3 = splitChars(document.getElementById('titleL3'), 'lucro.');
-  gsap.from([...l1, ...l2, ...l3], { opacity: 0, y: 30, duration: 1.1, ease: 'power4.out', stagger: { amount: .7, from: 'start' } });
+  gsap.from([...l1,...l2,...l3], { opacity:0, y:30, duration:1.1, ease:'power4.out', stagger:{ amount:.7, from:'start' }});
+  gsap.from('#heroEyebrow', { opacity:0, y:20, duration:.9, delay:.5,  ease:'power3.out' });
+  gsap.from('#heroDesc',    { opacity:0, y:20, duration:.9, delay:.8,  ease:'power3.out' });
+  gsap.from('#heroActions', { opacity:0, y:20, duration:.9, delay:1.0, ease:'power3.out' });
+  gsap.from('#heroScroll',  { opacity:0,       duration:.8, delay:1.6, ease:'power3.out' });
 
-  gsap.from('#heroEyebrow', { opacity: 0, y: 20, duration: .9, delay: .5,  ease: 'power3.out' });
-  gsap.from('#heroDesc',    { opacity: 0, y: 20, duration: .9, delay: .8,  ease: 'power3.out' });
-  gsap.from('#heroActions', { opacity: 0, y: 20, duration: .9, delay: 1.0, ease: 'power3.out' });
-  gsap.from('#heroScroll',  { opacity: 0,         duration: .8, delay: 1.6, ease: 'power3.out' });
-
-  gsap.to('.hero__overlay', { yPercent: 15, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
-
-  gsap.from('#aboutVisual', { x: -70, opacity: 0, duration: 1.2, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#sobre', start: 'top 75%', toggleActions: 'play none none none' } });
-  gsap.from('#aboutText > *', { y: 40, opacity: 0, duration: .9, stagger: .12, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#sobre', start: 'top 70%', toggleActions: 'play none none none' } });
-
-  document.querySelectorAll('.section__title, .section__label').forEach(el => {
-    if (el.closest('#aboutText')) return;
-    gsap.from(el, { y: 36, opacity: 0, duration: .9, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' } });
+  gsap.to('.hero__overlay', { yPercent:15, ease:'none',
+    scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
   });
 
-  document.querySelectorAll('.js-count').forEach(el => {
-    const target = +el.dataset.target, obj = { n: 0 };
-    gsap.to(obj, { n: target, duration: 2.2, ease: 'power2.out', onUpdate: () => { el.textContent = Math.floor(obj.n); }, scrollTrigger: { trigger: el.closest('section') || el, start: 'top 70%', toggleActions: 'play none none none' } });
+  /* SOBRE */
+  gsap.from('#aboutVisual', { x:-70, opacity:0, duration:1.2, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#sobre', start:'top 75%', toggleActions:'play none none none' }
+  });
+  gsap.from('#aboutText > *', { y:40, opacity:0, duration:.9, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#sobre', start:'top 70%', toggleActions:'play none none none' }
   });
 
-  gsap.from('.numbers__item', { y: 50, opacity: 0, duration: .85, stagger: .1, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#numeros', start: 'top 72%', toggleActions: 'play none none none' } });
+  /* DIFERENCIAIS */
+  gsap.from('.pillars__header > *', { y:36, opacity:0, duration:.9, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#diferenciais', start:'top 78%', toggleActions:'play none none none' }
+  });
+  gsap.from('.pillar-card', { y:50, opacity:0, duration:.85, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#pillarsGrid', start:'top 80%', toggleActions:'play none none none' }
+  });
 
+  /* ═══ PROPOSTA — pin + parallax interno + cover ═══ */
+
+  const propostaEl = document.getElementById('proposta');
+  const isMobile = window.innerWidth <= 768;
+
+  if (!isMobile) {
+    // 1. Pin usando a altura real da seção (não 100vh fixo)
+    ScrollTrigger.create({
+      trigger: '#proposta',
+      start: 'top top',
+      end: () => '+=' + propostaEl.offsetHeight,
+      pin: true,
+      pinSpacing: false  // sem espaço extra — a próxima seção sobe por cima
+    });
+
+    // 2. Parallax na imagem interna enquanto pinada
+    gsap.to('#valorImageInner', {
+      yPercent: 18,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#proposta',
+        start: 'top top',
+        end: () => '+=' + propostaEl.offsetHeight,
+        scrub: true
+      }
+    });
+  }
+
+  // 3. Conteúdo de texto: fade-in ao entrar na viewport (desktop e mobile)
+  gsap.from('#valorContent > *', { x: isMobile ? 0 : 40, y: isMobile ? 30 : 0, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#proposta', start:'top 80%', toggleActions:'play none none none' }
+  });
+
+  /* PROJETOS — a própria seção sobe cobrindo #proposta (z-index:10 no CSS) */
   const track = document.getElementById('projectsTrack');
   const trackW = track.scrollWidth, vw = window.innerWidth;
-  gsap.to(track, { x: -(trackW - vw + 128), ease: 'none', scrollTrigger: { trigger: '.projects', start: 'top top', end: () => `+=${trackW - vw + 200}`, pin: true, scrub: 1, anticipatePin: 1 } });
-  gsap.from('.project-card', { y: 60, opacity: 0, duration: 1, stagger: .14, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '.projects', start: 'top 80%', toggleActions: 'play none none none' } });
+  gsap.to(track, { x:-(trackW-vw+128), ease:'none',
+    scrollTrigger:{ trigger:'.projects', start:'top top', end:()=>`+=${trackW-vw+200}`, pin:true, scrub:1, anticipatePin:1 }
+  });
+  gsap.from('.project-card', { y:60, opacity:0, duration:1, stagger:.14, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'.projects', start:'top 80%', toggleActions:'play none none none' }
+  });
 
-  gsap.from('.service-card', { y: 50, opacity: 0, duration: .8, stagger: .07, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#servicos', start: 'top 75%', toggleActions: 'play none none none' } });
+  /* SERVIÇOS */
+  gsap.from('.service-card', { y:50, opacity:0, duration:.8, stagger:.07, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#servicos', start:'top 75%', toggleActions:'play none none none' }
+  });
 
-  gsap.from('.airbnb__text > *', { y: 40, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#airbnb', start: 'top 70%', toggleActions: 'play none none none' } });
-  gsap.from('.airbnb__visual',   { x: 60, opacity: 0, duration: 1.1, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#airbnb', start: 'top 70%', toggleActions: 'play none none none' } });
-  ScrollTrigger.create({ trigger: '#airbnb', start: 'top top', end: '+=70%', pin: true, pinSpacing: true });
+  /* AIRBNB */
+  gsap.from('.airbnb__text > *', { y:40, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#airbnb', start:'top 70%', toggleActions:'play none none none' }
+  });
+  gsap.from('.airbnb__visual', { x:60, opacity:0, duration:1.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#airbnb', start:'top 70%', toggleActions:'play none none none' }
+  });
+  ScrollTrigger.create({ trigger:'#airbnb', start:'top top', end:'+=70%', pin:true, pinSpacing:true });
 
-  gsap.from('.cta__title',   { x: -60, opacity: 0, duration: 1,   ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#cta', start: 'top 78%', toggleActions: 'play none none none' } });
-  gsap.from('.cta__body > *',{ x:  60, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', immediateRender: false, scrollTrigger: { trigger: '#cta', start: 'top 78%', toggleActions: 'play none none none' } });
+  /* COUNTER */
+  document.querySelectorAll('.js-count').forEach(el => {
+    const target=+el.dataset.target, obj={n:0};
+    gsap.to(obj, { n:target, duration:2.2, ease:'power2.out',
+      onUpdate:()=>{ el.textContent=Math.floor(obj.n); },
+      scrollTrigger:{ trigger:el.closest('section')||el, start:'top 70%', toggleActions:'play none none none' }
+    });
+  });
+
+  /* CTA */
+  gsap.from('.cta__title',    { x:-60, opacity:0, duration:1,  ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#cta', start:'top 78%', toggleActions:'play none none none' }
+  });
+  gsap.from('.cta__body > *', { x: 60, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#cta', start:'top 78%', toggleActions:'play none none none' }
+  });
+
+  /* TÍTULOS GERAIS */
+  document.querySelectorAll('.section__title, .section__label').forEach(el => {
+    if (el.closest('#aboutText') || el.closest('.pillars') || el.closest('#proposta')) return;
+    gsap.from(el, { y:36, opacity:0, duration:.9, ease:'power3.out', immediateRender:false,
+      scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' }
+    });
+  });
 }
 
 ScrollTrigger.create({
   start: 'top -80', end: 99999,
-  onUpdate: self => { document.getElementById('nav').style.background = self.direction === 1 ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.88)'; }
+  onUpdate: self => {
+    document.getElementById('nav').style.background =
+      self.direction===1 ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.88)';
+  }
 });
 </script>
 </body>
