@@ -18,7 +18,7 @@ html { scroll-behavior: auto; font-size: 16px; }
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
 
-/* barra de progresso customizada */
+/* barra de progresso — desktop: vertical direita / mobile: horizontal topo */
 #scroll-progress {
   position: fixed;
   top: 0; right: 0;
@@ -34,6 +34,20 @@ html { scroll-behavior: auto; font-size: 16px; }
   background: #000;
   transition: height .05s linear;
   transform-origin: top;
+}
+
+@media (max-width: 768px) {
+  #scroll-progress {
+    top: 0; left: 0; right: auto;
+    width: 100%;
+    height: 2px;
+  }
+  #scroll-progress-fill {
+    width: 0%;
+    height: 100%;
+    transition: width .05s linear;
+    transform-origin: left;
+  }
 }
 
 :root {
@@ -451,32 +465,105 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .footer { flex-direction: column; gap: 28px; text-align: center; }
   .footer__copy { text-align: center; }
 }
+
 @media (max-width: 768px) {
-  :root { --section-padding: 80px 24px; }
+  :root { --section-padding: 64px 20px; }
+
+  /* cursor e badge */
   .cursor { display: none; }
   body { cursor: auto; }
   .mag-badge { display: none; }
-  .nav { top: 16px; padding: 10px 18px; gap: 16px; width: calc(100% - 32px); justify-content: space-between; }
+
+  /* nav */
+  .nav { top: 16px; padding: 10px 16px; gap: 12px; width: calc(100% - 32px); justify-content: space-between; }
   .nav__links { display: none; }
-  .hero__content { padding: 0 24px 48px; }
-  .hero__title { font-size: clamp(2.4rem, 9vw, 4rem); }
+  .nav__logo { font-size: .9rem; }
+  .nav__cta { font-size: .7rem; padding: 7px 14px; }
+
+  /* hero */
+  .hero__content { padding: 0 20px 40px; }
+  .hero__title { font-size: clamp(2rem, 9vw, 3.2rem); }
+  .hero__eyebrow { font-size: .65rem; letter-spacing: .15em; }
+  .hero__desc { font-size: .95rem; max-width: 100%; }
   .hero__bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
   .hero__actions { flex-direction: column; width: 100%; }
+  .hero__actions .btn { width: 100%; text-align: center; }
   .hero__scroll { display: none; }
+
+  /* botões gerais */
+  .btn--primary { font-size: .75rem; padding: 14px 24px; }
+  .btn--ghost    { font-size: .75rem; padding: 14px 24px; }
+
+  /* marquee */
+  .marquee__item { padding: 12px 24px; font-size: .9rem; }
+
+  /* títulos de seção */
+  .section__title { font-size: clamp(1.9rem, 7vw, 2.8rem); }
+  .section__label { font-size: .68rem; letter-spacing: .2em; }
+
+  /* sobre */
+  .about { grid-template-columns: 1fr; gap: 36px; padding: 64px 20px; }
+  .about__visual { height: 260px; }
+  .about__media { width: 85%; height: 85%; }
+  .about__media-secondary { width: 55%; height: 55%; }
+  .about__paragraph { font-size: .95rem; }
+  .about__link { font-size: .75rem; }
+
+  /* diferenciais */
   .pillars__grid { grid-template-columns: 1fr; }
+  .pillars__intro { font-size: .95rem; max-width: 100%; }
+  .pillar-card { padding: 36px 24px; }
+  .pillar-card p { font-size: .95rem; }
+  .pillar-card__tag { font-size: .68rem; }
+
+  /* proposta */
   #proposta { grid-template-columns: 1fr; height: auto; }
-  .valor__image { height: 60vw; min-height: 260px; }
-  .valor__content { padding: 48px 24px; }
-  .valor__actions { flex-direction: column; }
-  .projects { padding: 80px 0; }
-  .projects__header { padding: 0 24px; flex-direction: column; gap: 12px; }
-  .projects__track { padding: 0 24px; gap: 16px; }
-  .project-card { width: 300px; }
+  .valor__image { height: 55vw; min-height: 240px; }
+  .valor__content { padding: 40px 20px; }
+  .valor__claim { font-size: clamp(1.8rem, 7vw, 2.6rem); }
+  .valor__body { font-size: .95rem; }
+  .valor__list-item { font-size: .95rem; }
+  .valor__actions { flex-direction: column; width: 100%; }
+  .valor__actions .btn { width: 100%; text-align: center; }
+
+  /* projetos */
+  .projects { padding: 64px 0; }
+  .projects__header { padding: 0 20px; flex-direction: column; gap: 10px; }
+  .projects__track  { padding: 0 20px; gap: 14px; }
+  .project-card { width: 280px; }
+  .project-card__media        { height: 340px; }
+  .project-card__media--tall  { height: 370px; }
+  .project-card__media--mid   { height: 320px; }
+  .project-card__media--short { height: 290px; }
+  .project-card__title { font-size: 1.3rem; }
+  .project-card__access { display: none; }
+
+  /* serviços */
   .services__grid { grid-template-columns: 1fr; }
-  .airbnb { padding: 80px 24px; }
-  .airbnb__inner { grid-template-columns: 1fr; gap: 40px; }
-  .cta { padding: 80px 24px; grid-template-columns: 1fr; gap: 36px; }
-  .footer { flex-direction: column; gap: 24px; padding: 32px 24px; text-align: center; }
+  .service-card { padding: 36px 24px; }
+  .service-card__title { font-size: 1.25rem; }
+  .service-card__desc { font-size: .95rem; }
+
+  /* airbnb */
+  .airbnb { padding: 64px 20px; min-height: auto; }
+  .airbnb__inner { grid-template-columns: 1fr; gap: 36px; }
+  .airbnb__claim { font-size: clamp(1.6rem, 5.5vw, 2.2rem); }
+  .airbnb__body { font-size: .95rem; }
+  .airbnb__feature { font-size: .95rem; }
+  .airbnb__quote-mark { font-size: 5rem; }
+  .airbnb__visual { height: 260px; }
+
+  /* cta */
+  .cta { padding: 64px 20px; grid-template-columns: 1fr; gap: 32px; }
+  .cta__title { font-size: clamp(2rem, 8vw, 3rem); }
+  .cta__desc { font-size: .95rem; max-width: 100%; }
+  .cta__body .btn { width: 100%; text-align: center; }
+
+  /* footer */
+  .footer { flex-direction: column; gap: 24px; padding: 32px 20px; text-align: center; }
+  .footer__links { flex-wrap: wrap; justify-content: center; gap: 14px; }
+  .footer__link { font-size: .7rem; }
+  .footer__copy { text-align: center; font-size: .7rem; }
 }
 </style>
 </head>
@@ -803,10 +890,18 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-// barra de progresso
+// barra de progresso — vertical no desktop, horizontal no mobile
 const progressFill = document.getElementById('scroll-progress-fill');
+const isMobileProgress = () => window.innerWidth <= 768;
 lenis.on('scroll', ({ progress }) => {
-  progressFill.style.height = (progress * 100) + '%';
+  const pct = (progress * 100) + '%';
+  if (isMobileProgress()) {
+    progressFill.style.width  = pct;
+    progressFill.style.height = '100%';
+  } else {
+    progressFill.style.height = pct;
+    progressFill.style.width  = '100%';
+  }
 });
 
 // suporte a links âncora — Lenis cuida da animação
