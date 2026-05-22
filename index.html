@@ -14,11 +14,9 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: auto; font-size: 16px; }
 
-/* oculta scrollbar nativo em todos os navegadores */
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
 
-/* barra de progresso — desktop: vertical direita / mobile: horizontal topo */
 #scroll-progress {
   position: fixed;
   top: 0; right: 0;
@@ -148,15 +146,47 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .section__title--spaced { margin-bottom: 28px; }
 .section__title--flush  { margin-bottom: 0; }
 
-/* SOBRE */
+/* ─── SOBRE — visual atualizado ─── */
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
-.about__visual { position: relative; height: 620px; }
-.about__media { position: absolute; top: 0; left: 0; width: 78%; height: 78%; background: var(--color-bg-2); overflow: hidden; }
-.about__media-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1d1f, #0e1113); display: flex; align-items: center; justify-content: center; }
-.about__media-placeholder { font-family: var(--font-sans); font-size: 6rem; color: var(--color-black-4); font-weight: 300; user-select: none; }
-.about__media-secondary { position: absolute; bottom: 0; right: 0; width: 52%; height: 52%; background: var(--color-bg-2); border: 1px solid var(--color-line); overflow: hidden; }
-.about__media-secondary-inner { width: 100%; height: 100%; background: linear-gradient(135deg, #151819, #0b0e10); display: flex; align-items: center; justify-content: center; }
-.about__media-placeholder--small { font-size: 2.5rem; color: var(--color-black-4); }
+
+/* container visual cresce para acomodar a imagem retrato */
+.about__visual {
+  position: relative;
+  height: 680px; /* aumentado de 620 → 680 para a secundária retrato */
+}
+
+/* quadro principal: IMG1 paisagem (1280×853) */
+.about__media {
+  position: absolute;
+  top: 0; left: 0;
+  width: 78%; height: 78%;
+  overflow: hidden;
+}
+.about__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* quadro secundário: IMG2 retrato (720×960) — mais alto para aproveitar o formato */
+.about__media-secondary {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 52%;
+  height: 62%; /* era 52% — mais alto para o retrato respirar */
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+.about__media-secondary img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* ancora o rosto/topo da foto */
+  display: block;
+}
+
 .about__body { display: flex; flex-direction: column; }
 .about__paragraph { font-size: 1rem; line-height: 1.95; color: var(--color-muted); margin-bottom: 18px; }
 .about__link { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-text); text-decoration: none; border-bottom: 1px solid var(--color-black-12); padding-bottom: 4px; margin-top: 12px; align-self: flex-start; transition: color .3s, border-color .3s; }
@@ -180,9 +210,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .pillar-card__tag { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); border: 1px solid var(--color-line); padding: 5px 12px; margin-top: 28px; border-radius: 100px; transition: border-color .3s, color .3s; }
 .pillar-card:hover .pillar-card__tag { border-color: var(--color-black-20); color: var(--color-text); }
 
-/* ═══════════════════════════════════════════
-   PROPOSTA DE VALOR — imagem + texto + cover
-   ═══════════════════════════════════════════ */
+/* PROPOSTA DE VALOR */
 #proposta {
   position: relative;
   min-height: 100vh;
@@ -190,18 +218,15 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   grid-template-columns: 1fr 1fr;
   overflow: hidden;
   background: var(--color-bg-3);
-  /* z-index baixo — seção seguinte vai cobrir por cima */
   z-index: 1;
 }
 
-/* LADO ESQUERDO — imagem com parallax interno */
 .valor__image {
   position: relative;
   overflow: hidden;
   height: 100%;
 }
 .valor__image-inner {
-  /* ligeiramente maior que o container para o parallax ter espaço */
   position: absolute;
   inset: -15% 0;
   background: linear-gradient(160deg, #1c2022 0%, #0c0e10 100%);
@@ -210,7 +235,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   justify-content: center;
   will-change: transform;
 }
-/* marcadores de placeholder — removidos quando a imagem for inserida */
 .valor__image-placeholder {
   position: relative;
   z-index: 1;
@@ -225,7 +249,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   color: rgba(255,255,255,.18);
   margin-top: 1rem;
 }
-/* cantos decorativos */
 .valor__image-corner {
   position: absolute;
   width: 1.5rem; height: 1.5rem;
@@ -235,7 +258,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .valor__image-corner.tr { top: 1.5rem; right: 1.5rem; border-top: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
 .valor__image-corner.bl { bottom: 1.5rem; left: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-left: 1px solid rgba(255,255,255,.15); }
 .valor__image-corner.br { bottom: 1.5rem; right: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
-/* linha vertical separadora */
 .valor__divider {
   position: absolute;
   top: 0; bottom: 0;
@@ -245,7 +267,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   z-index: 3;
 }
 
-/* LADO DIREITO — conteúdo */
 .valor__content {
   display: flex;
   flex-direction: column;
@@ -327,12 +348,12 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   flex-wrap: wrap;
 }
 
-/* PROJETOS — z-index alto para cobrir #proposta */
+/* PROJETOS */
 .projects {
   padding: 140px 0;
   overflow: hidden;
   position: relative;
-  z-index: 10; /* cobre o #proposta ao rolar */
+  z-index: 10;
   background: var(--color-bg);
 }
 .projects__header { padding: 0 64px; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; }
@@ -450,7 +471,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   :root { --section-padding: 100px 40px; }
   .nav { gap: 24px; padding: 10px 20px; }
   .about { grid-template-columns: 1fr; gap: 60px; }
-  .about__visual { height: 420px; }
+  .about__visual { height: 480px; }
   .pillars__header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
   .pillars__grid { grid-template-columns: 1fr; }
   #proposta { grid-template-columns: 1fr; height: auto; }
@@ -469,18 +490,15 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 @media (max-width: 768px) {
   :root { --section-padding: 64px 20px; }
 
-  /* cursor e badge */
   .cursor { display: none; }
   body { cursor: auto; }
   .mag-badge { display: none; }
 
-  /* nav */
   .nav { top: 16px; padding: 10px 16px; gap: 12px; width: calc(100% - 32px); justify-content: space-between; }
   .nav__links { display: none; }
   .nav__logo { font-size: .9rem; }
   .nav__cta { font-size: .7rem; padding: 7px 14px; }
 
-  /* hero */
   .hero__content { padding: 0 20px 40px; }
   .hero__title { font-size: clamp(2rem, 9vw, 3.2rem); }
   .hero__eyebrow { font-size: .65rem; letter-spacing: .15em; }
@@ -490,33 +508,27 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .hero__actions .btn { width: 100%; text-align: center; }
   .hero__scroll { display: none; }
 
-  /* botões gerais */
   .btn--primary { font-size: .75rem; padding: 14px 24px; }
   .btn--ghost    { font-size: .75rem; padding: 14px 24px; }
 
-  /* marquee */
   .marquee__item { padding: 12px 24px; font-size: .9rem; }
 
-  /* títulos de seção */
   .section__title { font-size: clamp(1.9rem, 7vw, 2.8rem); }
   .section__label { font-size: .68rem; letter-spacing: .2em; }
 
-  /* sobre */
   .about { grid-template-columns: 1fr; gap: 36px; padding: 64px 20px; }
-  .about__visual { height: 260px; }
+  .about__visual { height: 300px; }
   .about__media { width: 85%; height: 85%; }
-  .about__media-secondary { width: 55%; height: 55%; }
+  .about__media-secondary { width: 55%; height: 60%; }
   .about__paragraph { font-size: .95rem; }
   .about__link { font-size: .75rem; }
 
-  /* diferenciais */
   .pillars__grid { grid-template-columns: 1fr; }
   .pillars__intro { font-size: .95rem; max-width: 100%; }
   .pillar-card { padding: 36px 24px; }
   .pillar-card p { font-size: .95rem; }
   .pillar-card__tag { font-size: .68rem; }
 
-  /* proposta */
   #proposta { grid-template-columns: 1fr; height: auto; }
   .valor__image { height: 55vw; min-height: 240px; }
   .valor__content { padding: 40px 20px; }
@@ -526,7 +538,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .valor__actions { flex-direction: column; width: 100%; }
   .valor__actions .btn { width: 100%; text-align: center; }
 
-  /* projetos */
   .projects { padding: 64px 0; }
   .projects__header { padding: 0 20px; flex-direction: column; gap: 10px; }
   .projects__track  { padding: 0 20px; gap: 14px; }
@@ -538,13 +549,11 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .project-card__title { font-size: 1.3rem; }
   .project-card__access { display: none; }
 
-  /* serviços */
   .services__grid { grid-template-columns: 1fr; }
   .service-card { padding: 36px 24px; }
   .service-card__title { font-size: 1.25rem; }
   .service-card__desc { font-size: .95rem; }
 
-  /* airbnb */
   .airbnb { padding: 64px 20px; min-height: auto; }
   .airbnb__inner { grid-template-columns: 1fr; gap: 36px; }
   .airbnb__claim { font-size: clamp(1.6rem, 5.5vw, 2.2rem); }
@@ -553,13 +562,11 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .airbnb__quote-mark { font-size: 5rem; }
   .airbnb__visual { height: 260px; }
 
-  /* cta */
   .cta { padding: 64px 20px; grid-template-columns: 1fr; gap: 32px; }
   .cta__title { font-size: clamp(2rem, 8vw, 3rem); }
   .cta__desc { font-size: .95rem; max-width: 100%; }
   .cta__body .btn { width: 100%; text-align: center; }
 
-  /* footer */
   .footer { flex-direction: column; gap: 24px; padding: 32px 20px; text-align: center; }
   .footer__links { flex-wrap: wrap; justify-content: center; gap: 14px; }
   .footer__link { font-size: .7rem; }
@@ -654,14 +661,32 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <!-- SOBRE -->
 <section class="section" id="sobre">
   <div class="about">
+
+    <!-- VISUAL: dois quadros com imagens reais -->
     <div class="about__visual" id="aboutVisual">
+
+      <!-- quadro principal — IMG1 paisagem 1280×853 -->
       <div class="about__media">
-        <div class="about__media-inner"><div class="about__media-placeholder">IH</div></div>
+        <img
+          src="https://res.cloudinary.com/db4pwya16/image/upload/v1779419741/IMG1.jpg"
+          alt="Obra Invest Hauser"
+          loading="lazy"
+          decoding="async"
+        >
       </div>
+
+      <!-- quadro secundário — IMG2 retrato 720×960 -->
       <div class="about__media-secondary">
-        <div class="about__media-secondary-inner"><div class="about__media-placeholder about__media-placeholder--small">◆</div></div>
+        <img
+          src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779468868/img2.jpg"
+          alt="Detalhe construtivo Invest Hauser"
+          loading="lazy"
+          decoding="async"
+        >
       </div>
+
     </div>
+
     <div class="about__body" id="aboutText">
       <div class="section__label">Quem somos</div>
       <h2 class="section__title section__title--spaced">Valor real em<br>cada <em>m².</em></h2>
@@ -703,17 +728,11 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   </div>
 </section>
 
-<!-- ═══ PROPOSTA DE VALOR — imagem esquerda + texto direita + efeito cover ═══ -->
+<!-- PROPOSTA DE VALOR -->
 <section id="proposta" aria-label="Nossa proposta">
 
-  <!-- ESQUERDA: imagem full-height com parallax -->
   <div class="valor__image" id="valorImage">
     <div class="valor__image-inner" id="valorImageInner">
-      <!--
-        PRODUÇÃO: substituir o bloco abaixo por:
-        <img src="sua-imagem.jpg" alt="Obra Invest Hauser"
-             style="width:100%;height:100%;object-fit:cover;object-position:center">
-      -->
       <div class="valor__image-placeholder">
         <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="1" y="1" width="46" height="46" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
@@ -723,7 +742,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
         <div class="valor__image-placeholder-label">Inserir imagem aqui</div>
       </div>
     </div>
-    <!-- cantos decorativos -->
     <div class="valor__image-corner tl"></div>
     <div class="valor__image-corner tr"></div>
     <div class="valor__image-corner bl"></div>
@@ -732,7 +750,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 
   <div class="valor__divider" aria-hidden="true"></div>
 
-  <!-- DIREITA: texto -->
   <div class="valor__content" id="valorContent">
     <div class="valor__eyebrow">Nossa proposta</div>
     <h2 class="valor__claim">
@@ -758,7 +775,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 
 </section>
 
-<!-- PROJETOS — z-index alto, cobre #proposta ao rolar -->
+<!-- PROJETOS -->
 <section class="projects" id="projetos">
   <div class="projects__header">
     <div>
@@ -875,22 +892,19 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── LENIS — smooth scroll ── */
 const lenis = new Lenis({
-  duration: 1.25,          // inércia: 1.0 = padrão, 1.25 = editorial suave
-  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // expo-out: arranca rápido, desacelera elegante
+  duration: 1.25,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   orientation: 'vertical',
   smoothWheel: true,
-  touchMultiplier: 1.8,    // toque no mobile — mais responsivo que o padrão
+  touchMultiplier: 1.8,
   infinite: false,
 });
 
-// sincroniza Lenis com ScrollTrigger do GSAP
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-// barra de progresso — vertical no desktop, horizontal no mobile
 const progressFill = document.getElementById('scroll-progress-fill');
 const isMobileProgress = () => window.innerWidth <= 768;
 lenis.on('scroll', ({ progress }) => {
@@ -904,7 +918,6 @@ lenis.on('scroll', ({ progress }) => {
   }
 });
 
-// suporte a links âncora — Lenis cuida da animação
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -986,22 +999,19 @@ function boot() {
     scrollTrigger:{ trigger:'#pillarsGrid', start:'top 80%', toggleActions:'play none none none' }
   });
 
-  /* ═══ PROPOSTA — pin + parallax interno + cover ═══ */
-
+  /* PROPOSTA */
   const propostaEl = document.getElementById('proposta');
   const isMobile = window.innerWidth <= 768;
 
   if (!isMobile) {
-    // 1. Pin usando a altura real da seção (não 100vh fixo)
     ScrollTrigger.create({
       trigger: '#proposta',
       start: 'top top',
       end: () => '+=' + propostaEl.offsetHeight,
       pin: true,
-      pinSpacing: false  // sem espaço extra — a próxima seção sobe por cima
+      pinSpacing: false
     });
 
-    // 2. Parallax na imagem interna enquanto pinada
     gsap.to('#valorImageInner', {
       yPercent: 18,
       ease: 'none',
@@ -1014,12 +1024,11 @@ function boot() {
     });
   }
 
-  // 3. Conteúdo de texto: fade-in ao entrar na viewport (desktop e mobile)
   gsap.from('#valorContent > *', { x: isMobile ? 0 : 40, y: isMobile ? 30 : 0, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
     scrollTrigger:{ trigger:'#proposta', start:'top 80%', toggleActions:'play none none none' }
   });
 
-  /* PROJETOS — a própria seção sobe cobrindo #proposta (z-index:10 no CSS) */
+  /* PROJETOS */
   const track = document.getElementById('projectsTrack');
   const trackW = track.scrollWidth, vw = window.innerWidth;
   gsap.to(track, { x:-(trackW-vw+128), ease:'none',
