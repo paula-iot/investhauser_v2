@@ -367,6 +367,8 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .project-card:hover .project-card__access::after { transform: translateX(4px); }
 .project-card--soon { opacity: .65; transition: opacity .4s; }
 .project-card--soon:hover { opacity: 1; }
+.project-card__media-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform .7s cubic-bezier(.4,0,.2,1); }
+.project-card:hover .project-card__media-inner img { transform: scale(1.04); }
 
 /* SERVIÇOS */
 .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line); margin-top: 60px; }
@@ -740,13 +742,13 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   <div class="projects__overflow">
     <div class="projects__track" id="projectsTrack">
       <a href="/projetos/residencia-alphaville" class="project-card">
-        <div class="project-card__media"><div class="project-card__media-inner"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">01</span><div class="project-card__tag">Residencial</div></div>
+        <div class="project-card__media"><div class="project-card__media-inner"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Residência Alphaville" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">01</span><div class="project-card__tag">Residencial</div></div>
         <h3 class="project-card__title">Residência Alphaville</h3>
         <p class="project-card__meta">Alphaville, SP · 420m² · 2024</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
       </a>
       <a href="/projetos/chale-campos-do-jordao" class="project-card">
-        <div class="project-card__media project-card__media--short"><div class="project-card__media-inner project-card__media-inner--2"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">02</span><div class="project-card__tag">Airbnb</div></div>
+        <div class="project-card__media project-card__media--short"><div class="project-card__media-inner project-card__media-inner--2"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486531/Captura_de_tela_2026-05-22_184829_j5dmda.png" alt="Chalé Campos do Jordão" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">02</span><div class="project-card__tag">Airbnb</div></div>
         <h3 class="project-card__title">Chalé Campos do Jordão</h3>
         <p class="project-card__meta">Campos do Jordão, SP · Temporada · 2023</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
