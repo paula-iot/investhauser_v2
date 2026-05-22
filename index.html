@@ -146,13 +146,13 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .section__title--spaced { margin-bottom: 28px; }
 .section__title--flush  { margin-bottom: 0; }
 
-/* ─── SOBRE ─── */
+/* ─── SOBRE — visual atualizado ─── */
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
 
-/* FIX img2: container cresce para acomodar o retrato com proporção correta */
+/* container visual cresce para acomodar a imagem retrato */
 .about__visual {
   position: relative;
-  height: 760px; /* aumentado de 680 → 760 para comportar aspect-ratio 3/4 na secundária */
+  height: 680px; /* aumentado de 620 → 680 para a secundária retrato */
 }
 
 /* quadro principal: IMG1 paisagem (1280×853) */
@@ -170,15 +170,12 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   display: block;
 }
 
-/* quadro secundário: IMG2 retrato (720×960)
-   FIX: aspect-ratio: 3/4 no lugar de height: 62% fixo.
-   O browser calcula a altura a partir da largura mantendo a proporção nativa
-   da imagem — sem corte, sem compressão. */
+/* quadro secundário: IMG2 retrato (720×960) — mais alto para aproveitar o formato */
 .about__media-secondary {
   position: absolute;
   bottom: 0; right: 0;
   width: 52%;
-  aspect-ratio: 3 / 4;
+  height: 62%; /* era 52% — mais alto para o retrato respirar */
   border: 1px solid var(--color-line);
   overflow: hidden;
 }
@@ -186,7 +183,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center top; /* ancora o rosto/topo da foto */
   display: block;
 }
 
@@ -474,7 +471,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   :root { --section-padding: 100px 40px; }
   .nav { gap: 24px; padding: 10px 20px; }
   .about { grid-template-columns: 1fr; gap: 60px; }
-  .about__visual { height: 560px; } /* FIX: era 480px, aumentado para secundária com aspect-ratio */
+  .about__visual { height: 480px; }
   .pillars__header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
   .pillars__grid { grid-template-columns: 1fr; }
   #proposta { grid-template-columns: 1fr; height: auto; }
@@ -520,9 +517,9 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .section__label { font-size: .68rem; letter-spacing: .2em; }
 
   .about { grid-template-columns: 1fr; gap: 36px; padding: 64px 20px; }
-  .about__visual { height: 360px; } /* FIX: era 300px, aumentado para comportar retrato */
+  .about__visual { height: 300px; }
   .about__media { width: 85%; height: 85%; }
-  .about__media-secondary { width: 55%; } /* aspect-ratio: 3/4 herdado — sem height fixo */
+  .about__media-secondary { width: 55%; height: 60%; }
   .about__paragraph { font-size: .95rem; }
   .about__link { font-size: .75rem; }
 
@@ -665,6 +662,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <section class="section" id="sobre">
   <div class="about">
 
+    <!-- VISUAL: dois quadros com imagens reais -->
     <div class="about__visual" id="aboutVisual">
 
       <!-- quadro principal — IMG1 paisagem 1280×853 -->
@@ -677,8 +675,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
         >
       </div>
 
-      <!-- quadro secundário — IMG2 retrato 720×960
-           FIX: container usa aspect-ratio: 3/4 → imagem inteira visível sem corte -->
+      <!-- quadro secundário — IMG2 retrato 720×960 -->
       <div class="about__media-secondary">
         <img
           src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779468868/img2.jpg"
