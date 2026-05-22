@@ -146,44 +146,20 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .section__title--spaced { margin-bottom: 28px; }
 .section__title--flush  { margin-bottom: 0; }
 
-/* ─── SOBRE — visual atualizado ─── */
+/* ─── SOBRE ─── */
 .about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
 
-/* container visual cresce para acomodar a imagem retrato */
+/* Imagem única que preenche todo o lado esquerdo */
 .about__visual {
   position: relative;
-  height: 680px; /* aumentado de 620 → 680 para a secundária retrato */
-}
-
-/* quadro principal: IMG1 paisagem (1280×853) */
-.about__media {
-  position: absolute;
-  top: 0; left: 0;
-  width: 78%; height: 78%;
+  height: 600px;
   overflow: hidden;
 }
-.about__media img {
+.about__visual img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  display: block;
-}
-
-/* quadro secundário: IMG2 retrato (720×960) — mais alto para aproveitar o formato */
-.about__media-secondary {
-  position: absolute;
-  bottom: 0; right: 0;
-  width: 52%;
-  height: 62%; /* era 52% — mais alto para o retrato respirar */
-  border: 1px solid var(--color-line);
-  overflow: hidden;
-}
-.about__media-secondary img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top; /* ancora o rosto/topo da foto */
   display: block;
 }
 
@@ -471,7 +447,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   :root { --section-padding: 100px 40px; }
   .nav { gap: 24px; padding: 10px 20px; }
   .about { grid-template-columns: 1fr; gap: 60px; }
-  .about__visual { height: 480px; }
+  .about__visual { height: 460px; }
   .pillars__header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
   .pillars__grid { grid-template-columns: 1fr; }
   #proposta { grid-template-columns: 1fr; height: auto; }
@@ -517,9 +493,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   .section__label { font-size: .68rem; letter-spacing: .2em; }
 
   .about { grid-template-columns: 1fr; gap: 36px; padding: 64px 20px; }
-  .about__visual { height: 300px; }
-  .about__media { width: 85%; height: 85%; }
-  .about__media-secondary { width: 55%; height: 60%; }
+  .about__visual { height: 280px; }
   .about__paragraph { font-size: .95rem; }
   .about__link { font-size: .75rem; }
 
@@ -662,29 +636,13 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <section class="section" id="sobre">
   <div class="about">
 
-    <!-- VISUAL: dois quadros com imagens reais -->
     <div class="about__visual" id="aboutVisual">
-
-      <!-- quadro principal — IMG1 paisagem 1280×853 -->
-      <div class="about__media">
-        <img
-          src="https://res.cloudinary.com/db4pwya16/image/upload/v1779419741/IMG1.jpg"
-          alt="Obra Invest Hauser"
-          loading="lazy"
-          decoding="async"
-        >
-      </div>
-
-      <!-- quadro secundário — IMG2 retrato 720×960 -->
-      <div class="about__media-secondary">
-        <img
-          src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779468868/img2.jpg"
-          alt="Detalhe construtivo Invest Hauser"
-          loading="lazy"
-          decoding="async"
-        >
-      </div>
-
+      <img
+        src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779484925/img3_bxbu5l.png"
+        alt="Obra Invest Hauser"
+        loading="lazy"
+        decoding="async"
+      >
     </div>
 
     <div class="about__body" id="aboutText">
