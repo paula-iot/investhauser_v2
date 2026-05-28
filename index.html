@@ -211,8 +211,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   width: 100%;
   height: 100%;
   border: none;
-  object-fit: cover;
-  transform: scale(1.1); /* Aumenta um pouco para garantir que preencha e remova bordas */
+  background: var(--color-bg-3);
 }
 
 .valor__image-corner {
@@ -659,10 +658,10 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 <section id="proposta" aria-label="Nossa proposta">
 
   <div class="valor__image" id="valorImage">
-    <div class="valor__image-inner" id="valorImageInner">
+    <div class="valor__image-inner" id="valorImageInner" style="background: var(--color-bg-3);">
       <iframe
-        src="https://player.cloudinary.com/embed/?cloud_name=db4pwya16&public_id=nossapropostainvesthauser&autoplay=true&muted=true&loop=true"
-        style="width:100%; height:100%; border:none; position:absolute; inset:0;"
+        src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto/f_auto/v1779988489/nossaproposta_s23t9o.mp4&autoplay=true&muted=true&loop=true"
+        style="width:100%; height:100%; border:none; position:absolute; inset:0; background: var(--color-bg-3);"
         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
         allowfullscreen>
       </iframe>
