@@ -68,12 +68,17 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .p-hero__label { font-size: .8rem; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 20px; display: block; }
 .p-hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 8vw, 8rem); font-weight: 300; font-style: italic; line-height: 1; }
 
-/* DETAILS */
-.details { padding: 140px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-.details__info { display: flex; flex-direction: column; gap: 40px; }
-.details__label { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 10px; display: block; }
-.details__value { font-size: 1.5rem; color: var(--color-text); }
-.details__desc { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); grid-column: span 2; max-width: 800px; margin-top: 40px; }
+/* CONTENT SECTIONS */
+.p-section { padding: 100px 64px; max-width: 1200px; margin: 0 auto; }
+.p-section__title { font-family: var(--font-sans); font-size: 2rem; font-weight: 600; margin-bottom: 24px; color: var(--color-text); letter-spacing: -0.02em; }
+.p-section__text { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); margin-bottom: 40px; }
+
+/* TABLE STYLE */
+.p-table { width: 100%; border-collapse: collapse; margin-top: 40px; font-family: var(--font-sans); }
+.p-table th { background: var(--color-accent); color: #fff; text-align: left; padding: 16px 24px; font-weight: 600; font-size: 1rem; }
+.p-table td { padding: 16px 24px; border-bottom: 1px solid var(--color-line); color: var(--color-text); font-size: 1rem; }
+.p-table tr:last-child td { border-bottom: 2px solid var(--color-accent); }
+.p-table tr:hover { background: var(--color-bg-2); }
 
 /* GALLERY */
 .gallery { padding: 0 64px 140px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
@@ -88,8 +93,7 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .footer__copy { font-size: .75rem; color: var(--color-muted); }
 
 @media (max-width: 768px) {
-  .details { grid-template-columns: 1fr; padding: 80px 20px; gap: 40px; }
-  .details__desc { grid-column: span 1; }
+  .p-section { padding: 60px 24px; }
   .gallery { padding: 0 20px 80px; grid-template-columns: 1fr; }
   .gallery__item--full { grid-column: span 1; }
   .nav { width: calc(100% - 40px); }
