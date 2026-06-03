@@ -420,18 +420,47 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .footer__copy { font-size: .75rem; color: var(--color-muted); }
 
 @media (max-width: 768px) {
-  .p-section { padding: 60px 24px; }
-  .details { grid-template-columns: 1fr; padding: 80px 20px; gap: 40px; }
-  .details__desc { grid-column: span 1; }
-  .gallery { padding: 0 20px 80px; }
-  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
-  .gallery__item { height: 60vw; }
-  .gallery__item--main { grid-row: span 1; }
-  .gallery__expand { opacity: 1; transform: scale(1); }
-  .nav { width: calc(100% - 40px); }
+  /* NAV */
+  .nav { width: calc(100% - 32px); padding: 10px 16px; }
   .nav__links { display: none; }
+
+  /* CURSOR */
   .cursor { display: none; }
   body { cursor: auto; }
+
+  /* DETAILS */
+  .p-section { padding: 48px 20px; }
+  .details { grid-template-columns: 1fr; padding: 56px 20px; gap: 28px; }
+  .details__desc { grid-column: span 1; margin-top: 0; }
+  .details__value { font-size: 1.2rem; }
+
+  /* TABELA INDICADORES — scroll horizontal */
+  .p-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* SEÇÃO TÉCNICA */
+  .proj__hero { height: 55vh; }
+  .proj__hero-content { padding: 32px 20px; max-width: 100%; }
+  .proj__hero-title { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+  .proj__hero-sub { font-size: .9rem; }
+  .proj__plants { padding: 48px 20px; }
+  .proj__plants-header { margin-bottom: 36px; }
+  .proj__plants-grid { grid-template-columns: 1fr; gap: 36px; }
+  .proj__plant-img-wrap { aspect-ratio: 4/3; }
+  /* botão expand nas plantas sempre visível no mobile */
+  .proj__plant-expand { opacity: 1 !important; transform: scale(1) !important; }
+  .proj__data { grid-template-columns: 1fr; }
+  .proj__data-block { padding: 36px 20px; }
+  .proj__obs-tagline { font-size: 1rem; }
+
+  /* GALLERY */
+  .gallery { padding: 0 20px 64px; }
+  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
+  .gallery__item { height: 64vw; }
+  .gallery__item--main { grid-row: span 1; }
+  .gallery__expand { opacity: 1; transform: scale(1); }
+
+  /* FOOTER */
+  .footer { padding: 36px 20px; flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>
 </head>
