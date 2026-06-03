@@ -103,27 +103,31 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 /* HERO SCROLL INDICATOR */
 .p-hero__scroll {
   position: absolute;
-  bottom: 44px; right: 64px;
+  bottom: 48px;
+  left: 50%; transform: translateX(-50%);
   z-index: 2;
-  display: flex; align-items: center; gap: 10px;
-  font-size: .55rem; letter-spacing: .25em; text-transform: uppercase;
-  color: rgba(255,255,255,.6);
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.75);
 }
 .p-hero__scroll-line {
-  width: 36px; height: 1px;
+  width: 1.5px; height: 56px;
   background: rgba(255,255,255,.2);
   position: relative; overflow: hidden;
+  border-radius: 2px;
 }
 .p-hero__scroll-line::after {
   content: '';
-  position: absolute; inset: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
   background: #fff;
-  transform: translateX(-100%);
-  animation: heroScan 2s 1s infinite ease-in-out;
+  transform: translateY(-100%);
+  animation: heroScanV 1.8s 1s infinite ease-in-out;
 }
-@keyframes heroScan {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(250%); }
+@keyframes heroScanV {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
 }
 
 @media (max-width: 768px) {
@@ -445,6 +449,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 
 gsap.from('.p-hero__title', { y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
 gsap.from('.p-hero__img', { scale: 1.2, duration: 2, ease: 'power2.out' });
+gsap.from('#heroScroll', { opacity: 0, duration: .8, delay: 1.6, ease: 'power3.out' });
 
 gsap.utils.toArray('.p-section__title, .p-section__text, .p-table').forEach(el => {
   gsap.from(el, {
