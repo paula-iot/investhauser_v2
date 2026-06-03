@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vialaggio — Invest Hauser</title>
+<title>Invest Hauser — Construção & Incorporação</title>
+<meta name="description" content="Construção de alto padrão, vendas e gestão de Airbnb. Cada projeto é uma obra de valor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -12,10 +13,10 @@
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: auto; font-size: 16px; }
+
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
 
-/* SCROLL PROGRESS */
 #scroll-progress {
   position: fixed;
   top: 0; right: 0;
@@ -54,9 +55,15 @@ html { scroll-behavior: auto; font-size: 16px; }
   --color-text:     #000000;
   --color-muted:    #777777;
   --color-accent:   #000000;
+  --color-accent-dim: rgba(0,0,0,0.10);
+  --color-black-4:  rgba(0,0,0,0.04);
+  --color-black-8:  rgba(0,0,0,0.08);
+  --color-black-12: rgba(0,0,0,0.12);
+  --color-black-20: rgba(0,0,0,0.20);
   --color-line:     rgba(0,0,0,0.08);
   --font-sans:   'Nunito', sans-serif;
   --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --section-padding: 140px 64px;
 }
 
 body {
@@ -67,339 +74,757 @@ body {
   cursor: none;
 }
 
-/* CURSOR PERSONALIZADO */
-.cursor { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; transition: width .3s, height .3s; }
-.cursor__dot { width: 8px; height: 8px; background: var(--color-text); border-radius: 50%; }
-.cursor__text { 
-    position: absolute; 
-    white-space: nowrap; 
-    font-size: 0.7rem; 
-    letter-spacing: 0.2em; 
-    text-transform: uppercase; 
-    background: var(--color-text); 
-    color: #fff; 
-    padding: 6px 12px; 
-    border-radius: 100px; 
-    opacity: 0; 
-    transform: scale(0.5); 
-    transition: opacity 0.3s, transform 0.3s; 
-    pointer-events: none;
-}
-body:hover .cursor__text { opacity: 1; transform: scale(1); }
+/* CURSOR */
+.cursor { position: fixed; pointer-events: none; z-index: 9999; }
+.cursor__dot { width: 8px; height: 8px; background: var(--color-text); border-radius: 50%; transform: translate(-50%, -50%); transition: width .25s, height .25s; }
+.cursor__ring { width: 40px; height: 40px; border: 1.5px solid var(--color-black-20); border-radius: 50%; transform: translate(-50%, -50%); transition: width .35s, height .35s, border-color .3s; }
+body:has(a:hover, button:hover) .cursor__dot { width: 12px; height: 12px; }
+body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; border-color: var(--color-text); }
+
+/* LOADER */
+.loader { position: fixed; inset: 0; z-index: 2000; background: var(--color-bg); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 28px; transition: opacity .7s ease, visibility .7s ease; }
+.loader--hidden { opacity: 0; visibility: hidden; }
+.loader__percentage { font-family: var(--font-sans); font-size: clamp(5rem, 15vw, 12rem); font-weight: 300; color: var(--color-text); line-height: 1; letter-spacing: -.02em; }
+.loader__track { width: 180px; height: 1px; background: var(--color-black-12); }
+.loader__fill  { height: 100%; width: 0; background: var(--color-text); }
+.loader__label { font-size: .6rem; letter-spacing: .35em; text-transform: uppercase; color: var(--color-muted); }
 
 /* NAV */
-.nav { position: fixed; top: 28px; left: 50%; z-index: 500; transform: translateX(-50%); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border: 1px solid var(--color-line); border-radius: 100px; padding: 12px 28px; display: flex; align-items: center; gap: 40px; }
-.nav__logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: .08em; color: var(--color-text); text-decoration: none; }
+.nav { position: fixed; top: 28px; left: 50%; z-index: 500; transform: translateX(-50%); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--color-black-12); border-radius: 100px; padding: 12px 28px; display: flex; align-items: center; gap: 40px; transition: background .3s ease; }
+.nav__logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: .08em; color: var(--color-text); text-decoration: none; white-space: nowrap; }
+.nav__links { display: flex; gap: 28px; list-style: none; }
 .nav__link { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
 .nav__link:hover { color: var(--color-text); }
+.nav__cta { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-bg); background: var(--color-text); padding: 8px 20px; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: opacity .3s; }
+.nav__cta:hover { opacity: .75; }
 
-/* PROJECT HERO */
-.p-hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
-.p-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-.p-hero__content { position: relative; z-index: 2; text-align: center; color: #fff; }
-.p-hero__label { font-size: .8rem; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 20px; display: block; }
-.p-hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 8vw, 8rem); font-weight: 300; font-style: italic; line-height: 1; }
+/* HERO */
+.hero { position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+.hero__video { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom,rgba(255,255,255,0.15) 0%,rgba(255,255,255,0.50) 50%,rgba(255,255,255,0.95) 100%); }
+.hero__overlay-side { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(255,255,255,0.75) 30%, transparent 70%); }
+.hero__content { position: relative; z-index: 2; padding: 0 64px 64px; width: 100%; display: flex; flex-direction: column; gap: 24px; }
+.hero__eyebrow { display: flex; align-items: center; gap: 14px; font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-accent); }
+.hero__eyebrow-line { width: 32px; height: 1px; background: var(--color-text); flex-shrink: 0; }
+.hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 400; line-height: 1; letter-spacing: -.03em; color: var(--color-text); }
+.hero__title em { font-style: italic; font-weight: 300; }
+.hero__title-line { display: block; }
+.hero__title-char { display: inline-block; }
+.hero__bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 60px; }
+.hero__desc { font-size: 1rem; line-height: 1.9; color: var(--color-muted); max-width: 380px; border-left: 1px solid var(--color-accent-dim); padding-left: 20px; }
+.hero__actions { display: flex; gap: 14px; }
+.hero__scroll { position: absolute; bottom: 44px; right: 64px; z-index: 2; display: flex; align-items: center; gap: 10px; font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-muted); }
+.hero__scroll-line { width: 36px; height: 1px; background: var(--color-black-12); position: relative; overflow: hidden; }
+.hero__scroll-line::after { content: ''; position: absolute; inset: 0; background: var(--color-text); transform: translateX(-100%); animation: scan 2s 3s infinite ease-in-out; }
 
-/* HERO SCROLL INDICATOR */
-.p-hero__scroll {
-  position: absolute;
-  bottom: 48px;
-  left: 50%; transform: translateX(-50%);
-  z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
-  color: rgba(255,255,255,.75);
-}
-.p-hero__scroll-line {
-  width: 1.5px; height: 56px;
-  background: rgba(255,255,255,.2);
-  position: relative; overflow: hidden;
-  border-radius: 2px;
-}
-.p-hero__scroll-line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 40%;
-  background: #fff;
-  transform: translateY(-100%);
-  animation: heroScanV 1.8s 1s infinite ease-in-out;
-}
-@keyframes heroScanV {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(300%); }
-}
+/* BOTÕES */
+.btn { display: inline-block; text-decoration: none; font-family: var(--font-sans); }
+.btn--primary { padding: 14px 36px; background: var(--color-text); color: var(--color-bg); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; position: relative; overflow: hidden; transition: color .4s; }
+.btn--primary::before { content: ''; position: absolute; inset: 0; background: #333333; transform: scaleX(0); transform-origin: right; transition: transform .4s ease; }
+.btn--primary:hover { color: var(--color-bg); }
+.btn--primary:hover::before { transform: scaleX(1); transform-origin: left; }
+.btn--primary__label { position: relative; z-index: 1; }
+.btn--ghost { padding: 14px 36px; border: 1px solid var(--color-black-12); color: var(--color-muted); font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: border-color .3s, color .3s; }
+.btn--ghost:hover { border-color: var(--color-black-20); color: var(--color-text); }
+.btn--outline-light { padding: 14px 36px; border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.6); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; border-radius: 2px; transition: border-color .3s, color .3s; text-decoration: none; display: inline-block; font-family: var(--font-sans); }
+.btn--outline-light:hover { border-color: rgba(255,255,255,.6); color: #fff; }
 
-@media (max-width: 768px) {
-  .p-hero__scroll { display: none; }
-}
+/* MARQUEE */
+.marquee { border-top: 1px solid var(--color-line); border-bottom: 1px solid var(--color-line); overflow: hidden; }
+.marquee__track { display: flex; width: max-content; animation: marquee 24s linear infinite; }
+.marquee__item { padding: 16px 48px; font-family: var(--font-sans); font-size: 1rem; font-style: italic; color: var(--color-muted); white-space: nowrap; display: flex; align-items: center; gap: 20px; border-right: 1px solid var(--color-line); }
+.marquee__dot { color: var(--color-accent); font-style: normal; font-size: .9rem; }
 
-/* CONTENT SECTIONS */
-.p-section { padding: 100px 64px; max-width: 1200px; margin: 0 auto; }
-.p-section__title { font-family: var(--font-sans); font-size: 2rem; font-weight: 600; margin-bottom: 24px; color: var(--color-text); letter-spacing: -0.02em; }
-.p-section__text { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); margin-bottom: 40px; }
-  
-/* DETAILS */
-.details { padding: 140px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-.details__info { display: flex; flex-direction: column; gap: 40px; }
-.details__label { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 10px; display: block; }
-.details__value { font-size: 1.5rem; color: var(--color-text); }
-.details__desc { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); grid-column: span 2; max-width: 800px; margin-top: 40px; }
+/* SEÇÃO BASE */
+.section { padding: var(--section-padding); }
+.section--alt   { background: var(--color-bg-3); }
+.section--alt-2 { background: var(--color-bg-2); }
+.section__label { font-size: .75rem; letter-spacing: .38em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+.section__label::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--color-accent); }
+.section__title { font-family: var(--font-sans); font-size: clamp(2.8rem, 5.5vw, 5.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.03em; color: var(--color-text); }
+.section__title em { font-style: italic; font-weight: 300; }
+.section__title--spaced { margin-bottom: 28px; }
+.section__title--flush  { margin-bottom: 0; }
 
-/* TABLE STYLE */
-.p-table { width: 100%; border-collapse: collapse; margin-top: 40px; font-family: var(--font-sans); }
-.p-table th { background: var(--color-accent); color: #fff; text-align: left; padding: 16px 24px; font-weight: 600; font-size: 1rem; }
-.p-table td { padding: 16px 24px; border-bottom: 1px solid var(--color-line); color: var(--color-text); font-size: 1rem; }
-.p-table tr:last-child td { border-bottom: 2px solid var(--color-accent); }
-.p-table tr:hover { background: var(--color-bg-2); }
-  
-/* GALLERY */
-.gallery { padding: 0 64px 140px; }
-.gallery__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  height: 80vh;
-}
-.gallery__item {
+/* ─── SOBRE ─── */
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+
+/* Imagem única que preenche todo o lado esquerdo */
+.about__visual {
   position: relative;
+  height: 600px;
   overflow: hidden;
-  border-radius: 16px;
-  cursor: pointer;
-  background: var(--color-bg-3);
 }
-.gallery__item--main {
-  grid-row: span 2;
-}
-.gallery__item img {
-  width: 100%; height: 100%;
+.about__visual img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  transition: transform 1.2s ease;
+  object-position: center;
   display: block;
 }
-.gallery__item:hover img { transform: scale(1.04); }
 
-/* BOTÃO EXPAND */
-.gallery__expand {
+.about__body { display: flex; flex-direction: column; }
+.about__paragraph { font-size: 1rem; line-height: 1.95; color: var(--color-muted); margin-bottom: 18px; }
+.about__link { display: inline-flex; align-items: center; gap: 10px; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-text); text-decoration: none; border-bottom: 1px solid var(--color-black-12); padding-bottom: 4px; margin-top: 12px; align-self: flex-start; transition: color .3s, border-color .3s; }
+.about__link:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.about__link::after { content: '→'; transition: transform .3s; }
+.about__link:hover::after { transform: translateX(4px); }
+
+/* DIFERENCIAIS */
+.pillars { padding: var(--section-padding); background: var(--color-bg-2); }
+.pillars__header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 72px; }
+.pillars__intro { font-size: 1rem; color: var(--color-muted); line-height: 1.9; max-width: 400px; }
+.pillars__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line); }
+.pillar-card { background: var(--color-bg-2); padding: 52px 44px 48px; position: relative; overflow: hidden; transition: background .45s ease; }
+.pillar-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--color-text); transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
+.pillar-card:hover { background: var(--color-bg-3); }
+.pillar-card:hover::after { transform: scaleX(1); }
+.pillar-card__num { font-family: var(--font-serif); font-size: 5rem; font-weight: 300; color: var(--color-black-4); line-height: 1; margin-bottom: 32px; letter-spacing: -.02em; display: block; transition: color .4s; }
+.pillar-card:hover .pillar-card__num { color: var(--color-black-8); }
+.pillar-card h3 { font-family: var(--font-sans); font-size: 1.35rem; font-weight: 600; color: var(--color-text); letter-spacing: -.01em; line-height: 1.2; margin-bottom: 16px; }
+.pillar-card p { font-size: 1rem; color: var(--color-muted); line-height: 1.9; }
+.pillar-card__tag { display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); border: 1px solid var(--color-line); padding: 5px 12px; margin-top: 28px; border-radius: 100px; transition: border-color .3s, color .3s; }
+.pillar-card:hover .pillar-card__tag { border-color: var(--color-black-20); color: var(--color-text); }
+
+/* PROPOSTA DE VALOR */
+#proposta {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  background: var(--color-bg-3);
+  z-index: 1;
+}
+
+.valor__image {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+.valor__image-inner {
   position: absolute;
-  top: 14px; right: 14px;
-  width: 36px; height: 36px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(8px);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  border: none; cursor: pointer;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity .25s, transform .25s;
+  inset: 0;
+  will-change: transform;
+}
+.valor__image-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.valor__image-corner {
+  position: absolute;
+  width: 1.5rem; height: 1.5rem;
   z-index: 2;
 }
-.gallery__expand svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2; fill: none; }
-.gallery__item:hover .gallery__expand {
-  opacity: 1;
-  transform: scale(1);
+.valor__image-corner.tl { top: 1.5rem; left: 1.5rem; border-top: 1px solid rgba(255,255,255,.15); border-left: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.tr { top: 1.5rem; right: 1.5rem; border-top: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.bl { bottom: 1.5rem; left: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-left: 1px solid rgba(255,255,255,.15); }
+.valor__image-corner.br { bottom: 1.5rem; right: 1.5rem; border-bottom: 1px solid rgba(255,255,255,.15); border-right: 1px solid rgba(255,255,255,.15); }
+.valor__divider {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--color-line);
+  z-index: 3;
 }
 
-/* LIGHTBOX */
-.lightbox {
-  position: fixed; inset: 0; z-index: 10000;
-  background: rgba(0,0,0,0.92);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden;
-  transition: opacity .35s ease, visibility .35s ease;
+.valor__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 72px 80px 64px;
+  position: relative;
+  z-index: 2;
 }
-.lightbox--open { opacity: 1; visibility: visible; }
-.lightbox__img {
-  max-width: 90vw; max-height: 90vh;
-  object-fit: contain;
-  border-radius: 8px;
-  transform: scale(0.94);
-  transition: transform .35s ease;
+.valor__eyebrow {
+  font-size: .75rem;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.lightbox--open .lightbox__img { transform: scale(1); }
-.lightbox__close {
-  position: absolute; top: 24px; right: 28px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #fff; font-size: 1.4rem; line-height: 1;
-  width: 44px; height: 44px;
-  border-radius: 50%; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
+.valor__eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 22px; height: 1px;
+  background: var(--color-accent);
 }
-.lightbox__close:hover { background: rgba(255,255,255,0.22); }
+.valor__claim {
+  font-family: var(--font-sans);
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  font-weight: 400;
+  color: var(--color-text);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 28px;
+}
+.valor__claim em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--color-text);
+}
+.valor__body {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 2;
+  border-left: 1px solid var(--color-accent-dim);
+  padding-left: 22px;
+  margin-bottom: 24px;
+}
+.valor__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.valor__list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  transition: color .3s;
+}
+.valor__list-item:last-child { border-bottom: none; }
+.valor__list-item:hover { color: var(--color-text); }
+.valor__list-item::before {
+  content: '◆';
+  color: var(--color-black-12);
+  font-size: .42rem;
+  flex-shrink: 0;
+  margin-top: .42em;
+  transition: color .3s;
+}
+.valor__list-item:hover::before { color: var(--color-accent); }
+.valor__actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* PROJETOS */
+.projects {
+  padding: 140px 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  background: var(--color-bg);
+}
+.projects__header { padding: 0 64px; margin-bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; }
+.projects__drag-hint { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); display: flex; align-items: center; gap: 10px; }
+.projects__drag-hint::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--color-muted); }
+.projects__overflow { overflow: hidden; }
+.projects__track { display: flex; gap: 20px; padding: 0 64px; width: max-content; }
+
+/* PROJECT CARD */
+.project-card { width: 440px; flex-shrink: 0; text-decoration: none; color: inherit; display: block; }
+.project-card__media { height: 560px; background: var(--color-bg-2); position: relative; overflow: hidden; margin-bottom: 22px; }
+.project-card__media--tall  { height: 600px; }
+.project-card__media--mid   { height: 520px; }
+.project-card__media--short { height: 480px; }
+.project-card__media-inner { width: 100%; height: 100%; background: linear-gradient(160deg, #1c2022, #0e1214); display: flex; align-items: center; justify-content: center; transition: transform .7s cubic-bezier(.4,0,.2,1); }
+.project-card__media-inner--2 { background: linear-gradient(145deg, #181e22, #0c1214); }
+.project-card__media-inner--3 { background: linear-gradient(145deg, #1a1e20, #0e1214); }
+.project-card__media-inner--4 { background: linear-gradient(145deg, #1c2224, #101618); }
+.project-card__media-inner--5 { background: linear-gradient(145deg, #161c1e, #0a1012); }
+.project-card:hover .project-card__media-inner { transform: scale(1.04); }
+.project-card__num { position: absolute; top: 24px; left: 24px; font-family: var(--font-sans); font-size: 6rem; color: var(--color-black-4); line-height: 1; user-select: none; }
+.project-card__tag { position: absolute; bottom: 24px; left: 24px; font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: var(--color-bg); background: rgba(0,0,0,.75); padding: 6px 14px; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); }
+.project-card__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.5), transparent); }
+.project-card__placeholder { font-family: var(--font-sans); font-size: 1rem; font-style: italic; color: var(--color-muted); letter-spacing: .05em; }
+.project-card__title { font-family: var(--font-sans); font-size: 1.6rem; font-weight: 300; font-style: italic; color: var(--color-text); margin-bottom: 6px; line-height: 1.1; letter-spacing: -.02em; }
+.project-card__meta { font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); }
+.project-card__footer { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--color-line); }
+.project-card__status { display: inline-flex; align-items: center; gap: 8px; font-size: .75rem; letter-spacing: .28em; text-transform: uppercase; font-family: var(--font-sans); }
+.project-card__status::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.project-card__status--done { color: var(--color-text); }
+.project-card__status--done::before { background: var(--color-text); }
+.project-card__status--progress { color: #888888; }
+.project-card__status--progress::before { background: #888888; animation: statusPulse 2.4s ease-in-out infinite; }
+.project-card__status--soon { color: #c0c0c0; }
+.project-card__status--soon::before { background: #c0c0c0; }
+.project-card__access { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-black-20); display: flex; align-items: center; gap: 5px; font-family: var(--font-sans); transition: color .3s; }
+.project-card__access::after { content: '→'; display: inline-block; transition: transform .3s; }
+.project-card:hover .project-card__access { color: var(--color-text); }
+.project-card:hover .project-card__access::after { transform: translateX(4px); }
+.project-card--soon { opacity: .65; transition: opacity .4s; }
+.project-card--soon:hover { opacity: 1; }
+.project-card__media-inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; transition: transform .7s cubic-bezier(.4,0,.2,1); }
+.project-card:hover .project-card__media-inner img { transform: scale(1.04); }
+
+/* SERVIÇOS */
+.services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--color-line); margin-top: 60px; }
+.service-card { background: var(--color-bg-3); padding: 52px 44px; position: relative; overflow: hidden; cursor: pointer; }
+.service-card::before { content: ''; position: absolute; inset: 0; background: #000000; opacity: 0; transition: opacity .4s; z-index: 0; }
+.service-card > * { position: relative; z-index: 1; }
+.service-card:hover::before { opacity: 1; }
+.service-card__accent { width: 0; height: 1px; background: var(--color-text); margin-bottom: 36px; transition: width .5s ease; }
+.service-card:hover .service-card__accent { width: 36px; background: #ffffff; }
+.service-card__num { font-family: var(--font-sans); font-size: 4rem; color: var(--color-black-4); line-height: 1; margin-bottom: 20px; transition: color .4s; }
+.service-card:hover .service-card__num { color: rgba(255,255,255,.1); }
+.service-card__title { font-family: var(--font-sans); font-size: 1.5rem; font-weight: 600; color: var(--color-text); margin-bottom: 14px; line-height: 1.2; letter-spacing: -.01em; transition: color .4s; }
+.service-card:hover .service-card__title { color: #ffffff; }
+.service-card__desc { font-size: 1rem; color: var(--color-muted); line-height: 1.85; transition: color .4s; }
+.service-card:hover .service-card__desc { color: rgba(255,255,255,.6); }
+.service-card__arrow { position: absolute; bottom: 44px; right: 44px; z-index: 1; color: var(--color-text); font-size: 1.1rem; opacity: 0; transform: translate(-5px, 5px); transition: opacity .3s, transform .3s, color .4s; }
+.service-card:hover .service-card__arrow { opacity: 1; transform: translate(0,0); color: #ffffff; }
+
+/* AIRBNB */
+.airbnb { min-height: 100vh; background: var(--color-bg-2); display: flex; align-items: center; justify-content: center; padding: 120px 64px; position: relative; overflow: hidden; }
+.airbnb::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(0,0,0,.02), transparent); }
+.airbnb::after { content: 'AIRBNB'; position: absolute; bottom: -80px; right: -40px; font-family: var(--font-sans); font-size: clamp(10rem, 20vw, 22rem); color: rgba(0,0,0,.02); line-height: 1; user-select: none; letter-spacing: -.02em; }
+.airbnb__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 120px; align-items: center; position: relative; z-index: 1; max-width: 1200px; }
+.airbnb__quote-mark { font-family: var(--font-sans); font-size: 7rem; color: var(--color-accent-dim); line-height: .5; margin-bottom: 32px; }
+.airbnb__claim { font-family: var(--font-sans); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; line-height: 1.2; font-style: italic; color: var(--color-text); margin-bottom: 36px; }
+.airbnb__claim em { color: var(--color-accent); font-style: normal; }
+.airbnb__body { font-size: 1rem; color: var(--color-muted); line-height: 1.9; margin-bottom: 36px; }
+.airbnb__features { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+.airbnb__feature { display: flex; align-items: flex-start; gap: 14px; font-size: 1rem; color: var(--color-muted); line-height: 1.6; }
+.airbnb__feature::before { content: '◆'; color: var(--color-accent); flex-shrink: 0; font-size: .5rem; margin-top: .3em; }
+.airbnb__visual { position: relative; height: 500px; }
+.airbnb__media { width: 100%; height: 100%; background: var(--color-bg-3); border: 1px solid var(--color-line); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+.airbnb__media-inner { width: 100%; height: 100%; background: linear-gradient(145deg, #181c1e, #0d1012); display: flex; align-items: center; justify-content: center; }
+.airbnb__media-placeholder { font-family: var(--font-sans); font-size: .9rem; font-style: italic; color: var(--color-black-12); letter-spacing: .08em; }
+.airbnb__media-tag { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; border-top: 1px solid rgba(255,255,255,0.15); background: rgba(0,0,0,.75); backdrop-filter: blur(10px); }
+.airbnb__media-tag-label { font-size: .75rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+.airbnb__media-tag-value { font-family: var(--font-sans); font-size: 1.8rem; font-weight: 300; color: #ffffff; line-height: 1; }
+
+/* CTA */
+.cta { background: var(--color-bg-2); padding: 160px 64px; display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; border-top: 1px solid var(--color-line); }
+.cta__title { font-family: var(--font-sans); font-size: clamp(3rem, 7vw, 7.5rem); font-weight: 400; line-height: .95; letter-spacing: -.02em; color: var(--color-text); }
+.cta__title em { font-style: italic; font-weight: 300; color: var(--color-accent); }
+.cta__body { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.cta__desc { font-size: 1rem; color: var(--color-muted); line-height: 1.8; max-width: 320px; }
+.cta__link-ghost { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
+.cta__link-ghost:hover { color: var(--color-accent); }
+.cta__link-ghost::after { content: '↗'; transition: transform .3s; }
+.cta__link-ghost:hover::after { transform: translate(3px,-3px); }
 
 /* FOOTER */
-.footer { padding: 60px 64px; border-top: 1px solid var(--color-line); display: flex; justify-content: space-between; align-items: center; }
-.footer__logo { font-family: var(--font-sans); font-size: 1.1rem; font-weight: 600; }
-.footer__copy { font-size: .75rem; color: var(--color-muted); }
+.footer { background: var(--color-bg); padding: 44px 64px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--color-line); }
+.footer__logo { font-family: var(--font-sans); font-size: 1.2rem; font-weight: 300; letter-spacing: .1em; color: var(--color-muted); }
+.footer__links { display: flex; gap: 28px; list-style: none; }
+.footer__link { font-size: .75rem; letter-spacing: .18em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
+.footer__link:hover { color: var(--color-text); }
+.footer__copy { font-size: .75rem; color: var(--color-muted); letter-spacing: .08em; text-align: right; line-height: 1.7; }
+
+/* GRAIN */
+.grain { position: fixed; inset: 0; z-index: 9000; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E"); opacity: .6; }
+
+/* BADGE */
+.mag-badge { position: fixed; z-index: 8999; width: 120px; height: 120px; pointer-events: none; transform: translate(-50%, -50%); opacity: 0; transition: opacity .4s ease; animation: spinBadge 10s linear infinite; color: var(--color-text); }
+.mag-badge--visible { opacity: 1; }
+.mag-badge__svg { width: 100%; height: 100%; }
+
+/* KEYFRAMES */
+@keyframes marquee   { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes scan      { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+@keyframes spinBadge { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+@keyframes statusPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .3; transform: scale(.75); } }
+
+/* RESPONSIVO */
+@media (max-width: 1024px) {
+  :root { --section-padding: 100px 40px; }
+  .nav { gap: 24px; padding: 10px 20px; }
+  .about { grid-template-columns: 1fr; gap: 60px; }
+  .about__visual { height: 460px; }
+  .pillars__header { grid-template-columns: 1fr; gap: 24px; margin-bottom: 48px; }
+  .pillars__grid { grid-template-columns: 1fr; }
+  #proposta { grid-template-columns: 1fr; height: auto; }
+  .valor__image { height: 50vw; min-height: 320px; }
+  .valor__content { padding: 60px 40px; }
+  .projects__header { padding: 0 40px; }
+  .projects__track { padding: 0 40px; }
+  .project-card { width: 360px; }
+  .services__grid { grid-template-columns: repeat(2, 1fr); }
+  .airbnb__inner { grid-template-columns: 1fr; gap: 60px; }
+  .cta { grid-template-columns: 1fr; gap: 48px; padding: 100px 40px; }
+  .footer { flex-direction: column; gap: 28px; text-align: center; }
+  .footer__copy { text-align: center; }
+}
 
 @media (max-width: 768px) {
-  .p-section { padding: 60px 24px; }
-  .details { grid-template-columns: 1fr; padding: 80px 20px; gap: 40px; }
-  .details__desc { grid-column: span 1; }
-  .gallery { padding: 0 20px 80px; }
-  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
-  .gallery__item { height: 60vw; }
-  .gallery__item--main { grid-row: span 1; }
-  .gallery__expand { opacity: 1; transform: scale(1); }
-  .nav { width: calc(100% - 40px); }
-  .nav__links { display: none; }
+  :root { --section-padding: 64px 20px; }
+
   .cursor { display: none; }
   body { cursor: auto; }
+  .mag-badge { display: none; }
+
+  .nav { top: 16px; padding: 10px 16px; gap: 12px; width: calc(100% - 32px); justify-content: space-between; }
+  .nav__links { display: none; }
+  .nav__logo { font-size: .9rem; }
+  .nav__cta { font-size: .7rem; padding: 7px 14px; }
+
+  .hero__content { padding: 0 20px 40px; }
+  .hero__title { font-size: clamp(2rem, 9vw, 3.2rem); }
+  .hero__eyebrow { font-size: .65rem; letter-spacing: .15em; }
+  .hero__desc { font-size: .95rem; max-width: 100%; }
+  .hero__bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero__actions { flex-direction: column; width: 100%; }
+  .hero__actions .btn { width: 100%; text-align: center; }
+  .hero__scroll { display: none; }
+
+  .btn--primary { font-size: .75rem; padding: 14px 24px; }
+  .btn--ghost    { font-size: .75rem; padding: 14px 24px; }
+
+  .marquee__item { padding: 12px 24px; font-size: .9rem; }
+
+  .section__title { font-size: clamp(1.9rem, 7vw, 2.8rem); }
+  .section__label { font-size: .68rem; letter-spacing: .2em; }
+
+  .about { grid-template-columns: 1fr; gap: 36px; padding: 64px 20px; }
+  .about__visual { height: 320px; }
+  .pillar-card { padding: 36px 20px; }
+  .pillar-card__num { font-size: 3.5rem; }
+
+  #proposta { grid-template-columns: 1fr; }
+  .valor__image { height: 65vw; }
+  .valor__content { padding: 48px 20px; }
+  .valor__claim { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+
+  .projects { padding: 64px 0; }
+  .projects__header { padding: 0 20px; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 32px; }
+  .projects__track { padding: 0 20px; gap: 16px; }
+  .project-card { width: 280px; }
+  .project-card__media { height: 360px; }
+  .project-card__title { font-size: 1.3rem; }
+
+  .services__grid { grid-template-columns: 1fr; }
+  .service-card { padding: 36px 24px; }
+
+  .airbnb { padding: 64px 20px; }
+  .airbnb__inner { gap: 40px; }
+  .airbnb__visual { height: 320px; }
+  .airbnb__media-tag { padding: 16px; }
+  .airbnb__media-tag-value { font-size: 1.4rem; }
+
+  .cta { padding: 64px 20px; gap: 32px; }
+  .cta__title { font-size: clamp(2rem, 10vw, 3rem); }
+
+  .footer { padding: 40px 20px; }
 }
 </style>
 </head>
 <body>
 
-<!-- SCROLL PROGRESS -->
 <div id="scroll-progress" aria-hidden="true">
   <div id="scroll-progress-fill"></div>
 </div>
 
-<nav class="nav">
-  <a href="../index.html" class="nav__logo">Invest.Hauser</a>
-  <div class="nav__links">
-    <a href="../index.html" class="nav__link">Voltar ao Início</a>
-  </div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="mag-badge" id="magBadge" aria-hidden="true">
+  <svg class="mag-badge__svg" viewBox="0 0 120 120">
+    <path id="magTextPath" fill="none" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0"/>
+    <text font-family="Nunito,sans-serif" font-size="10.5" fill="currentColor" letter-spacing="3.5">
+      <textPath href="#magTextPath">DA OBRA AO LUCRO · </textPath>
+    </text>
+  </svg>
+</div>
+
+<div class="cursor" id="cursorDot" style="position:fixed;top:0;left:0;"><div class="cursor__dot"></div></div>
+<div class="cursor" id="cursorRing" style="position:fixed;top:0;left:0;"><div class="cursor__ring"></div></div>
+
+<div class="loader" id="loader">
+  <div class="loader__percentage" id="loaderPct">0</div>
+  <div class="loader__track"><div class="loader__fill" id="loaderFill"></div></div>
+  <div class="loader__label">Invest Hauser</div>
+</div>
+
+<nav class="nav" id="nav">
+  <a href="#" class="nav__logo">Invest.Hauser</a>
+  <ul class="nav__links">
+    <li><a href="#sobre"       class="nav__link">Empresa</a></li>
+    <li><a href="#diferenciais" class="nav__link">Diferenciais</a></li>
+    <li><a href="#projetos"    class="nav__link">Projetos</a></li>
+    <li><a href="#airbnb"      class="nav__link">Airbnb</a></li>
+  </ul>
+  <a href="#cta" class="nav__cta">Falar conosco</a>
 </nav>
 
-<div class="cursor" id="cursor">
-    <div class="cursor__text">Vialaggio</div>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <video class="hero__video" id="heroVideo" autoplay muted loop playsinline>
+    <source src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto,f_auto/hero1.webm" type="video/webm">
+    <source src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto,f_auto/hero1.mp4"  type="video/mp4">
+  </video>
+  <div class="hero__overlay" aria-hidden="true"></div>
+  <div class="hero__overlay-side" aria-hidden="true"></div>
+  <div class="hero__content">
+    <div class="hero__eyebrow" id="heroEyebrow">
+      <div class="hero__eyebrow-line"></div>
+      Construção · Vendas · Airbnb — Curitiba
+    </div>
+    <h1 class="hero__title" id="heroTitle">
+      <span class="hero__title-line"><span id="titleL1"></span></span>
+      <span class="hero__title-line"><span id="titleL2"></span></span>
+      <span class="hero__title-line"><em id="titleL3"></em></span>
+    </h1>
+    <div class="hero__bottom">
+      <p class="hero__desc" id="heroDesc">Seu terreno ou imóvel tem potencial para gerar renda passiva todo mês. A Invest Hauser cuida de tudo — da obra à primeira reserva confirmada.</p>
+      <div class="hero__actions" id="heroActions">
+        <a href="https://wa.me/5541999999999" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn--primary__label">Falar no WhatsApp</span></a>
+        <a href="#projetos" class="btn btn--ghost">Ver projetos</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll" id="heroScroll"><div class="hero__scroll-line"></div>Scroll</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee__track">
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Construção Residencial</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Venda de Imóveis</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Gestão Airbnb</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Empreitada Geral</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Incorporação</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Alto Padrão</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Construção Residencial</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Venda de Imóveis</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Gestão Airbnb</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Empreitada Geral</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Incorporação</div>
+    <div class="marquee__item"><span class="marquee__dot">✦</span>Alto Padrão</div>
+  </div>
 </div>
 
-<section class="p-hero">
-  <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507932/capa_vialaggio.png" class="p-hero__img" alt="Parque Tanguá">
-  <div class="p-hero__scroll" id="heroScroll">
-    <div class="p-hero__scroll-line"></div>
-    Scroll
-  </div>
-</section>
+<!-- SOBRE -->
+<section class="section" id="sobre">
+  <div class="about">
 
-<section class="details">
-  <div>
-    <span class="details__label">Localização</span>
-    <p class="details__value">Curitiba, PR</p>
-  </div>
-  <div>
-    <span class="details__label">Área</span>
-    <p class="details__value">365m² aprox.</p>
-  </div>
-  <div>
-    <span class="details__label">Ano</span>
-    <p class="details__value">2027</p>
-  </div>
-  <div>
-    <span class="details__label">Status</span>
-    <p class="details__value">Em construção</p>
-  </div>
-  <p class="details__desc">
-    Localizado em uma das áreas mais nobres de Curitiba. Com uma arquitetura contemporânea que prioriza a iluminação natural e a integração com a natureza exuberante do entorno, cada detalhe foi planejado para oferecer o máximo em conforto e sofisticação.
-  </p>
-</section>
-
-<section class="p-section">
-  <h2 class="p-section__title">Programa Arquitetônico</h2>
-  <p class="p-section__text">
-    O empreendimento contará com 15 suítes privativas distribuídas ao longo de uma viela central temática, além de áreas gourmet, wine lounge e mezanino panorâmico.
-  </p>
-
-  <h2 class="p-section__title">Modelo de Negócio</h2>
-  <p class="p-section__text">
-    Operação híbrida entre Pool Hoteleiro e Airbnb, permitindo elevada ocupação e maximização de rentabilidade.
-  </p>
-
-  <h2 class="p-section__title">Experiência de Destino</h2>
-  <p class="p-section__text">
-    A ambientação temática transforma a hospedagem em uma experiência sensorial e turística exclusiva.
-  </p>
-
-  <h2 class="p-section__title">O Parque Tanguá — Um dos Cartões-Postais de Curitiba</h2>
-  <p class="p-section__text">
-    O Parque Tanguá é reconhecido como um dos locais turísticos mais visitados e fotografados de Curitiba. Com jardins em estilo europeu, lagos, mirantes panorâmicos e um dos pores do sol mais famosos da cidade, o parque atrai visitantes diariamente. Sua infraestrutura oferece áreas de contemplação, ciclovias, cascatas artificiais e espaços de convivência, transformando a região em um polo de turismo e lazer de alto valor agregado. A localização da Parque Tanguá em frente ao parque cria um diferencial competitivo extremamente raro, permitindo ao empreendimento unir hospedagem temática, experiência turística e valorização imobiliária. Além da relevância turística, o Vialaggio agrega: • forte fluxo de visitantes; • elevado potencial para hospedagem premium; • valorização constante da região; • grande apelo visual e digital; • potencial para experiências gastronômicas e eventos.
-  </p>
-
-  <table class="p-table">
-    <thead>
-      <tr>
-        <th>Indicador</th>
-        <th>Estimativa</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Número de suítes</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>Diária média</td>
-        <td>R$ 420</td>
-      </tr>
-      <tr>
-        <td>Ocupação média</td>
-        <td>68% a 78%</td>
-      </tr>
-      <tr>
-        <td>Receita mensal estimada</td>
-        <td>R$ 138.600</td>
-      </tr>
-      <tr>
-        <td>Receita anual estimada</td>
-        <td>R$ 1,66 milhão</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-  
-<section class="gallery">
-  <div class="gallery__grid">
-
-    <!-- Imagem principal — ocupa as 2 linhas à esquerda -->
-    <div class="gallery__item gallery__item--main" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1779468868/img2.jpg">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — Vista Principal">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
+    <div class="about__visual" id="aboutVisual">
+      <img
+        src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779484925/img3_bxbu5l.png"
+        alt="Obra Invest Hauser"
+        loading="lazy"
+        decoding="async"
+      >
     </div>
 
-    <!-- Imagem superior direita -->
-    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" alt="Vialaggio — Pavimento Superior">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
+    <div class="about__body" id="aboutText">
+      <div class="section__label">Quem somos</div>
+      <h2 class="section__title section__title--spaced">Valor real em<br>cada <em>m².</em></h2>
+      <p class="about__paragraph">Seu imóvel pode estar gerando renda passiva todo mês — sem que você precise se envolver no dia a dia. Reunimos construção, decoração e gestão em uma única operação para que seu patrimônio trabalhe enquanto você vive.</p>
+      <p class="about__paragraph">Você conta com uma equipe especializada em cada etapa: da obra ao anúncio otimizado no Airbnb, do primeiro hóspede ao repasse mensal na sua conta.</p>
+      <a href="https://wa.me/5541999999999" class="about__link" target="_blank" rel="noopener">Falar no WhatsApp</a>
     </div>
-
-    <!-- Imagem inferior direita -->
-    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" alt="Vialaggio — Térreo">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
-    </div>
-
   </div>
 </section>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualizar imagem">
-  <button class="lightbox__close" id="lightboxClose" aria-label="Fechar">✕</button>
-  <img class="lightbox__img" id="lightboxImg" src="" alt="">
-</div>
-  
+<!-- DIFERENCIAIS -->
+<section class="pillars" id="diferenciais">
+  <div class="pillars__header">
+    <div>
+      <div class="section__label">Por que a Invest Hauser</div>
+      <h2 class="section__title">O que nos<br><em>diferencia.</em></h2>
+    </div>
+    <p class="pillars__intro">Enquanto o mercado separa quem constrói de quem administra, a Invest Hauser reúne tudo sob uma única responsabilidade — do primeiro tijolo ao último check-out.</p>
+  </div>
+  <div class="pillars__grid" id="pillarsGrid">
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">01</span>
+      <h3>Integração total</h3>
+      <p>Você tem um único ponto de contato para tudo. Sem coordenar fornecedores, sem cobrar prazo de ninguém — você acompanha o resultado enquanto cuidamos de cada detalhe.</p>
+      <span class="pillar-card__tag">Exclusivo em Curitiba</span>
+    </div>
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">02</span>
+      <h3>Construído para performar</h3>
+      <p>Cada projeto é desenvolvido com foco em ocupação máxima no Airbnb. Layout, materiais e comodidades são escolhidos para gerar avaliações 5 estrelas e reservas constantes.</p>
+      <span class="pillar-card__tag">Design orientado ao retorno</span>
+    </div>
+    <div class="pillar-card">
+      <span class="pillar-card__num" aria-hidden="true">03</span>
+      <h3>Transparência garantida</h3>
+      <p>Relatório mensal com receita, ocupação e histórico de crescimento. Prazo de obra definido em contrato. Sem surpresas, sem intermediários, sem desculpas.</p>
+      <span class="pillar-card__tag">Relatório mensal incluso</span>
+    </div>
+  </div>
+</section>
 
+<!-- PROPOSTA DE VALOR -->
+<section id="proposta" aria-label="Nossa proposta">
+
+  <div class="valor__image" id="valorImage">
+    <div class="valor__image-inner" id="valorImageInner">
+      <video autoplay muted loop playsinline controls style="width:100%; height:100%; object-fit:cover; display:block;">
+        <source src="https://res.cloudinary.com/db4pwya16/video/upload/q_auto,f_auto/nossaproposta_s23t9o.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="valor__image-corner tl"></div>
+    <div class="valor__image-corner tr"></div>
+    <div class="valor__image-corner bl"></div>
+    <div class="valor__image-corner br"></div>
+  </div>
+
+  <div class="valor__divider" aria-hidden="true"></div>
+
+  <div class="valor__content" id="valorContent">
+    <div class="valor__eyebrow">Nossa proposta</div>
+    <h2 class="valor__claim">
+      Do terreno vazio<br>
+      à renda passiva —<br>
+      <em>sem você mover um dedo.</em>
+    </h2>
+    <p class="valor__body">
+      A Invest Hauser existe para transformar imóveis em ativos que trabalham por você. Seja construindo do zero, reformando o que já existe ou gerenciando a operação no Airbnb — o resultado é sempre o mesmo: mais renda, menos trabalho.
+    </p>
+    <ul class="valor__list">
+      <li class="valor__list-item">Projeto arquitetônico com foco em rentabilidade</li>
+      <li class="valor__list-item">Mobiliação e decoração estratégica para o Airbnb</li>
+      <li class="valor__list-item">Publicação, precificação e gestão de hóspedes</li>
+      <li class="valor__list-item">Limpeza, manutenção e reposição de itens</li>
+      <li class="valor__list-item">Relatório mensal de performance e repasse</li>
+    </ul>
+    <div class="valor__actions">
+      <a href="https://wa.me/5541999999999" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn--primary__label">Falar no WhatsApp</span></a>
+      <a href="#projetos" class="btn btn--ghost">Ver projetos</a>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROJETOS -->
+<section class="projects" id="projetos">
+  <div class="projects__header">
+    <div>
+      <div class="section__label">Portfólio</div>
+      <h2 class="section__title">Nossas <em>obras.</em></h2>
+    </div>
+    <div class="projects__drag-hint">Arraste para ver</div>
+  </div>
+  <div class="projects__overflow">
+    <div class="projects__track" id="projectsTrack">
+       <a href="projetos/parque-tangua.html" class="project-card">
+        <div class="project-card__media"><div class="project-card__media-inner"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Residência Alphaville" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">01</span><div class="project-card__tag">Airbnb</div></div>
+        <h3 class="project-card__title">Parque Tanguá</h3>
+        <p class="project-card__meta">Parque Tanguá, Curitiba · 365m² · DEZ, 2027</p>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--progress">Em andamento</span><span class="project-card__access">Ver projeto</span></div>
+      </a>
+      <a href="/projetos/chale-campos-do-jordao" class="project-card">
+        <div class="project-card__media project-card__media--short"><div class="project-card__media-inner project-card__media-inner--2"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486531/Captura_de_tela_2026-05-22_184829_j5dmda.png" alt="Chalé Campos do Jordão" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">02</span><div class="project-card__tag">Comercial</div></div>
+        <h3 class="project-card__title">Medical & Studio</h3>
+        <p class="project-card__meta">Curitiba, PR · 7.700m² · MAIO 2028</p>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--progress">Em andamento</span><span class="project-card__access">Ver projeto</span></div>
+      </a>
+      <a href="/projetos/comercial-granja-viana" class="project-card">
+        <div class="project-card__media project-card__media--tall"><div class="project-card__media-inner project-card__media-inner--3"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">03</span><div class="project-card__tag">Comercial</div></div>
+        <h3 class="project-card__title">Comercial Granja Viana</h3>
+        <p class="project-card__meta">Cotia, SP · 280m² · 2023</p>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--soon">Em breve</span><span class="project-card__access">Ver projeto</span></div>
+      </a>
+      <a href="/projetos/condominio-hills" class="project-card">
+        <div class="project-card__media"><div class="project-card__media-inner project-card__media-inner--4"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">04</span><div class="project-card__tag">Incorporação</div></div>
+        <h3 class="project-card__title">Condomínio Hills</h3>
+        <p class="project-card__meta">Vila Mariana, SP · 12 unid. · 2022</p>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
+      </a>
+      <a href="/projetos/casa-temporada-ibiuna" class="project-card project-card--soon">
+        <div class="project-card__media project-card__media--mid"><div class="project-card__media-inner project-card__media-inner--5"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">05</span><div class="project-card__tag">Airbnb</div></div>
+        <h3 class="project-card__title">Casa Temporada Ibiúna</h3>
+        <p class="project-card__meta">Ibiúna, SP · Alta ocupação · 2024</p>
+        <div class="project-card__footer"><span class="project-card__status project-card__status--soon">Em breve</span><span class="project-card__access">Em breve</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="section section--alt-2" id="servicos">
+  <div class="section__label">Especialidades</div>
+  <h2 class="section__title section__title--flush">O que <em>fazemos.</em></h2>
+  <div class="services__grid">
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">01</span><h3 class="service-card__title">Construção Residencial</h3><p class="service-card__desc">Casas, sobrados e condomínios construídos com materiais de primeira linha, equipe própria e cronograma rigoroso.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">02</span><h3 class="service-card__title">Empreitada Geral</h3><p class="service-card__desc">Assumimos obras como empreiteiros gerais para construtoras e incorporadoras. Gestão completa de mão de obra e materiais.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">03</span><h3 class="service-card__title">Venda de Imóveis</h3><p class="service-card__desc">Comercializamos imóveis próprios e de parceiros com consultoria completa para compradores e investidores.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">04</span><h3 class="service-card__title">Gestão Airbnb</h3><p class="service-card__desc">Administramos seu imóvel como se fosse nosso. Anúncio, precificação dinâmica, check-in, limpeza e manutenção.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">05</span><h3 class="service-card__title">Reformas e Upgrades</h3><p class="service-card__desc">Reformas estruturais e de acabamento para valorizar o imóvel antes da venda ou locação.</p><span class="service-card__arrow">↗</span></div>
+    <div class="service-card"><div class="service-card__accent"></div><span class="service-card__num">06</span><h3 class="service-card__title">Consultoria de Investimento</h3><p class="service-card__desc">Ajudamos investidores a identificar terrenos com potencial, calcular retorno e executar a estratégia.</p><span class="service-card__arrow">↗</span></div>
+  </div>
+</section>
+
+<!-- AIRBNB -->
+<section class="airbnb" id="airbnb">
+  <div class="airbnb__inner">
+    <div class="airbnb__text">
+      <div class="section__label" style="margin-bottom:28px;">Gestão de Temporada</div>
+      <p class="airbnb__claim">Seu imóvel trabalhando por você — <em>todos os dias.</em></p>
+      <p class="airbnb__body">Você recebe renda todo mês enquanto cuidamos de absolutamente tudo no seu imóvel — sem ligações para resolver problema, sem dor de cabeça com hóspede, sem surpresa no final do mês.</p>
+      <ul class="airbnb__features">
+        <li class="airbnb__feature">Fotografia profissional e anúncio otimizado</li>
+        <li class="airbnb__feature">Precificação dinâmica com base na demanda</li>
+        <li class="airbnb__feature">Check-in automatizado e suporte 24h ao hóspede</li>
+        <li class="airbnb__feature">Limpeza, manutenção e reposição de itens</li>
+        <li class="airbnb__feature">Relatório mensal de performance e repasse</li>
+      </ul>
+      <a href="https://wa.me/5541999999999" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn--primary__label">Falar no WhatsApp</span></a>
+    </div>
+    <div class="airbnb__visual">
+      <div class="airbnb__media">
+        <div class="airbnb__media-inner"><span class="airbnb__media-placeholder">Foto do imóvel</span></div>
+        <div class="airbnb__media-tag">
+          <div class="airbnb__media-tag-label">Taxa de ocupação média</div>
+          <div class="airbnb__media-tag-value"><span class="js-count" data-target="87">0</span>%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="cta">
+  <h2 class="cta__title">Seu imóvel pode começar<br>a gerar renda <em>este ano.</em></h2>
+  <div class="cta__body">
+    <p class="cta__desc">Diagnóstico gratuito: avaliamos seu terreno ou imóvel e mostramos o potencial de retorno real no Airbnb. Sem compromisso.</p>
+    <a href="https://wa.me/5541999999999" class="btn btn--primary" target="_blank" rel="noopener"><span class="btn--primary__label">Falar no WhatsApp</span></a>
+    <a href="tel:+5541999999999" class="cta__link-ghost">Ligar agora</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
   <div class="footer__logo">Invest.Hauser</div>
+  <nav aria-label="Rodapé">
+    <ul class="footer__links">
+      <li><a href="#sobre"        class="footer__link">Empresa</a></li>
+      <li><a href="#diferenciais" class="footer__link">Diferenciais</a></li>
+      <li><a href="#projetos"     class="footer__link">Projetos</a></li>
+      <li><a href="#servicos"     class="footer__link">Serviços</a></li>
+      <li><a href="#airbnb"       class="footer__link">Airbnb</a></li>
+      <li><a href="#cta"          class="footer__link">Contato</a></li>
+    </ul>
+  </nav>
   <div class="footer__copy">© 2026 Invest Hauser · Curitiba, PR</div>
 </footer>
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+const lenis = new Lenis({
+  duration: 1.25,
+  easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  orientation: 'vertical',
+  smoothWheel: true,
+  touchMultiplier: 1.8,
+  infinite: false,
+});
 
-/* SCROLL PROGRESS */
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
 const progressFill = document.getElementById('scroll-progress-fill');
 const isMobileProgress = () => window.innerWidth <= 768;
 lenis.on('scroll', ({ progress }) => {
@@ -413,57 +838,173 @@ lenis.on('scroll', ({ progress }) => {
   }
 });
 
-lenis.on('scroll', ScrollTrigger.update);
-gsap.ticker.add(time => lenis.raf(time * 1000));
-gsap.ticker.lagSmoothing(0);
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) lenis.scrollTo(target, { offset: 0, duration: 1.6, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+  });
+});
+
+/* BADGE MAGNÉTICO */
+const magBadge = document.getElementById('magBadge');
+const aboutSec = document.getElementById('sobre');
+let badgeX = window.innerWidth/2, badgeY = window.innerHeight/2, targetX = badgeX, targetY = badgeY, badgeVisible = false;
+document.addEventListener('mousemove', e => {
+  targetX = e.clientX; targetY = e.clientY;
+  const r = aboutSec.getBoundingClientRect();
+  const inside = e.clientY >= r.top && e.clientY <= r.bottom && e.clientX >= r.left && e.clientX <= r.right;
+  if (inside && !badgeVisible)  { magBadge.classList.add('mag-badge--visible');    badgeVisible = true; }
+  if (!inside && badgeVisible)  { magBadge.classList.remove('mag-badge--visible'); badgeVisible = false; }
+});
+(function animBadge() { badgeX += (targetX-badgeX)*.08; badgeY += (targetY-badgeY)*.08; magBadge.style.left=badgeX+'px'; magBadge.style.top=badgeY+'px'; requestAnimationFrame(animBadge); })();
 
 /* CURSOR */
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-    gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-});
+const cursorDot = document.getElementById('cursorDot'), cursorRing = document.getElementById('cursorRing');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursorDot.style.left=mx+'px'; cursorDot.style.top=my+'px'; });
+(function animRing() { rx+=(mx-rx)*.1; ry+=(my-ry)*.1; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
 
-/* LIGHTBOX */
-const lightbox    = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightboxImg');
-const lightboxClose = document.getElementById('lightboxClose');
+/* LOADER */
+const pctEl=document.getElementById('loaderPct'), fillEl=document.getElementById('loaderFill');
+let p=0, done=false;
+const loaderInterval = setInterval(() => {
+  p = Math.min(p + Math.random()*9+2, 99);
+  pctEl.textContent = Math.floor(p); fillEl.style.width = p+'%';
+  if (p>=99 && !done) {
+    done=true; clearInterval(loaderInterval);
+    setTimeout(()=>{ pctEl.textContent='100'; fillEl.style.width='100%';
+      setTimeout(()=>{ document.getElementById('loader').classList.add('loader--hidden'); boot(); }, 400);
+    }, 200);
+  }
+}, 80);
 
-document.querySelectorAll('.gallery__item').forEach(item => {
-  const btn = item.querySelector('.gallery__expand');
-  const open = () => {
-    lightboxImg.src = item.dataset.src;
-    lightbox.classList.add('lightbox--open');
-    document.body.style.overflow = 'hidden';
-  };
-  btn.addEventListener('click', e => { e.stopPropagation(); open(); });
-  item.addEventListener('click', open);
-});
+function splitChars(el, text) {
+  el.innerHTML = text.split('').map(c => c===' '
+    ? '<span class="hero__title-char" style="display:inline-block;width:.25em"> </span>'
+    : `<span class="hero__title-char" style="display:inline-block">${c}</span>`
+  ).join('');
+  return el.querySelectorAll('.hero__title-char');
+}
 
-const closeLightbox = () => {
-  lightbox.classList.remove('lightbox--open');
-  document.body.style.overflow = '';
-};
-lightboxClose.addEventListener('click', closeLightbox);
-lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+function boot() {
+  gsap.from('#nav', { y:-40, opacity:0, duration:.9, ease:'power3.out', delay:.1 });
 
-gsap.from('.p-hero__title', { y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
-gsap.from('.p-hero__img', { scale: 1.2, duration: 2, ease: 'power2.out' });
-gsap.from('#heroScroll', { opacity: 0, duration: .8, delay: 1.6, ease: 'power3.out' });
+  const l1 = splitChars(document.getElementById('titleL1'), 'Da obra');
+  const l2 = splitChars(document.getElementById('titleL2'), 'ao');
+  const l3 = splitChars(document.getElementById('titleL3'), 'lucro.');
+  gsap.from([...l1,...l2,...l3], { opacity:0, y:30, duration:1.1, ease:'power4.out', stagger:{ amount:.7, from:'start' }});
+  gsap.from('#heroEyebrow', { opacity:0, y:20, duration:.9, delay:.5,  ease:'power3.out' });
+  gsap.from('#heroDesc',    { opacity:0, y:20, duration:.9, delay:.8,  ease:'power3.out' });
+  gsap.from('#heroActions', { opacity:0, y:20, duration:.9, delay:1.0, ease:'power3.out' });
+  gsap.from('#heroScroll',  { opacity:0,       duration:.8, delay:1.6, ease:'power3.out' });
 
-gsap.utils.toArray('.p-section__title, .p-section__text, .p-table').forEach(el => {
-  gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 90%',
-    },
-    y: 30,
-    opacity: 0,
-    duration: 1,
-    ease: 'power2.out'
+  gsap.to('.hero__overlay', { yPercent:15, ease:'none',
+    scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
   });
-});  
-</script>
 
+  /* SOBRE */
+  gsap.from('#aboutVisual', { x:-70, opacity:0, duration:1.2, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#sobre', start:'top 75%', toggleActions:'play none none none' }
+  });
+  gsap.from('#aboutText > *', { y:40, opacity:0, duration:.9, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#sobre', start:'top 70%', toggleActions:'play none none none' }
+  });
+
+  /* DIFERENCIAIS */
+  gsap.from('.pillars__header > *', { y:36, opacity:0, duration:.9, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#diferenciais', start:'top 78%', toggleActions:'play none none none' }
+  });
+  gsap.from('.pillar-card', { y:50, opacity:0, duration:.85, stagger:.12, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#pillarsGrid', start:'top 80%', toggleActions:'play none none none' }
+  });
+
+  /* PROPOSTA */
+  const propostaEl = document.getElementById('proposta');
+  const isMobile = window.innerWidth <= 768;
+
+  if (!isMobile) {
+    ScrollTrigger.create({
+      trigger: '#proposta',
+      start: 'top top',
+      end: () => '+=' + propostaEl.offsetHeight,
+      pin: true,
+      pinSpacing: false
+    });
+
+    gsap.to('#valorImageInner', {
+      yPercent: 18,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#proposta',
+        start: 'top top',
+        end: () => '+=' + propostaEl.offsetHeight,
+        scrub: true
+      }
+    });
+  }
+
+  gsap.from('#valorContent > *', { x: isMobile ? 0 : 40, y: isMobile ? 30 : 0, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#proposta', start:'top 80%', toggleActions:'play none none none' }
+  });
+
+  /* PROJETOS */
+  const track = document.getElementById('projectsTrack');
+  const trackW = track.scrollWidth, vw = window.innerWidth;
+  gsap.to(track, { x:-(trackW-vw+128), ease:'none',
+    scrollTrigger:{ trigger:'.projects', start:'top top', end:()=>`+=${trackW-vw+200}`, pin:true, scrub:1, anticipatePin:1 }
+  });
+  gsap.from('.project-card', { y:60, opacity:0, duration:1, stagger:.14, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'.projects', start:'top 80%', toggleActions:'play none none none' }
+  });
+
+  /* SERVIÇOS */
+  gsap.from('.service-card', { y:50, opacity:0, duration:.8, stagger:.07, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#servicos', start:'top 75%', toggleActions:'play none none none' }
+  });
+
+  /* AIRBNB */
+  gsap.from('.airbnb__text > *', { y:40, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#airbnb', start:'top 70%', toggleActions:'play none none none' }
+  });
+  gsap.from('.airbnb__visual', { x:60, opacity:0, duration:1.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#airbnb', start:'top 70%', toggleActions:'play none none none' }
+  });
+  ScrollTrigger.create({ trigger:'#airbnb', start:'top top', end:'+=70%', pin:true, pinSpacing:true });
+
+  /* COUNTER */
+  document.querySelectorAll('.js-count').forEach(el => {
+    const target=+el.dataset.target, obj={n:0};
+    gsap.to(obj, { n:target, duration:2.2, ease:'power2.out',
+      onUpdate:()=>{ el.textContent=Math.floor(obj.n); },
+      scrollTrigger:{ trigger:el.closest('section')||el, start:'top 70%', toggleActions:'play none none none' }
+    });
+  });
+
+  /* CTA */
+  gsap.from('.cta__title',    { x:-60, opacity:0, duration:1,  ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#cta', start:'top 78%', toggleActions:'play none none none' }
+  });
+  gsap.from('.cta__body > *', { x: 60, opacity:0, duration:.9, stagger:.1, ease:'power3.out', immediateRender:false,
+    scrollTrigger:{ trigger:'#cta', start:'top 78%', toggleActions:'play none none none' }
+  });
+
+  /* TÍTULOS GERAIS */
+  document.querySelectorAll('.section__title, .section__label').forEach(el => {
+    if (el.closest('#aboutText') || el.closest('.pillars') || el.closest('#proposta')) return;
+    gsap.from(el, { y:36, opacity:0, duration:.9, ease:'power3.out', immediateRender:false,
+      scrollTrigger:{ trigger:el, start:'top 88%', toggleActions:'play none none none' }
+    });
+  });
+}
+
+ScrollTrigger.create({
+  start: 'top -80', end: 99999,
+  onUpdate: self => {
+    document.getElementById('nav').style.background =
+      self.direction===1 ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.88)';
+  }
+});
+</script>
 </body>
 </html>
