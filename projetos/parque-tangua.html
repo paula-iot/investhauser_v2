@@ -153,6 +153,190 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .p-table tr:last-child td { border-bottom: 2px solid var(--color-accent); }
 .p-table tr:hover { background: var(--color-bg-2); }
   
+/* ═══════════════════════════════════
+   SEÇÃO TÉCNICA — PROJETO
+════════════════════════════════════ */
+.proj { background: var(--color-bg); }
+
+/* Hero técnico */
+.proj__hero {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  background: #000;
+}
+.proj__hero-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: .55;
+}
+.proj__hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.7) 40%, transparent 100%);
+}
+.proj__hero-content {
+  position: relative; z-index: 2;
+  height: 100%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 64px;
+  max-width: 700px;
+  color: #fff;
+}
+.proj__eyebrow {
+  font-size: .7rem; letter-spacing: .38em; text-transform: uppercase;
+  color: rgba(255,255,255,.55); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.proj__eyebrow::before {
+  content: ''; width: 22px; height: 1px; background: rgba(255,255,255,.4);
+}
+.proj__hero-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2.2rem, 4.5vw, 4.5rem);
+  font-weight: 400; line-height: 1.08;
+  letter-spacing: -.02em;
+  margin-bottom: 18px;
+}
+.proj__hero-title em { font-style: italic; font-weight: 300; }
+.proj__hero-sub {
+  font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.7;
+}
+
+/* Rótulo de seção */
+.proj__label {
+  font-size: .7rem; letter-spacing: .38em; text-transform: uppercase;
+  color: var(--color-muted); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.proj__label::before {
+  content: ''; width: 18px; height: 1px; background: var(--color-muted);
+}
+.proj__title {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 400; line-height: 1.1;
+  letter-spacing: -.02em; color: var(--color-text);
+  margin-bottom: 12px;
+}
+.proj__title em { font-style: italic; font-weight: 300; }
+
+/* Plantas */
+.proj__plants { padding: 100px 64px; }
+.proj__plants-header { margin-bottom: 56px; max-width: 600px; }
+.proj__plants-note {
+  font-size: .9rem; color: var(--color-muted); margin-top: 14px;
+  border-left: 2px solid var(--color-line); padding-left: 14px;
+}
+.proj__plants-note strong { color: var(--color-text); }
+
+.proj__plants-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+}
+.proj__plant-card { display: flex; flex-direction: column; gap: 20px; }
+.proj__plant-label {
+  font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--color-muted); padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-line);
+}
+.proj__plant-img-wrap {
+  position: relative; overflow: hidden;
+  background: var(--color-bg-3);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  aspect-ratio: 4/3;
+}
+.proj__plant-img {
+  width: 100%; height: 100%; object-fit: contain;
+  display: block; padding: 16px;
+  transition: transform 1s ease;
+}
+.proj__plant-img-wrap:hover .proj__plant-img { transform: scale(1.03); }
+
+/* Legenda */
+.proj__legend {
+  list-style: none; display: flex; flex-direction: column; gap: 10px;
+}
+.proj__legend li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: .9rem; color: var(--color-muted); line-height: 1.5;
+  padding-bottom: 10px; border-bottom: 1px solid var(--color-line);
+}
+.proj__legend li:last-child { border-bottom: none; padding-bottom: 0; }
+.proj__legend-num {
+  font-size: .75rem; color: var(--color-text);
+  font-weight: 600; flex-shrink: 0; width: 20px;
+}
+
+/* Data grid */
+.proj__data {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--color-line);
+  border-top: 1px solid var(--color-line);
+}
+.proj__data-block {
+  background: var(--color-bg-2);
+  padding: 56px 48px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+
+/* Tabela de áreas */
+.proj__areas-table {
+  width: 100%; border-collapse: collapse;
+}
+.proj__areas-table td {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: .95rem; color: var(--color-muted);
+  vertical-align: top; line-height: 1.4;
+}
+.proj__areas-table td:last-child {
+  text-align: right; color: var(--color-text); white-space: nowrap;
+}
+.proj__areas-table td small { font-size: .8rem; display: block; color: var(--color-muted); }
+.proj__areas-table-highlight td {
+  color: var(--color-text) !important;
+  border-bottom: 2px solid var(--color-text);
+}
+.proj__areas-note {
+  font-size: .75rem; color: var(--color-muted); font-style: italic;
+}
+
+/* Observações */
+.proj__obs-list {
+  list-style: none; display: flex; flex-direction: column; gap: 12px;
+}
+.proj__obs-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: .95rem; color: var(--color-muted); line-height: 1.6;
+}
+.proj__obs-list li::before {
+  content: '◆'; color: var(--color-text); font-size: .4rem;
+  flex-shrink: 0; margin-top: .55em;
+}
+.proj__obs-tagline {
+  margin-top: auto;
+  font-family: var(--font-sans);
+  font-size: 1.1rem; font-style: italic; font-weight: 300;
+  color: var(--color-text); line-height: 1.5;
+  border-top: 1px solid var(--color-line); padding-top: 20px;
+  letter-spacing: -.01em;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .proj__plants-grid { grid-template-columns: 1fr; gap: 40px; }
+  .proj__data { grid-template-columns: 1fr; }
+  .proj__data-block { padding: 40px 32px; }
+}
+@media (max-width: 768px) {
+  .proj__plants { padding: 60px 20px; }
+  .proj__hero-content { padding: 40px 20px; }
+  .proj__hero-title { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+  .proj__plants-grid { grid-template-columns: 1fr; }
+  .proj__data-block { padding: 36px 20px; }
+}
+
 /* GALLERY */
 .gallery { padding: 0 64px 140px; }
 .gallery__grid {
@@ -351,13 +535,144 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
     </tbody>
   </table>
 </section>
-  
+
+<!-- ═══════════════════════════════════════════════════
+     SEÇÃO TÉCNICA — PROJETO ARQUITETÔNICO
+════════════════════════════════════════════════════ -->
+<section class="proj">
+
+  <!-- HERO TÉCNICO -->
+  <div class="proj__hero">
+    <img
+      src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg"
+      alt="Vialaggio — Viela noturna"
+      class="proj__hero-img"
+      loading="lazy"
+    >
+    <div class="proj__hero-overlay"></div>
+    <div class="proj__hero-content">
+      <span class="proj__eyebrow">Projeto Arquitetônico</span>
+      <h2 class="proj__hero-title">Um refúgio onde a<br>arquitetura e a natureza<br><em>se encontram.</em></h2>
+      <p class="proj__hero-sub">Hospitalidade com essência, design com propósito.</p>
+    </div>
+  </div>
+
+  <!-- PLANTA BAIXA -->
+  <div class="proj__plants">
+    <div class="proj__plants-header">
+      <div class="proj__label">Plantas</div>
+      <h3 class="proj__title">Distribuição<br><em>dos pavimentos.</em></h3>
+      <p class="proj__plants-note">Terreno recomendado: <strong>15,00m</strong> (largura) × <strong>45,00m</strong> (profundidade)</p>
+    </div>
+
+    <div class="proj__plants-grid">
+      <!-- Térreo -->
+      <div class="proj__plant-card">
+        <div class="proj__plant-label">Térreo</div>
+        <div class="proj__plant-img-wrap">
+          <img
+            src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png"
+            alt="Planta Térreo — Vialaggio"
+            class="proj__plant-img"
+            loading="lazy"
+          >
+          <button class="proj__plant-expand gallery__expand" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" aria-label="Expandir planta térreo">
+            <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          </button>
+        </div>
+        <ul class="proj__legend">
+          <li><span class="proj__legend-num">①</span>Suítes 1–6 · Lado esquerdo · 15m² cada</li>
+          <li><span class="proj__legend-num">②</span>Suítes 7–12 · Lado direito · 15m² cada</li>
+          <li><span class="proj__legend-num">③</span>Cozinha compartilhada · 40m²</li>
+          <li><span class="proj__legend-num">④</span>Alameda central descoberta · 4,00m largura</li>
+          <li><span class="proj__legend-num">⑤</span>Lavanderia · 6m²</li>
+          <li><span class="proj__legend-num">⑥</span>Lavabo · 3m²</li>
+          <li><span class="proj__legend-num">⑦</span>Depósito · 4m²</li>
+          <li><span class="proj__legend-num">⑧</span>Escada de acesso ao andar superior</li>
+          <li><span class="proj__legend-num">⑨</span>Entrada principal</li>
+        </ul>
+      </div>
+
+      <!-- Superior -->
+      <div class="proj__plant-card">
+        <div class="proj__plant-label">Pavimento Superior</div>
+        <div class="proj__plant-img-wrap">
+          <img
+            src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png"
+            alt="Planta Superior — Vialaggio"
+            class="proj__plant-img"
+            loading="lazy"
+          >
+          <button class="proj__plant-expand gallery__expand" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" aria-label="Expandir planta superior">
+            <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          </button>
+        </div>
+        <ul class="proj__legend">
+          <li><span class="proj__legend-num">①</span>Apartamento 1 · 40m²</li>
+          <li><span class="proj__legend-num">②</span>Apartamento 2 · 40m²</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUADRO DE ÁREAS + OBSERVAÇÕES + IMPLANTAÇÃO -->
+  <div class="proj__data">
+
+    <!-- Quadro de áreas -->
+    <div class="proj__data-block">
+      <div class="proj__label">Quadro de Áreas</div>
+      <table class="proj__areas-table">
+        <tbody>
+          <tr><td>Área construída Térreo</td><td><strong>270 m²</strong></td></tr>
+          <tr><td>Área construída Superior</td><td><strong>95 m²</strong></td></tr>
+          <tr><td>Área total construída</td><td><strong>365 m²</strong></td></tr>
+          <tr><td>Alameda central (descoberta)</td><td><strong>132 m²</strong></td></tr>
+          <tr class="proj__areas-table-highlight"><td>Área total do terreno sugerido<br><small>15,00 × 45,00m</small></td><td><strong>675 m²</strong></td></tr>
+        </tbody>
+      </table>
+      <p class="proj__areas-note">* Área da alameda varia conforme o paisagismo.</p>
+    </div>
+
+    <!-- Observações -->
+    <div class="proj__data-block">
+      <div class="proj__label">Observações</div>
+      <ul class="proj__obs-list">
+        <li>Alameda central descoberta com paisagismo e iluminação natural</li>
+        <li>Todas as suítes com banheiro privativo</li>
+        <li>Ventilação e iluminação natural em todos os ambientes</li>
+        <li>Projeto ideal para hospedagem e locação de médio e longo prazo</li>
+      </ul>
+      <div class="proj__obs-tagline">
+        Hospitalidade que encanta.<br>Investimento que permanece.
+      </div>
+    </div>
+
+    <!-- Dimensões principais -->
+    <div class="proj__data-block">
+      <div class="proj__label">Dimensões e Parâmetros</div>
+      <table class="proj__areas-table">
+        <tbody>
+          <tr><td>Largura do terreno</td><td><strong>15,00 m</strong></td></tr>
+          <tr><td>Profundidade do terreno</td><td><strong>45,00 m</strong></td></tr>
+          <tr><td>Alameda central</td><td><strong>4,00 m</strong></td></tr>
+          <tr><td>Nº de suítes</td><td><strong>12 unidades</strong></td></tr>
+          <tr><td>Nº de apartamentos (superior)</td><td><strong>2 unidades</strong></td></tr>
+          <tr><td>Nº total de unidades</td><td><strong>14 unidades</strong></td></tr>
+          <tr class="proj__areas-table-highlight"><td>Área construída total</td><td><strong>365 m² (aprox.)</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</section>
+
 <section class="gallery">
   <div class="gallery__grid">
 
     <!-- Imagem principal — ocupa as 2 linhas à esquerda -->
-    <div class="gallery__item gallery__item--main" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1779468868/img2.jpg">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1779468868/img2.jpg" alt="Vialaggio — Vista Principal">
+    <div class="gallery__item gallery__item--main" data-src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg">
+      <img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — Vista Principal">
       <button class="gallery__expand" aria-label="Expandir imagem">
         <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
       </button>
@@ -450,6 +765,20 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 gsap.from('.p-hero__title', { y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
 gsap.from('.p-hero__img', { scale: 1.2, duration: 2, ease: 'power2.out' });
 gsap.from('#heroScroll', { opacity: 0, duration: .8, delay: 1.6, ease: 'power3.out' });
+
+/* ANIMAÇÕES SEÇÃO TÉCNICA */
+gsap.from('.proj__hero-content > *', { y: 40, opacity: 0, duration: 1, stagger: .12, ease: 'power3.out', immediateRender: false,
+  scrollTrigger: { trigger: '.proj__hero', start: 'top 80%', toggleActions: 'play none none none' }
+});
+gsap.from('.proj__plants-header > *', { y: 30, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', immediateRender: false,
+  scrollTrigger: { trigger: '.proj__plants', start: 'top 80%', toggleActions: 'play none none none' }
+});
+gsap.from('.proj__plant-card', { y: 50, opacity: 0, duration: .9, stagger: .15, ease: 'power3.out', immediateRender: false,
+  scrollTrigger: { trigger: '.proj__plants-grid', start: 'top 80%', toggleActions: 'play none none none' }
+});
+gsap.from('.proj__data-block', { y: 40, opacity: 0, duration: .85, stagger: .1, ease: 'power3.out', immediateRender: false,
+  scrollTrigger: { trigger: '.proj__data', start: 'top 80%', toggleActions: 'play none none none' }
+});
 
 gsap.utils.toArray('.p-section__title, .p-section__text, .p-table').forEach(el => {
   gsap.from(el, {
