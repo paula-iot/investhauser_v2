@@ -120,11 +120,81 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .p-table tr:hover { background: var(--color-bg-2); }
   
 /* GALLERY */
-.gallery { padding: 0 64px 140px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-.gallery__item { height: 70vh; overflow: hidden; }
-.gallery__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s ease; }
-.gallery__item:hover img { transform: scale(1.05); }
-.gallery__item--full { grid-column: span 2; height: 90vh; }
+.gallery { padding: 0 64px 140px; }
+.gallery__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  height: 80vh;
+}
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  cursor: pointer;
+  background: var(--color-bg-3);
+}
+.gallery__item--main {
+  grid-row: span 2;
+}
+.gallery__item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s ease;
+  display: block;
+}
+.gallery__item:hover img { transform: scale(1.04); }
+
+/* BOTÃO EXPAND */
+.gallery__expand {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 36px; height: 36px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: none; cursor: pointer;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity .25s, transform .25s;
+  z-index: 2;
+}
+.gallery__expand svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2; fill: none; }
+.gallery__item:hover .gallery__expand {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* LIGHTBOX */
+.lightbox {
+  position: fixed; inset: 0; z-index: 10000;
+  background: rgba(0,0,0,0.92);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .35s ease, visibility .35s ease;
+}
+.lightbox--open { opacity: 1; visibility: visible; }
+.lightbox__img {
+  max-width: 90vw; max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  transform: scale(0.94);
+  transition: transform .35s ease;
+}
+.lightbox--open .lightbox__img { transform: scale(1); }
+.lightbox__close {
+  position: absolute; top: 24px; right: 28px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #fff; font-size: 1.4rem; line-height: 1;
+  width: 44px; height: 44px;
+  border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s;
+}
+.lightbox__close:hover { background: rgba(255,255,255,0.22); }
 
 /* FOOTER */
 .footer { padding: 60px 64px; border-top: 1px solid var(--color-line); display: flex; justify-content: space-between; align-items: center; }
@@ -135,8 +205,11 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
   .p-section { padding: 60px 24px; }
   .details { grid-template-columns: 1fr; padding: 80px 20px; gap: 40px; }
   .details__desc { grid-column: span 1; }
-  .gallery { padding: 0 20px 80px; grid-template-columns: 1fr; }
-  .gallery__item--full { grid-column: span 1; }
+  .gallery { padding: 0 20px 80px; }
+  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
+  .gallery__item { height: 60vw; }
+  .gallery__item--main { grid-row: span 1; }
+  .gallery__expand { opacity: 1; transform: scale(1); }
   .nav { width: calc(100% - 40px); }
   .nav__links { display: none; }
   .cursor { display: none; }
@@ -242,16 +315,40 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 </section>
   
 <section class="gallery">
-  <div class="gallery__item gallery__item--full">
-    <img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Galeria 1">
-  </div>
-  <div class="gallery__item">
-    <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" alt="Galeria 2">
-  </div>
-  <div class="gallery__item">
-    <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" alt="Galeria 3">
+  <div class="gallery__grid">
+
+    <!-- Imagem principal — ocupa as 2 linhas à esquerda -->
+    <div class="gallery__item gallery__item--main" data-src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg">
+      <img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — Vista Principal">
+      <button class="gallery__expand" aria-label="Expandir imagem">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+
+    <!-- Imagem superior direita -->
+    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png">
+      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" alt="Vialaggio — Pavimento Superior">
+      <button class="gallery__expand" aria-label="Expandir imagem">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+
+    <!-- Imagem inferior direita -->
+    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png">
+      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" alt="Vialaggio — Térreo">
+      <button class="gallery__expand" aria-label="Expandir imagem">
+        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+      </button>
+    </div>
+
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualizar imagem">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Fechar">✕</button>
+  <img class="lightbox__img" id="lightboxImg" src="" alt="">
+</div>
   
 
 <footer class="footer">
@@ -287,6 +384,30 @@ const cursor = document.getElementById('cursor');
 document.addEventListener('mousemove', e => {
     gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
 });
+
+/* LIGHTBOX */
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxClose = document.getElementById('lightboxClose');
+
+document.querySelectorAll('.gallery__item').forEach(item => {
+  const btn = item.querySelector('.gallery__expand');
+  const open = () => {
+    lightboxImg.src = item.dataset.src;
+    lightbox.classList.add('lightbox--open');
+    document.body.style.overflow = 'hidden';
+  };
+  btn.addEventListener('click', e => { e.stopPropagation(); open(); });
+  item.addEventListener('click', open);
+});
+
+const closeLightbox = () => {
+  lightbox.classList.remove('lightbox--open');
+  document.body.style.overflow = '';
+};
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 gsap.from('.p-hero__title', { y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
 gsap.from('.p-hero__img', { scale: 1.2, duration: 2, ease: 'power2.out' });
