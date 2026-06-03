@@ -100,6 +100,36 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 .p-hero__label { font-size: .8rem; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 20px; display: block; }
 .p-hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 8vw, 8rem); font-weight: 300; font-style: italic; line-height: 1; }
 
+/* HERO SCROLL INDICATOR */
+.p-hero__scroll {
+  position: absolute;
+  bottom: 44px; right: 64px;
+  z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  font-size: .55rem; letter-spacing: .25em; text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+}
+.p-hero__scroll-line {
+  width: 36px; height: 1px;
+  background: rgba(255,255,255,.2);
+  position: relative; overflow: hidden;
+}
+.p-hero__scroll-line::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: #fff;
+  transform: translateX(-100%);
+  animation: heroScan 2s 1s infinite ease-in-out;
+}
+@keyframes heroScan {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+
+@media (max-width: 768px) {
+  .p-hero__scroll { display: none; }
+}
+
 /* CONTENT SECTIONS */
 .p-section { padding: 100px 64px; max-width: 1200px; margin: 0 auto; }
 .p-section__title { font-family: var(--font-sans); font-size: 2rem; font-weight: 600; margin-bottom: 24px; color: var(--color-text); letter-spacing: -0.02em; }
@@ -237,6 +267,10 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 
 <section class="p-hero">
   <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507932/capa_vialaggio.png" class="p-hero__img" alt="Parque Tanguá">
+  <div class="p-hero__scroll" id="heroScroll">
+    <div class="p-hero__scroll-line"></div>
+    Scroll
+  </div>
 </section>
 
 <section class="details">
