@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vialaggio — Invest Hauser</title>
+<title>Vialaggio · Parque Tanguá — Invest Hauser</title>
+<meta name="description" content="Vialaggio — empreendimento de hospedagem premium em frente ao Parque Tanguá, Curitiba.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -15,715 +16,538 @@ html { scroll-behavior: auto; font-size: 16px; }
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
 
-/* SCROLL PROGRESS */
-#scroll-progress {
-  position: fixed;
-  top: 0; right: 0;
-  width: 3px;
-  height: 100vh;
-  z-index: 9990;
-  background: rgba(0,0,0,.1);
-  pointer-events: none;
-}
-#scroll-progress-fill {
-  width: 100%;
-  height: 0%;
-  background: #000;
-  transition: height .05s linear;
-  transform-origin: top;
-}
-
-@media (max-width: 768px) {
-  #scroll-progress {
-    top: 0; left: 0; right: auto;
-    width: 100%;
-    height: 2px;
-  }
-  #scroll-progress-fill {
-    width: 0%;
-    height: 100%;
-    transition: width .05s linear;
-    transform-origin: left;
-  }
-}
-
 :root {
-  --color-bg:       #ffffff;
-  --color-bg-2:     #f5f5f5;
-  --color-bg-3:     #efefef;
-  --color-text:     #000000;
-  --color-muted:    #777777;
-  --color-accent:   #000000;
-  --color-line:     rgba(0,0,0,0.08);
-  --font-sans:   'Nunito', sans-serif;
-  --font-serif:  'Cormorant Garamond', Georgia, serif;
+  --bg:        #f4f2ee;
+  --bg-card:   #ffffff;
+  --ink:       #131313;
+  --muted:     #8a8682;
+  --line:      rgba(19,19,19,.10);
+  --radius:    24px;
+  --radius-lg: 32px;
+  --sans:  'Nunito', sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --pad-x: clamp(20px, 5vw, 72px);
 }
 
 body {
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
   overflow-x: hidden;
-  cursor: none;
 }
 
-/* CURSOR PERSONALIZADO */
-.cursor { position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; transition: width .3s, height .3s; }
-.cursor__dot { width: 8px; height: 8px; background: var(--color-text); border-radius: 50%; }
-.cursor__text { 
-    position: absolute; 
-    white-space: nowrap; 
-    font-size: 0.7rem; 
-    letter-spacing: 0.2em; 
-    text-transform: uppercase; 
-    background: var(--color-text); 
-    color: #fff; 
-    padding: 6px 12px; 
-    border-radius: 100px; 
-    opacity: 0; 
-    transform: scale(0.5); 
-    transition: opacity 0.3s, transform 0.3s; 
-    pointer-events: none;
+/* ── SCROLL PROGRESS ── */
+#scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 9990; background: transparent; pointer-events: none; }
+#scroll-progress-fill { width: 0%; height: 100%; background: var(--ink); transition: width .05s linear; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px var(--pad-x);
+  mix-blend-mode: difference; color: #fff;
 }
-body:hover .cursor__text { opacity: 1; transform: scale(1); }
-
-/* NAV */
-.nav { position: fixed; top: 28px; left: 50%; z-index: 500; transform: translateX(-50%); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); border: 1px solid var(--color-line); border-radius: 100px; padding: 12px 28px; display: flex; align-items: center; gap: 40px; }
-.nav__logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: .08em; color: var(--color-text); text-decoration: none; }
-.nav__link { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
-.nav__link:hover { color: var(--color-text); }
-
-/* PROJECT HERO */
-.p-hero { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #000; }
-.p-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
-.p-hero__content { position: relative; z-index: 2; text-align: center; color: #fff; }
-.p-hero__label { font-size: .8rem; letter-spacing: .4em; text-transform: uppercase; margin-bottom: 20px; display: block; }
-.p-hero__title { font-family: var(--font-sans); font-size: clamp(3rem, 8vw, 8rem); font-weight: 300; font-style: italic; line-height: 1; }
-
-/* HERO SCROLL INDICATOR */
-.p-hero__scroll {
-  position: absolute;
-  bottom: 48px;
-  left: 50%; transform: translateX(-50%);
-  z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-  font-size: .7rem; letter-spacing: .3em; text-transform: uppercase;
-  color: rgba(255,255,255,.75);
+.nav a { color: inherit; text-decoration: none; }
+.nav__logo { font-size: 1rem; font-weight: 600; letter-spacing: .08em; }
+.nav__back {
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 10px;
+  opacity: .85; transition: opacity .3s;
 }
-.p-hero__scroll-line {
-  width: 1.5px; height: 56px;
-  background: rgba(255,255,255,.2);
-  position: relative; overflow: hidden;
-  border-radius: 2px;
-}
-.p-hero__scroll-line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 40%;
-  background: #fff;
-  transform: translateY(-100%);
-  animation: heroScanV 1.8s 1s infinite ease-in-out;
-}
-@keyframes heroScanV {
-  0%   { transform: translateY(-100%); }
-  100% { transform: translateY(300%); }
-}
+.nav__back::before { content: '←'; transition: transform .3s; }
+.nav__back:hover { opacity: 1; }
+.nav__back:hover::before { transform: translateX(-4px); }
 
-@media (max-width: 768px) {
-  .p-hero__scroll { display: none; }
-}
-
-/* CONTENT SECTIONS */
-.p-section { padding: 100px 64px; max-width: 1200px; margin: 0 auto; }
-.p-section__title { font-family: var(--font-sans); font-size: 2rem; font-weight: 600; margin-bottom: 24px; color: var(--color-text); letter-spacing: -0.02em; }
-.p-section__text { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); margin-bottom: 40px; }
-  
-/* DETAILS */
-.details { padding: 140px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; }
-.details__info { display: flex; flex-direction: column; gap: 40px; }
-.details__label { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 10px; display: block; }
-.details__value { font-size: 1.5rem; color: var(--color-text); }
-.details__desc { font-size: 1.1rem; line-height: 1.8; color: var(--color-muted); grid-column: span 2; max-width: 800px; margin-top: 40px; }
-
-/* TABLE STYLE */
-.p-table { width: 100%; border-collapse: collapse; margin-top: 40px; font-family: var(--font-sans); }
-.p-table th { background: var(--color-accent); color: #fff; text-align: left; padding: 16px 24px; font-weight: 600; font-size: 1rem; }
-.p-table td { padding: 16px 24px; border-bottom: 1px solid var(--color-line); color: var(--color-text); font-size: 1rem; }
-.p-table tr:last-child td { border-bottom: 2px solid var(--color-accent); }
-.p-table tr:hover { background: var(--color-bg-2); }
-  
-/* ═══════════════════════════════════
-   SEÇÃO TÉCNICA — PROJETO
-════════════════════════════════════ */
-.proj { background: var(--color-bg); }
-
-/* Hero técnico */
-.proj__hero {
+/* ── HERO ── */
+.hero { padding: 0; position: relative; }
+.hero__media {
   position: relative;
-  height: 70vh;
+  height: calc(100vh - 24px);
+  margin: 12px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #000;
 }
-.proj__hero-img {
+.hero__media img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transform-origin: center;
+}
+.hero__shade {
   position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  opacity: .55;
+  background: linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.12) 45%, rgba(0,0,0,.18) 100%);
 }
-.proj__hero-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,.7) 40%, transparent 100%);
-}
-.proj__hero-content {
-  position: relative; z-index: 2;
-  height: 100%;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  padding: 64px;
-  max-width: 700px;
+.hero__content {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: clamp(28px, 5vw, 64px);
   color: #fff;
+  display: flex; flex-direction: column; gap: 18px;
 }
-.proj__eyebrow {
+.hero__eyebrow {
+  font-size: .72rem; letter-spacing: .38em; text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+  display: flex; align-items: center; gap: 14px;
+}
+.hero__eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,.5); }
+.hero__title {
+  font-family: var(--sans);
+  font-weight: 300; font-style: italic;
+  font-size: clamp(3.4rem, 11vw, 10.5rem);
+  line-height: .92; letter-spacing: -.02em;
+}
+.hero__title .word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.hero__title .word span { display: inline-block; }
+.hero__row {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 32px; flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.22); padding-top: 22px;
+}
+.hero__sub { font-size: .95rem; line-height: 1.8; color: rgba(255,255,255,.78); max-width: 420px; }
+.hero__scroll {
+  font-size: .68rem; letter-spacing: .3em; text-transform: uppercase;
+  color: rgba(255,255,255,.7);
+  display: flex; align-items: center; gap: 12px; white-space: nowrap;
+}
+.hero__scroll-line { width: 44px; height: 1px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
+.hero__scroll-line::after {
+  content: ''; position: absolute; inset: 0; background: #fff;
+  transform: translateX(-100%); animation: scan 2s 1.4s infinite ease-in-out;
+}
+@keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+
+/* ── BASE SECTION ── */
+.section { padding: clamp(80px, 12vw, 160px) var(--pad-x); }
+.label {
   font-size: .7rem; letter-spacing: .38em; text-transform: uppercase;
-  color: rgba(255,255,255,.55); margin-bottom: 16px;
+  color: var(--muted); margin-bottom: 22px;
   display: flex; align-items: center; gap: 12px;
 }
-.proj__eyebrow::before {
-  content: ''; width: 22px; height: 1px; background: rgba(255,255,255,.4);
+.label::before { content: ''; width: 22px; height: 1px; background: var(--muted); }
+.display {
+  font-family: var(--sans); font-weight: 300;
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
+  line-height: 1; letter-spacing: -.02em; color: var(--ink);
 }
-.proj__hero-title {
-  font-family: var(--font-sans);
-  font-size: clamp(2.2rem, 4.5vw, 4.5rem);
-  font-weight: 400; line-height: 1.08;
-  letter-spacing: -.02em;
-  margin-bottom: 18px;
+.display em { font-style: italic; }
+.reveal-line { display: block; overflow: hidden; }
+.reveal-line > span { display: block; }
+
+/* ── INTRO / DETAILS ── */
+.intro { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(40px, 7vw, 120px); align-items: start; }
+.intro__lead {
+  font-family: var(--sans); font-weight: 300;
+  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
+  line-height: 1.35; letter-spacing: -.01em;
+  color: var(--ink); max-width: 26ch; margin-top: 8px;
 }
-.proj__hero-title em { font-style: italic; font-weight: 300; }
-.proj__hero-sub {
-  font-size: 1rem; color: rgba(255,255,255,.6); line-height: 1.7;
+.intro__lead em { font-style: italic; color: var(--muted); }
+.facts { display: flex; flex-direction: column; }
+.fact {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  padding: 20px 0; border-bottom: 1px solid var(--line);
+}
+.fact:first-child { border-top: 1px solid var(--line); }
+.fact__key { font-size: .72rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
+.fact__val { font-family: var(--sans); font-size: 1.4rem; font-weight: 400; text-align: right; }
+.fact__val em { font-style: italic; color: var(--muted); font-size: 1rem; }
+.intro__desc { font-size: 1rem; line-height: 2; color: var(--muted); margin-top: 32px; }
+
+/* ── BANNER PARALLAX ── */
+.banner { padding: 0 12px; }
+.banner__media {
+  position: relative; height: clamp(380px, 72vh, 760px);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.banner__media img {
+  position: absolute; left: 0; right: 0; top: -12%;
+  width: 100%; height: 124%; object-fit: cover; will-change: transform;
+}
+.banner__caption {
+  position: absolute; left: clamp(24px, 4vw, 48px); bottom: clamp(24px, 4vw, 44px); z-index: 2;
+  color: #fff; font-size: .72rem; letter-spacing: .3em; text-transform: uppercase;
+  background: rgba(0,0,0,.4); backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.18);
+  padding: 10px 18px; border-radius: 100px;
 }
 
-/* Rótulo de seção */
-.proj__label {
-  font-size: .7rem; letter-spacing: .38em; text-transform: uppercase;
-  color: var(--color-muted); margin-bottom: 14px;
-  display: flex; align-items: center; gap: 10px;
+/* ── CONCEITO (cards numerados) ── */
+.concept__head { max-width: 760px; margin-bottom: clamp(48px, 6vw, 88px); }
+.concept__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.concept-card {
+  background: var(--bg-card); border-radius: var(--radius);
+  padding: clamp(32px, 3.5vw, 52px) clamp(24px, 2.8vw, 44px);
+  display: flex; flex-direction: column; gap: 60px;
+  border: 1px solid var(--line);
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s;
 }
-.proj__label::before {
-  content: ''; width: 18px; height: 1px; background: var(--color-muted);
-}
-.proj__title {
-  font-family: var(--font-sans);
-  font-size: clamp(2rem, 3.5vw, 3.2rem);
-  font-weight: 400; line-height: 1.1;
-  letter-spacing: -.02em; color: var(--color-text);
-  margin-bottom: 12px;
-}
-.proj__title em { font-style: italic; font-weight: 300; }
+.concept-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px -28px rgba(19,19,19,.22); }
+.concept-card__num { font-family: var(--sans); font-style: italic; font-size: 1.1rem; color: var(--muted); }
+.concept-card h3 { font-family: var(--sans); font-weight: 400; font-size: clamp(1.5rem, 2vw, 1.9rem); line-height: 1.15; letter-spacing: -.01em; margin-bottom: 14px; }
+.concept-card p { font-size: .95rem; line-height: 1.95; color: var(--muted); }
 
-/* Plantas */
-.proj__plants { padding: 100px 64px; }
-.proj__plants-header { margin-bottom: 56px; max-width: 600px; }
-.proj__plants-note {
-  font-size: .9rem; color: var(--color-muted); margin-top: 14px;
-  border-left: 2px solid var(--color-line); padding-left: 14px;
-}
-.proj__plants-note strong { color: var(--color-text); }
-
-.proj__plants-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
-}
-.proj__plant-card { display: flex; flex-direction: column; gap: 20px; }
-.proj__plant-label {
-  font-size: .75rem; letter-spacing: .3em; text-transform: uppercase;
-  color: var(--color-muted); padding-bottom: 10px;
-  border-bottom: 1px solid var(--color-line);
-}
-.proj__plant-img-wrap {
-  position: relative; overflow: hidden;
-  background: var(--color-bg-3);
-  border: 1px solid var(--color-line);
-  border-radius: 4px;
-  aspect-ratio: 4/3;
-}
-.proj__plant-img {
-  width: 100%; height: 100%; object-fit: contain;
-  display: block; padding: 16px;
-  transition: transform 1s ease;
-}
-.proj__plant-img-wrap:hover .proj__plant-img { transform: scale(1.03); }
-
-/* Legenda */
-.proj__legend {
-  list-style: none; display: flex; flex-direction: column; gap: 10px;
-}
-.proj__legend li {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: .9rem; color: var(--color-muted); line-height: 1.5;
-  padding-bottom: 10px; border-bottom: 1px solid var(--color-line);
-}
-.proj__legend li:last-child { border-bottom: none; padding-bottom: 0; }
-.proj__legend-num {
-  font-size: .75rem; color: var(--color-text);
-  font-weight: 600; flex-shrink: 0; width: 20px;
-}
-
-/* Data grid */
-.proj__data {
+/* ── INDICADORES ── */
+.numbers { background: var(--ink); color: #f4f2ee; border-radius: var(--radius-lg); margin: 0 12px; padding: clamp(72px, 10vw, 140px) var(--pad-x); }
+.numbers .label { color: rgba(244,242,238,.55); }
+.numbers .label::before { background: rgba(244,242,238,.4); }
+.numbers .display { color: #f4f2ee; }
+.numbers__grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--color-line);
-  border-top: 1px solid var(--color-line);
+  gap: 1px; background: rgba(244,242,238,.14);
+  border-radius: var(--radius); overflow: hidden;
+  margin-top: clamp(48px, 6vw, 80px);
 }
-.proj__data-block {
-  background: var(--color-bg-2);
-  padding: 56px 48px;
-  display: flex; flex-direction: column; gap: 20px;
-}
+.num-cell { background: var(--ink); padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 44px); }
+.num-cell__val { font-family: var(--sans); font-weight: 300; font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 14px; }
+.num-cell__val em { font-style: italic; font-size: .55em; color: rgba(244,242,238,.55); }
+.num-cell__key { font-size: .72rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(244,242,238,.5); }
+.numbers__note { margin-top: 28px; font-size: .8rem; color: rgba(244,242,238,.45); font-style: italic; }
 
-/* Tabela de áreas */
-.proj__areas-table {
-  width: 100%; border-collapse: collapse;
+/* ── PLANTAS ── */
+.plants__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: clamp(44px, 6vw, 80px); }
+.plants__note { font-size: .9rem; color: var(--muted); max-width: 360px; line-height: 1.8; border-left: 1px solid var(--line); padding-left: 18px; }
+.plants__note strong { color: var(--ink); font-weight: 600; }
+.plants__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3vw, 48px); }
+.plant { display: flex; flex-direction: column; gap: 22px; }
+.plant__media {
+  position: relative; aspect-ratio: 4/3;
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden; cursor: zoom-in;
 }
-.proj__areas-table td {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--color-line);
-  font-size: .95rem; color: var(--color-muted);
-  vertical-align: top; line-height: 1.4;
+.plant__media img { width: 100%; height: 100%; object-fit: contain; padding: 20px; transition: transform 1s ease; display: block; }
+.plant__media:hover img { transform: scale(1.03); }
+.plant__tag {
+  position: absolute; top: 16px; left: 16px;
+  font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
+  background: var(--ink); color: #fff; padding: 8px 16px; border-radius: 100px;
 }
-.proj__areas-table td:last-child {
-  text-align: right; color: var(--color-text); white-space: nowrap;
-}
-.proj__areas-table td small { font-size: .8rem; display: block; color: var(--color-muted); }
-.proj__areas-table-highlight td {
-  color: var(--color-text) !important;
-  border-bottom: 2px solid var(--color-text);
-}
-.proj__areas-note {
-  font-size: .75rem; color: var(--color-muted); font-style: italic;
-}
-
-/* Observações */
-.proj__obs-list {
-  list-style: none; display: flex; flex-direction: column; gap: 12px;
-}
-.proj__obs-list li {
-  display: flex; align-items: flex-start; gap: 12px;
-  font-size: .95rem; color: var(--color-muted); line-height: 1.6;
-}
-.proj__obs-list li::before {
-  content: '◆'; color: var(--color-text); font-size: .4rem;
-  flex-shrink: 0; margin-top: .55em;
-}
-.proj__obs-tagline {
-  margin-top: auto;
-  font-family: var(--font-sans);
-  font-size: 1.1rem; font-style: italic; font-weight: 300;
-  color: var(--color-text); line-height: 1.5;
-  border-top: 1px solid var(--color-line); padding-top: 20px;
-  letter-spacing: -.01em;
-}
-
-/* Responsivo */
-@media (max-width: 1024px) {
-  .proj__plants-grid { grid-template-columns: 1fr; gap: 40px; }
-  .proj__data { grid-template-columns: 1fr; }
-  .proj__data-block { padding: 40px 32px; }
-}
-@media (max-width: 768px) {
-  .proj__plants { padding: 60px 20px; }
-  .proj__hero-content { padding: 40px 20px; }
-  .proj__hero-title { font-size: clamp(1.8rem, 8vw, 2.4rem); }
-  .proj__plants-grid { grid-template-columns: 1fr; }
-  .proj__data-block { padding: 36px 20px; }
-}
-
-/* GALLERY */
-.gallery { padding: 0 64px 140px; }
-.gallery__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-  height: 80vh;
-}
-.gallery__item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 16px;
-  cursor: pointer;
-  background: var(--color-bg-3);
-}
-.gallery__item--main {
-  grid-row: span 2;
-}
-.gallery__item img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s ease;
-  display: block;
-}
-.gallery__item:hover img { transform: scale(1.04); }
-
-/* BOTÃO EXPAND */
-.gallery__expand {
-  position: absolute;
-  top: 14px; right: 14px;
-  width: 36px; height: 36px;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(8px);
-  border-radius: 50%;
+.expand {
+  position: absolute; top: 14px; right: 14px; width: 38px; height: 38px;
+  background: rgba(19,19,19,.86); border-radius: 50%; border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  border: none; cursor: pointer;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: opacity .25s, transform .25s;
-  z-index: 2;
+  opacity: 0; transform: scale(.8); transition: opacity .25s, transform .25s; z-index: 2;
 }
-.gallery__expand svg { width: 16px; height: 16px; stroke: #000; stroke-width: 2; fill: none; }
-.gallery__item:hover .gallery__expand {
-  opacity: 1;
-  transform: scale(1);
+.expand svg { width: 15px; height: 15px; stroke: #fff; stroke-width: 2; fill: none; }
+.plant__media:hover .expand { opacity: 1; transform: scale(1); }
+.legend { list-style: none; display: flex; flex-direction: column; }
+.legend li {
+  display: flex; gap: 14px; align-items: flex-start;
+  font-size: .92rem; color: var(--muted); line-height: 1.55;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.legend li:last-child { border-bottom: none; }
+.legend-num { font-family: var(--sans); font-style: italic; color: var(--ink); flex-shrink: 0; width: 24px; }
+
+/* ── DADOS TÉCNICOS ── */
+.data { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(48px, 6vw, 80px); }
+.data-block {
+  background: var(--bg-card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: clamp(32px, 3.5vw, 52px) clamp(24px, 2.8vw, 44px);
+  display: flex; flex-direction: column; gap: 22px;
+}
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table td { padding: 12px 0; border-bottom: 1px solid var(--line); font-size: .92rem; color: var(--muted); vertical-align: top; line-height: 1.45; }
+.data-table td:last-child { text-align: right; color: var(--ink); white-space: nowrap; font-weight: 600; }
+.data-table td small { display: block; font-size: .78rem; color: var(--muted); font-weight: 400; }
+.data-table .hl td { color: var(--ink); border-bottom: 2px solid var(--ink); }
+.data-note { font-size: .76rem; color: var(--muted); font-style: italic; }
+.obs { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.obs li { display: flex; gap: 12px; align-items: flex-start; font-size: .92rem; color: var(--muted); line-height: 1.7; }
+.obs li::before { content: '◆'; font-size: .42rem; color: var(--ink); margin-top: .65em; flex-shrink: 0; }
+.tagline {
+  margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line);
+  font-family: var(--sans); font-style: italic; font-weight: 300;
+  font-size: 1.25rem; line-height: 1.45; color: var(--ink); letter-spacing: -.01em;
 }
 
-/* LIGHTBOX */
+/* ── PARQUE / DESTINO ── */
+.park { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(40px, 7vw, 110px); align-items: start; }
+.park__sticky { position: sticky; top: 120px; }
+.park__body p { font-size: 1rem; line-height: 2.05; color: var(--muted); margin-bottom: 24px; }
+.park__list { list-style: none; display: flex; flex-direction: column; margin-top: 8px; }
+.park__list li {
+  display: flex; gap: 16px; align-items: flex-start;
+  font-size: .98rem; color: var(--muted); line-height: 1.6;
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+  transition: color .3s, padding-left .35s;
+}
+.park__list li:hover { color: var(--ink); padding-left: 8px; }
+.park__list li::before { content: '◆'; font-size: .42rem; color: var(--ink); margin-top: .68em; flex-shrink: 0; }
+
+/* ── CTA ── */
+.cta { padding: clamp(90px, 14vw, 180px) var(--pad-x); text-align: center; }
+.cta .display { margin-bottom: 36px; }
+.cta__btn {
+  display: inline-block; text-decoration: none;
+  background: var(--ink); color: #fff;
+  font-size: .78rem; letter-spacing: .24em; text-transform: uppercase;
+  padding: 18px 44px; border-radius: 100px;
+  transition: transform .35s cubic-bezier(.22,1,.36,1), opacity .3s;
+}
+.cta__btn:hover { transform: translateY(-3px); opacity: .88; }
+
+/* ── LIGHTBOX ── */
 .lightbox {
   position: fixed; inset: 0; z-index: 10000;
-  background: rgba(0,0,0,0.92);
+  background: rgba(10,10,10,.93);
   display: flex; align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden;
-  transition: opacity .35s ease, visibility .35s ease;
+  opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s;
 }
 .lightbox--open { opacity: 1; visibility: visible; }
-.lightbox__img {
-  max-width: 90vw; max-height: 90vh;
-  object-fit: contain;
-  border-radius: 8px;
-  transform: scale(0.94);
-  transition: transform .35s ease;
-}
+.lightbox__img { max-width: 92vw; max-height: 90vh; object-fit: contain; border-radius: 12px; transform: scale(.94); transition: transform .35s ease; }
 .lightbox--open .lightbox__img { transform: scale(1); }
 .lightbox__close {
-  position: absolute; top: 24px; right: 28px;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.18);
-  color: #fff; font-size: 1.4rem; line-height: 1;
-  width: 44px; height: 44px;
-  border-radius: 50%; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s;
+  position: absolute; top: 24px; right: 28px; width: 44px; height: 44px;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; font-size: 1.3rem; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: background .2s;
 }
-.lightbox__close:hover { background: rgba(255,255,255,0.22); }
+.lightbox__close:hover { background: rgba(255,255,255,.24); }
 
-/* FOOTER */
-.footer { padding: 60px 64px; border-top: 1px solid var(--color-line); display: flex; justify-content: space-between; align-items: center; }
-.footer__logo { font-family: var(--font-sans); font-size: 1.1rem; font-weight: 600; }
-.footer__copy { font-size: .75rem; color: var(--color-muted); }
+/* ── FOOTER ── */
+.footer {
+  padding: 52px var(--pad-x);
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+.footer__logo { font-weight: 600; letter-spacing: .08em; }
+.footer__copy { font-size: .75rem; color: var(--muted); letter-spacing: .06em; }
 
+/* ── RESPONSIVO ── */
+@media (max-width: 1024px) {
+  .intro { grid-template-columns: 1fr; }
+  .concept__grid { grid-template-columns: 1fr; }
+  .numbers__grid { grid-template-columns: 1fr; }
+  .plants__grid { grid-template-columns: 1fr; }
+  .data { grid-template-columns: 1fr; }
+  .park { grid-template-columns: 1fr; }
+  .park__sticky { position: static; }
+}
 @media (max-width: 768px) {
-  /* NAV */
-  .nav { width: calc(100% - 32px); padding: 10px 16px; }
-  .nav__links { display: none; }
-
-  /* CURSOR */
-  .cursor { display: none; }
-  body { cursor: auto; }
-
-  /* DETAILS */
-  .p-section { padding: 48px 20px; }
-  .details { grid-template-columns: 1fr; padding: 56px 20px; gap: 28px; }
-  .details__desc { grid-column: span 1; margin-top: 0; }
-  .details__value { font-size: 1.2rem; }
-
-  /* TABELA INDICADORES — scroll horizontal */
-  .p-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-  /* SEÇÃO TÉCNICA */
-  .proj__hero { height: 55vh; }
-  .proj__hero-content { padding: 32px 20px; max-width: 100%; }
-  .proj__hero-title { font-size: clamp(1.7rem, 7vw, 2.2rem); }
-  .proj__hero-sub { font-size: .9rem; }
-  .proj__plants { padding: 48px 20px; }
-  .proj__plants-header { margin-bottom: 36px; }
-  .proj__plants-grid { grid-template-columns: 1fr; gap: 36px; }
-  .proj__plant-img-wrap { aspect-ratio: 4/3; }
-  /* botão expand nas plantas sempre visível no mobile */
-  .proj__plant-expand { opacity: 1 !important; transform: scale(1) !important; }
-  .proj__data { grid-template-columns: 1fr; }
-  .proj__data-block { padding: 36px 20px; }
-  .proj__obs-tagline { font-size: 1rem; }
-
-  /* GALLERY */
-  .gallery { padding: 0 20px 64px; }
-  .gallery__grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; gap: 10px; }
-  .gallery__item { height: 64vw; }
-  .gallery__item--main { grid-row: span 1; }
-  .gallery__expand { opacity: 1; transform: scale(1); }
-
-  /* FOOTER */
-  .footer { padding: 36px 20px; flex-direction: column; gap: 12px; text-align: center; }
+  .hero__media { margin: 8px; height: calc(100svh - 16px); border-radius: 20px; }
+  .hero__title { font-size: clamp(2.8rem, 16vw, 4.2rem); }
+  .hero__scroll { display: none; }
+  .banner { padding: 0 8px; }
+  .banner__media { border-radius: 20px; }
+  .numbers { margin: 0 8px; border-radius: 20px; }
+  .expand { opacity: 1; transform: scale(1); }
+  .fact__val { font-size: 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 </style>
 </head>
 <body>
 
-<!-- SCROLL PROGRESS -->
-<div id="scroll-progress" aria-hidden="true">
-  <div id="scroll-progress-fill"></div>
-</div>
+<div id="scroll-progress" aria-hidden="true"><div id="scroll-progress-fill"></div></div>
 
 <nav class="nav">
   <a href="../index.html" class="nav__logo">Invest.Hauser</a>
-  <div class="nav__links">
-    <a href="../index.html" class="nav__link">Voltar ao Início</a>
-  </div>
+  <a href="../index.html" class="nav__back">Voltar ao início</a>
 </nav>
 
-<div class="cursor" id="cursor">
-    <div class="cursor__text">Vialaggio</div>
-</div>
-
-<section class="p-hero">
-  <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507932/capa_vialaggio.png" class="p-hero__img" alt="Parque Tanguá">
-  <div class="p-hero__scroll" id="heroScroll">
-    <div class="p-hero__scroll-line"></div>
-    Scroll
-  </div>
-</section>
-
-<section class="details">
-  <div>
-    <span class="details__label">Localização</span>
-    <p class="details__value">Curitiba, PR</p>
-  </div>
-  <div>
-    <span class="details__label">Área</span>
-    <p class="details__value">365m² aprox.</p>
-  </div>
-  <div>
-    <span class="details__label">Ano</span>
-    <p class="details__value">2027</p>
-  </div>
-  <div>
-    <span class="details__label">Status</span>
-    <p class="details__value">Em construção</p>
-  </div>
-  <p class="details__desc">
-    Localizado em uma das áreas mais nobres de Curitiba. Com uma arquitetura contemporânea que prioriza a iluminação natural e a integração com a natureza exuberante do entorno, cada detalhe foi planejado para oferecer o máximo em conforto e sofisticação.
-  </p>
-</section>
-
-<section class="p-section">
-  <h2 class="p-section__title">Programa Arquitetônico</h2>
-  <p class="p-section__text">
-    O empreendimento contará com 15 suítes privativas distribuídas ao longo de uma viela central temática, além de áreas gourmet, wine lounge e mezanino panorâmico.
-  </p>
-
-  <h2 class="p-section__title">Modelo de Negócio</h2>
-  <p class="p-section__text">
-    Operação híbrida entre Pool Hoteleiro e Airbnb, permitindo elevada ocupação e maximização de rentabilidade.
-  </p>
-
-  <h2 class="p-section__title">Experiência de Destino</h2>
-  <p class="p-section__text">
-    A ambientação temática transforma a hospedagem em uma experiência sensorial e turística exclusiva.
-  </p>
-
-  <h2 class="p-section__title">O Parque Tanguá — Um dos Cartões-Postais de Curitiba</h2>
-  <p class="p-section__text">
-    O Parque Tanguá é reconhecido como um dos locais turísticos mais visitados e fotografados de Curitiba. Com jardins em estilo europeu, lagos, mirantes panorâmicos e um dos pores do sol mais famosos da cidade, o parque atrai visitantes diariamente. Sua infraestrutura oferece áreas de contemplação, ciclovias, cascatas artificiais e espaços de convivência, transformando a região em um polo de turismo e lazer de alto valor agregado. A localização da Parque Tanguá em frente ao parque cria um diferencial competitivo extremamente raro, permitindo ao empreendimento unir hospedagem temática, experiência turística e valorização imobiliária. Além da relevância turística, o Vialaggio agrega: • forte fluxo de visitantes; • elevado potencial para hospedagem premium; • valorização constante da região; • grande apelo visual e digital; • potencial para experiências gastronômicas e eventos.
-  </p>
-
-  <table class="p-table">
-    <thead>
-      <tr>
-        <th>Indicador</th>
-        <th>Estimativa</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Número de suítes</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>Diária média</td>
-        <td>R$ 420</td>
-      </tr>
-      <tr>
-        <td>Ocupação média</td>
-        <td>68% a 78%</td>
-      </tr>
-      <tr>
-        <td>Receita mensal estimada</td>
-        <td>R$ 138.600</td>
-      </tr>
-      <tr>
-        <td>Receita anual estimada</td>
-        <td>R$ 1,66 milhão</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     SEÇÃO TÉCNICA — PROJETO ARQUITETÔNICO
-════════════════════════════════════════════════════ -->
-<section class="proj">
-
-  <!-- HERO TÉCNICO -->
-  <div class="proj__hero">
-    <img
-      src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg"
-      alt="Vialaggio — Viela noturna"
-      class="proj__hero-img"
-      loading="lazy"
-    >
-    <div class="proj__hero-overlay"></div>
-    <div class="proj__hero-content">
-      <span class="proj__eyebrow">Projeto Arquitetônico</span>
-      <h2 class="proj__hero-title">Um refúgio onde a<br>arquitetura e a natureza<br><em>se encontram.</em></h2>
-      <p class="proj__hero-sub">Hospitalidade com essência, design com propósito.</p>
-    </div>
-  </div>
-
-  <!-- PLANTA BAIXA -->
-  <div class="proj__plants">
-    <div class="proj__plants-header">
-      <div class="proj__label">Plantas</div>
-      <h3 class="proj__title">Distribuição<br><em>dos pavimentos.</em></h3>
-      <p class="proj__plants-note">Terreno recomendado: <strong>15,00m</strong> (largura) × <strong>45,00m</strong> (profundidade)</p>
-    </div>
-
-    <div class="proj__plants-grid">
-      <!-- Térreo -->
-      <div class="proj__plant-card">
-        <div class="proj__plant-label">Térreo</div>
-        <div class="proj__plant-img-wrap">
-          <img
-            src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png"
-            alt="Planta Térreo — Vialaggio"
-            class="proj__plant-img"
-            loading="lazy"
-          >
-          <button class="proj__plant-expand gallery__expand" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" aria-label="Expandir planta térreo">
-            <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </button>
-        </div>
-        <ul class="proj__legend">
-          <li><span class="proj__legend-num">①</span>Suítes 1–6 · Lado esquerdo · 15m² cada</li>
-          <li><span class="proj__legend-num">②</span>Suítes 7–12 · Lado direito · 15m² cada</li>
-          <li><span class="proj__legend-num">③</span>Cozinha compartilhada · 40m²</li>
-          <li><span class="proj__legend-num">④</span>Alameda central descoberta · 4,00m largura</li>
-          <li><span class="proj__legend-num">⑤</span>Lavanderia · 6m²</li>
-          <li><span class="proj__legend-num">⑥</span>Lavabo · 3m²</li>
-          <li><span class="proj__legend-num">⑦</span>Depósito · 4m²</li>
-          <li><span class="proj__legend-num">⑧</span>Escada de acesso ao andar superior</li>
-          <li><span class="proj__legend-num">⑨</span>Entrada principal</li>
-        </ul>
-      </div>
-
-      <!-- Superior -->
-      <div class="proj__plant-card">
-        <div class="proj__plant-label">Pavimento Superior</div>
-        <div class="proj__plant-img-wrap">
-          <img
-            src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png"
-            alt="Planta Superior — Vialaggio"
-            class="proj__plant-img"
-            loading="lazy"
-          >
-          <button class="proj__plant-expand gallery__expand" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" aria-label="Expandir planta superior">
-            <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          </button>
-        </div>
-        <ul class="proj__legend">
-          <li><span class="proj__legend-num">①</span>Apartamento 1 · 40m²</li>
-          <li><span class="proj__legend-num">②</span>Apartamento 2 · 40m²</li>
-        </ul>
+<!-- HERO -->
+<header class="hero">
+  <div class="hero__media">
+    <img id="heroImg" src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507932/capa_vialaggio.png" alt="Vialaggio — fachada em frente ao Parque Tanguá">
+    <div class="hero__shade"></div>
+    <div class="hero__content">
+      <div class="hero__eyebrow" id="heroEyebrow">Parque Tanguá · Curitiba, PR</div>
+      <h1 class="hero__title" id="heroTitle">Vialaggio</h1>
+      <div class="hero__row" id="heroRow">
+        <p class="hero__sub">Hospedagem temática em frente a um dos cartões-postais de Curitiba. Arquitetura, experiência e rentabilidade em um único endereço.</p>
+        <div class="hero__scroll"><div class="hero__scroll-line"></div>Role para explorar</div>
       </div>
     </div>
   </div>
+</header>
 
-  <!-- QUADRO DE ÁREAS + OBSERVAÇÕES + IMPLANTAÇÃO -->
-  <div class="proj__data">
+<!-- INTRO + FICHA -->
+<section class="section">
+  <div class="intro">
+    <div>
+      <div class="label">O projeto</div>
+      <p class="intro__lead">Um refúgio onde a arquitetura e a natureza <em>se encontram.</em></p>
+      <p class="intro__desc">Localizado em uma das áreas mais nobres de Curitiba, com arquitetura contemporânea que prioriza a iluminação natural e a integração com o entorno exuberante do Parque Tanguá. Cada detalhe foi planejado para oferecer o máximo em conforto, sofisticação e retorno ao investidor.</p>
+    </div>
+    <div class="facts" id="facts">
+      <div class="fact"><span class="fact__key">Localização</span><span class="fact__val">Curitiba, PR</span></div>
+      <div class="fact"><span class="fact__key">Área construída</span><span class="fact__val">365 m² <em>aprox.</em></span></div>
+      <div class="fact"><span class="fact__key">Entrega</span><span class="fact__val">Dez, 2027</span></div>
+      <div class="fact"><span class="fact__key">Status</span><span class="fact__val"><em>Em construção</em></span></div>
+      <div class="fact"><span class="fact__key">Modelo</span><span class="fact__val">Pool Hoteleiro + Airbnb</span></div>
+    </div>
+  </div>
+</section>
 
-    <!-- Quadro de áreas -->
-    <div class="proj__data-block">
-      <div class="proj__label">Quadro de Áreas</div>
-      <table class="proj__areas-table">
+<!-- BANNER PARALLAX -->
+<section class="banner">
+  <div class="banner__media">
+    <img id="bannerImg" src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — viela central noturna">
+    <div class="banner__caption">Viela central temática</div>
+  </div>
+</section>
+
+<!-- CONCEITO -->
+<section class="section concept">
+  <div class="concept__head">
+    <div class="label">Conceito</div>
+    <h2 class="display"><span class="reveal-line"><span>Hospitalidade com essência,</span></span><span class="reveal-line"><span><em>design com propósito.</em></span></span></h2>
+  </div>
+  <div class="concept__grid">
+    <div class="concept-card">
+      <span class="concept-card__num">/ 01</span>
+      <div>
+        <h3>Programa arquitetônico</h3>
+        <p>15 suítes privativas distribuídas ao longo de uma viela central temática, além de áreas gourmet, wine lounge e mezanino panorâmico.</p>
+      </div>
+    </div>
+    <div class="concept-card">
+      <span class="concept-card__num">/ 02</span>
+      <div>
+        <h3>Modelo de negócio</h3>
+        <p>Operação híbrida entre Pool Hoteleiro e Airbnb, permitindo elevada ocupação e maximização de rentabilidade ao longo do ano.</p>
+      </div>
+    </div>
+    <div class="concept-card">
+      <span class="concept-card__num">/ 03</span>
+      <div>
+        <h3>Experiência de destino</h3>
+        <p>A ambientação temática transforma a hospedagem em uma experiência sensorial e turística exclusiva — feita para ser fotografada e compartilhada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDICADORES -->
+<section class="numbers">
+  <div class="label">Indicadores estimados</div>
+  <h2 class="display"><span class="reveal-line"><span>Números que</span></span><span class="reveal-line"><span><em>sustentam a visão.</em></span></span></h2>
+  <div class="numbers__grid">
+    <div class="num-cell"><div class="num-cell__val js-count" data-target="15">0</div><div class="num-cell__key">Suítes</div></div>
+    <div class="num-cell"><div class="num-cell__val"><em>R$</em> <span class="js-count" data-target="420">0</span></div><div class="num-cell__key">Diária média</div></div>
+    <div class="num-cell"><div class="num-cell__val"><span class="js-count" data-target="68">0</span>–78<em>%</em></div><div class="num-cell__key">Ocupação média</div></div>
+    <div class="num-cell"><div class="num-cell__val"><em>R$</em> <span class="js-count" data-target="138">0</span>,6<em>mil</em></div><div class="num-cell__key">Receita mensal estimada</div></div>
+    <div class="num-cell"><div class="num-cell__val"><em>R$</em> <span class="js-count" data-target="1">0</span>,66<em>mi</em></div><div class="num-cell__key">Receita anual estimada</div></div>
+    <div class="num-cell"><div class="num-cell__val">365<em>m²</em></div><div class="num-cell__key">Área construída total</div></div>
+  </div>
+  <p class="numbers__note">* Estimativas baseadas no modelo híbrido Pool Hoteleiro + Airbnb. Valores sujeitos a variação de mercado.</p>
+</section>
+
+<!-- PLANTAS -->
+<section class="section plants">
+  <div class="plants__head">
+    <div>
+      <div class="label">Plantas</div>
+      <h2 class="display"><span class="reveal-line"><span>Distribuição</span></span><span class="reveal-line"><span><em>dos pavimentos.</em></span></span></h2>
+    </div>
+    <p class="plants__note">Terreno recomendado: <strong>15,00 m</strong> de largura × <strong>45,00 m</strong> de profundidade — <strong>675 m²</strong> de área total.</p>
+  </div>
+
+  <div class="plants__grid">
+    <div class="plant">
+      <div class="plant__media" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png">
+        <span class="plant__tag">Térreo</span>
+        <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" alt="Planta do pavimento térreo — Vialaggio" loading="lazy">
+        <button class="expand" aria-label="Expandir planta do térreo">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
+      <ul class="legend">
+        <li><span class="legend-num">①</span>Suítes 1–6 · Lado esquerdo · 15 m² cada</li>
+        <li><span class="legend-num">②</span>Suítes 7–12 · Lado direito · 15 m² cada</li>
+        <li><span class="legend-num">③</span>Cozinha compartilhada · 40 m²</li>
+        <li><span class="legend-num">④</span>Alameda central descoberta · 4,00 m de largura</li>
+        <li><span class="legend-num">⑤</span>Lavanderia · 6 m²</li>
+        <li><span class="legend-num">⑥</span>Lavabo · 3 m²</li>
+        <li><span class="legend-num">⑦</span>Depósito · 4 m²</li>
+        <li><span class="legend-num">⑧</span>Escada de acesso ao andar superior</li>
+        <li><span class="legend-num">⑨</span>Entrada principal</li>
+      </ul>
+    </div>
+
+    <div class="plant">
+      <div class="plant__media" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png">
+        <span class="plant__tag">Pavimento superior</span>
+        <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" alt="Planta do pavimento superior — Vialaggio" loading="lazy">
+        <button class="expand" aria-label="Expandir planta do pavimento superior">
+          <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
+      <ul class="legend">
+        <li><span class="legend-num">①</span>Apartamento 1 · 40 m²</li>
+        <li><span class="legend-num">②</span>Apartamento 2 · 40 m²</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DADOS TÉCNICOS -->
+  <div class="data">
+    <div class="data-block">
+      <div class="label" style="margin-bottom:6px;">Quadro de áreas</div>
+      <table class="data-table">
         <tbody>
-          <tr><td>Área construída Térreo</td><td><strong>270 m²</strong></td></tr>
-          <tr><td>Área construída Superior</td><td><strong>95 m²</strong></td></tr>
-          <tr><td>Área total construída</td><td><strong>365 m²</strong></td></tr>
-          <tr><td>Alameda central (descoberta)</td><td><strong>132 m²</strong></td></tr>
-          <tr class="proj__areas-table-highlight"><td>Área total do terreno sugerido<br><small>15,00 × 45,00m</small></td><td><strong>675 m²</strong></td></tr>
+          <tr><td>Área construída — Térreo</td><td>270 m²</td></tr>
+          <tr><td>Área construída — Superior</td><td>95 m²</td></tr>
+          <tr><td>Área total construída</td><td>365 m²</td></tr>
+          <tr><td>Alameda central (descoberta)</td><td>132 m²</td></tr>
+          <tr class="hl"><td>Terreno sugerido<small>15,00 × 45,00 m</small></td><td>675 m²</td></tr>
         </tbody>
       </table>
-      <p class="proj__areas-note">* Área da alameda varia conforme o paisagismo.</p>
+      <p class="data-note">* Área da alameda varia conforme o paisagismo.</p>
     </div>
 
-    <!-- Observações -->
-    <div class="proj__data-block">
-      <div class="proj__label">Observações</div>
-      <ul class="proj__obs-list">
+    <div class="data-block">
+      <div class="label" style="margin-bottom:6px;">Dimensões e parâmetros</div>
+      <table class="data-table">
+        <tbody>
+          <tr><td>Largura do terreno</td><td>15,00 m</td></tr>
+          <tr><td>Profundidade do terreno</td><td>45,00 m</td></tr>
+          <tr><td>Alameda central</td><td>4,00 m</td></tr>
+          <tr><td>Suítes</td><td>12 un.</td></tr>
+          <tr><td>Apartamentos (superior)</td><td>2 un.</td></tr>
+          <tr class="hl"><td>Total de unidades</td><td>14 un.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="data-block">
+      <div class="label" style="margin-bottom:6px;">Observações</div>
+      <ul class="obs">
         <li>Alameda central descoberta com paisagismo e iluminação natural</li>
         <li>Todas as suítes com banheiro privativo</li>
         <li>Ventilação e iluminação natural em todos os ambientes</li>
         <li>Projeto ideal para hospedagem e locação de médio e longo prazo</li>
       </ul>
-      <div class="proj__obs-tagline">
-        Hospitalidade que encanta.<br>Investimento que permanece.
-      </div>
+      <div class="tagline">Hospitalidade que encanta.<br>Investimento que permanece.</div>
     </div>
-
-    <!-- Dimensões principais -->
-    <div class="proj__data-block">
-      <div class="proj__label">Dimensões e Parâmetros</div>
-      <table class="proj__areas-table">
-        <tbody>
-          <tr><td>Largura do terreno</td><td><strong>15,00 m</strong></td></tr>
-          <tr><td>Profundidade do terreno</td><td><strong>45,00 m</strong></td></tr>
-          <tr><td>Alameda central</td><td><strong>4,00 m</strong></td></tr>
-          <tr><td>Nº de suítes</td><td><strong>12 unidades</strong></td></tr>
-          <tr><td>Nº de apartamentos (superior)</td><td><strong>2 unidades</strong></td></tr>
-          <tr><td>Nº total de unidades</td><td><strong>14 unidades</strong></td></tr>
-          <tr class="proj__areas-table-highlight"><td>Área construída total</td><td><strong>365 m² (aprox.)</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
-
   </div>
-
 </section>
 
-<section class="gallery">
-  <div class="gallery__grid">
-
-    <!-- Imagem principal — ocupa as 2 linhas à esquerda -->
-    <div class="gallery__item gallery__item--main" data-src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — Vista Principal">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
+<!-- O PARQUE -->
+<section class="section">
+  <div class="park">
+    <div class="park__sticky">
+      <div class="label">O destino</div>
+      <h2 class="display"><span class="reveal-line"><span>Em frente a um</span></span><span class="reveal-line"><span>dos cartões-postais</span></span><span class="reveal-line"><span><em>de Curitiba.</em></span></span></h2>
     </div>
-
-    <!-- Imagem superior direita -->
-    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507543/superior_vialaggio.png" alt="Vialaggio — Pavimento Superior">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
+    <div class="park__body">
+      <p>O Parque Tanguá é um dos locais turísticos mais visitados e fotografados de Curitiba. Com jardins em estilo europeu, lagos, mirantes panorâmicos e um dos pores do sol mais famosos da cidade, o parque atrai visitantes diariamente.</p>
+      <p>Sua infraestrutura oferece áreas de contemplação, ciclovias, cascatas artificiais e espaços de convivência — um polo de turismo e lazer de alto valor agregado. A localização em frente ao parque cria um diferencial competitivo extremamente raro, unindo hospedagem temática, experiência turística e valorização imobiliária.</p>
+      <ul class="park__list">
+        <li>Forte fluxo de visitantes durante todo o ano</li>
+        <li>Elevado potencial para hospedagem premium</li>
+        <li>Valorização constante da região</li>
+        <li>Grande apelo visual e digital</li>
+        <li>Potencial para experiências gastronômicas e eventos</li>
+      </ul>
     </div>
-
-    <!-- Imagem inferior direita -->
-    <div class="gallery__item" data-src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png">
-      <img src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507580/terreo_vialaggio.png" alt="Vialaggio — Térreo">
-      <button class="gallery__expand" aria-label="Expandir imagem">
-        <svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-      </button>
-    </div>
-
   </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="label" style="justify-content:center;">Próximo passo</div>
+  <h2 class="display"><span class="reveal-line"><span>Onde a visão encontra</span></span><span class="reveal-line"><span><em>a execução.</em></span></span></h2>
+  <a href="https://wa.me/5541999999999" class="cta__btn" target="_blank" rel="noopener">Falar no WhatsApp</a>
 </section>
 
 <!-- LIGHTBOX -->
@@ -731,7 +555,6 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
   <button class="lightbox__close" id="lightboxClose" aria-label="Fechar">✕</button>
   <img class="lightbox__img" id="lightboxImg" src="" alt="">
 </div>
-  
 
 <footer class="footer">
   <div class="footer__logo">Invest.Hauser</div>
@@ -741,86 +564,79 @@ body:hover .cursor__text { opacity: 1; transform: scale(1); }
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-
-/* SCROLL PROGRESS */
-const progressFill = document.getElementById('scroll-progress-fill');
-const isMobileProgress = () => window.innerWidth <= 768;
-lenis.on('scroll', ({ progress }) => {
-  const pct = (progress * 100) + '%';
-  if (isMobileProgress()) {
-    progressFill.style.width  = pct;
-    progressFill.style.height = '100%';
-  } else {
-    progressFill.style.height = pct;
-    progressFill.style.width  = '100%';
-  }
-});
-
+const lenis = new Lenis({ duration: 1.25, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-/* CURSOR */
-const cursor = document.getElementById('cursor');
-document.addEventListener('mousemove', e => {
-    gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+/* SCROLL PROGRESS */
+const progressFill = document.getElementById('scroll-progress-fill');
+lenis.on('scroll', ({ progress }) => { progressFill.style.width = (progress * 100) + '%'; });
+
+/* HERO — entrada */
+gsap.from('#heroImg', { scale: 1.18, duration: 2.2, ease: 'power2.out' });
+gsap.from('#heroTitle', { y: 120, opacity: 0, duration: 1.4, delay: .2, ease: 'power4.out' });
+gsap.from('#heroEyebrow', { y: 24, opacity: 0, duration: 1, delay: .55, ease: 'power3.out' });
+gsap.from('#heroRow', { y: 24, opacity: 0, duration: 1, delay: .8, ease: 'power3.out' });
+
+/* HERO — parallax sutil ao rolar */
+gsap.to('#heroImg', { yPercent: 10, scale: 1.06, ease: 'none',
+  scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
 });
 
-/* LIGHTBOX */
-const lightbox    = document.getElementById('lightbox');
+/* BANNER — parallax */
+gsap.to('#bannerImg', { yPercent: 14, ease: 'none',
+  scrollTrigger: { trigger: '.banner', start: 'top bottom', end: 'bottom top', scrub: true }
+});
+
+/* TÍTULOS — reveal linha a linha */
+document.querySelectorAll('.reveal-line > span').forEach(el => {
+  gsap.from(el, { yPercent: 110, duration: 1.1, ease: 'power4.out', immediateRender: false,
+    scrollTrigger: { trigger: el.closest('section') || el, start: 'top 78%', toggleActions: 'play none none none' }
+  });
+});
+
+/* BLOCOS — fade-up genérico */
+const fadeUp = (sel, trigger, stagger = .1) => gsap.from(sel, {
+  y: 44, opacity: 0, duration: .95, stagger, ease: 'power3.out', immediateRender: false,
+  scrollTrigger: { trigger, start: 'top 80%', toggleActions: 'play none none none' }
+});
+fadeUp('.intro__lead, .intro__desc', '.intro');
+fadeUp('.fact', '#facts', .08);
+fadeUp('.concept-card', '.concept__grid', .12);
+fadeUp('.num-cell', '.numbers__grid', .08);
+fadeUp('.plant', '.plants__grid', .14);
+fadeUp('.data-block', '.data', .1);
+fadeUp('.park__body > *', '.park__body', .1);
+fadeUp('.cta__btn', '.cta');
+
+/* CONTADORES */
+document.querySelectorAll('.js-count').forEach(el => {
+  const target = +el.dataset.target, obj = { n: 0 };
+  gsap.to(obj, { n: target, duration: 2, ease: 'power2.out',
+    onUpdate: () => { el.textContent = Math.floor(obj.n); },
+    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+  });
+});
+
+/* LIGHTBOX — plantas */
+const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightboxImg');
-const lightboxClose = document.getElementById('lightboxClose');
-
-document.querySelectorAll('.gallery__item').forEach(item => {
-  const btn = item.querySelector('.gallery__expand');
-  const open = () => {
-    lightboxImg.src = item.dataset.src;
-    lightbox.classList.add('lightbox--open');
-    document.body.style.overflow = 'hidden';
-  };
-  btn.addEventListener('click', e => { e.stopPropagation(); open(); });
-  item.addEventListener('click', open);
-});
-
+const openLightbox = src => {
+  lightboxImg.src = src;
+  lightbox.classList.add('lightbox--open');
+  lenis.stop();
+};
 const closeLightbox = () => {
   lightbox.classList.remove('lightbox--open');
-  document.body.style.overflow = '';
+  lenis.start();
 };
-lightboxClose.addEventListener('click', closeLightbox);
+document.querySelectorAll('.plant__media').forEach(item => {
+  item.addEventListener('click', () => openLightbox(item.dataset.src));
+});
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
-gsap.from('.p-hero__title', { y: 100, opacity: 0, duration: 1.5, ease: 'power4.out' });
-gsap.from('.p-hero__img', { scale: 1.2, duration: 2, ease: 'power2.out' });
-gsap.from('#heroScroll', { opacity: 0, duration: .8, delay: 1.6, ease: 'power3.out' });
-
-/* ANIMAÇÕES SEÇÃO TÉCNICA */
-gsap.from('.proj__hero-content > *', { y: 40, opacity: 0, duration: 1, stagger: .12, ease: 'power3.out', immediateRender: false,
-  scrollTrigger: { trigger: '.proj__hero', start: 'top 80%', toggleActions: 'play none none none' }
-});
-gsap.from('.proj__plants-header > *', { y: 30, opacity: 0, duration: .9, stagger: .1, ease: 'power3.out', immediateRender: false,
-  scrollTrigger: { trigger: '.proj__plants', start: 'top 80%', toggleActions: 'play none none none' }
-});
-gsap.from('.proj__plant-card', { y: 50, opacity: 0, duration: .9, stagger: .15, ease: 'power3.out', immediateRender: false,
-  scrollTrigger: { trigger: '.proj__plants-grid', start: 'top 80%', toggleActions: 'play none none none' }
-});
-gsap.from('.proj__data-block', { y: 40, opacity: 0, duration: .85, stagger: .1, ease: 'power3.out', immediateRender: false,
-  scrollTrigger: { trigger: '.proj__data', start: 'top 80%', toggleActions: 'play none none none' }
-});
-
-gsap.utils.toArray('.p-section__title, .p-section__text, .p-table').forEach(el => {
-  gsap.from(el, {
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 90%',
-    },
-    y: 30,
-    opacity: 0,
-    duration: 1,
-    ease: 'power2.out'
-  });
-});  
 </script>
 
 </body>
