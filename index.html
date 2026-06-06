@@ -12,7 +12,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: auto; font-size: 16px; }
+html { scroll-behavior: auto; font-size: 16px; overflow-x: hidden; }
+body { max-width: 100%; }
 
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; -ms-overflow-style: none; }
@@ -462,10 +463,10 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   body { cursor: auto; }
   .mag-badge { display: none; }
 
-  .nav { top: 16px; padding: 10px 16px; gap: 12px; width: calc(100% - 32px); justify-content: space-between; }
+  .nav { top: 12px; padding: 8px 10px 8px 16px; gap: 8px; width: calc(100% - 24px); justify-content: space-between; }
   .nav__links { display: none; }
-  .nav__logo { font-size: .9rem; }
-  .nav__cta { font-size: .7rem; padding: 7px 14px; }
+  .nav__logo { font-size: .8rem; letter-spacing: .04em; }
+  .nav__cta { font-size: .6rem; padding: 7px 13px; letter-spacing: .12em; }
 
   .hero__content { padding: 0 20px 40px; }
   .hero__title { font-size: clamp(2rem, 9vw, 3.2rem); }
