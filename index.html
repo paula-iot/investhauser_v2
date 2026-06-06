@@ -90,14 +90,91 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
 .loader__fill  { height: 100%; width: 0; background: var(--color-text); }
 .loader__label { font-size: .6rem; letter-spacing: .35em; text-transform: uppercase; color: var(--color-muted); }
 
-/* NAV */
-.nav { position: fixed; top: 28px; left: 50%; z-index: 500; transform: translateX(-50%); background: rgba(255,255,255,0.88); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--color-black-12); border-radius: 100px; padding: 12px 28px; display: flex; align-items: center; gap: 40px; transition: background .3s ease; }
-.nav__logo { font-family: var(--font-sans); font-size: 1rem; font-weight: 600; letter-spacing: .08em; color: var(--color-text); text-decoration: none; white-space: nowrap; }
-.nav__links { display: flex; gap: 28px; list-style: none; }
-.nav__link { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-muted); text-decoration: none; transition: color .3s; }
-.nav__link:hover { color: var(--color-text); }
-.nav__cta { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--color-bg); background: var(--color-text); padding: 8px 20px; border-radius: 100px; text-decoration: none; white-space: nowrap; transition: opacity .3s; }
-.nav__cta:hover { opacity: .75; }
+/* ── FNAV — pílula inferior (estilo fluid.glass) ── */
+.fnav {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 900;
+  width: min(420px, calc(100% - 28px));
+}
+.fnav__panel {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+  border: 1px solid var(--color-black-12);
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  box-shadow: 0 18px 50px -20px rgba(0,0,0,.28);
+}
+.fnav__bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px 8px 22px;
+  min-height: 56px;
+  flex-shrink: 0;
+}
+.fnav__logo {
+  font-family: var(--font-sans); font-size: .95rem; font-weight: 600;
+  letter-spacing: .06em; color: var(--color-text); text-decoration: none; white-space: nowrap;
+}
+.fnav__toggle {
+  width: 40px; height: 40px; border: none; background: var(--color-text);
+  border-radius: 50%; cursor: pointer; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .3s;
+}
+.fnav__toggle:active { transform: scale(.92); }
+.fnav__burger { width: 16px; height: 12px; position: relative; display: block; }
+.fnav__burger span {
+  position: absolute; left: 0; width: 100%; height: 1.5px; background: #fff;
+  transition: transform .45s cubic-bezier(.65,0,.35,1), opacity .3s, top .45s cubic-bezier(.65,0,.35,1);
+}
+.fnav__burger span:nth-child(1) { top: 0; }
+.fnav__burger span:nth-child(2) { top: 5.25px; }
+.fnav__burger span:nth-child(3) { top: 10.5px; }
+.fnav--open .fnav__burger span:nth-child(1) { top: 5.25px; transform: rotate(45deg); }
+.fnav--open .fnav__burger span:nth-child(2) { opacity: 0; }
+.fnav--open .fnav__burger span:nth-child(3) { top: 5.25px; transform: rotate(-45deg); }
+
+.fnav__menu {
+  padding: 26px 22px 6px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.fnav__main { list-style: none; display: flex; flex-direction: column; }
+.fnav__mask { overflow: hidden; }
+.fnav__link {
+  display: block; position: relative; overflow: hidden;
+  text-decoration: none;
+  font-family: var(--font-sans); font-weight: 400;
+  font-size: clamp(1.6rem, 5.5vw, 2rem); line-height: 1.4;
+  letter-spacing: -.02em; color: var(--color-text);
+  padding: 2px 0;
+  will-change: transform;
+}
+.fnav__line { display: block; transition: transform .5s cubic-bezier(.65,0,.35,1); }
+.fnav__line + .fnav__line {
+  position: absolute; inset: 2px 0 auto 0;
+  transform: translateY(110%);
+  font-style: italic; font-weight: 300; color: var(--color-muted);
+}
+.fnav__link:hover .fnav__line:first-child { transform: translateY(-110%); }
+.fnav__link:hover .fnav__line + .fnav__line { transform: translateY(0); }
+.fnav__sub {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  margin-top: 18px; padding-top: 18px;
+  border-top: 1px solid var(--color-line);
+}
+.fnav__sub .fnav__mask { flex: 1; }
+.fnav__cta {
+  display: block; text-align: center; text-decoration: none;
+  background: var(--color-text); color: #fff;
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
+  padding: 14px 20px; border-radius: 100px;
+  transition: opacity .3s;
+  will-change: transform;
+}
+.fnav__cta:hover { opacity: .82; }
+@media (min-width: 769px) {
+  .fnav { width: 420px; }
+}
 
 /* HERO */
 .hero { position: relative; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
@@ -463,10 +540,6 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   body { cursor: auto; }
   .mag-badge { display: none; }
 
-  .nav { top: 12px; padding: 8px 10px 8px 16px; gap: 8px; width: calc(100% - 24px); justify-content: space-between; }
-  .nav__links { display: none; }
-  .nav__logo { font-size: .8rem; letter-spacing: .04em; }
-  .nav__cta { font-size: .6rem; padding: 7px 13px; letter-spacing: .12em; }
 
   .hero__content { padding: 0 20px 40px; }
   .hero__title { font-size: clamp(2rem, 9vw, 3.2rem); }
@@ -554,16 +627,28 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   <div class="loader__label">Invest Hauser</div>
 </div>
 
-<nav class="nav" id="nav">
-  <a href="#" class="nav__logo">Invest.Hauser</a>
-  <ul class="nav__links">
-    <li><a href="#sobre"       class="nav__link">Empresa</a></li>
-    <li><a href="#diferenciais" class="nav__link">Diferenciais</a></li>
-    <li><a href="#projetos"    class="nav__link">Projetos</a></li>
-    <li><a href="#airbnb"      class="nav__link">Airbnb</a></li>
-  </ul>
-  <a href="#cta" class="nav__cta">Falar conosco</a>
-</nav>
+<div class="fnav" id="fnav">
+  <div class="fnav__panel" id="fnavPanel">
+    <nav class="fnav__menu" id="fnavMenu" aria-hidden="true">
+      <ul class="fnav__main">
+        <li><div class="fnav__mask"><a href="#sobre" class="fnav__link"><span class="fnav__line">Empresa</span><span class="fnav__line" aria-hidden="true">Empresa</span></a></div></li>
+        <li><div class="fnav__mask"><a href="#diferenciais" class="fnav__link"><span class="fnav__line">Diferenciais</span><span class="fnav__line" aria-hidden="true">Diferenciais</span></a></div></li>
+        <li><div class="fnav__mask"><a href="#projetos" class="fnav__link"><span class="fnav__line">Projetos</span><span class="fnav__line" aria-hidden="true">Projetos</span></a></div></li>
+        <li><div class="fnav__mask"><a href="#servicos" class="fnav__link"><span class="fnav__line">Serviços</span><span class="fnav__line" aria-hidden="true">Serviços</span></a></div></li>
+        <li><div class="fnav__mask"><a href="#airbnb" class="fnav__link"><span class="fnav__line">Airbnb</span><span class="fnav__line" aria-hidden="true">Airbnb</span></a></div></li>
+      </ul>
+      <div class="fnav__sub">
+        <div class="fnav__mask"><a href="https://wa.me/5541999999999" class="fnav__cta" target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+      </div>
+    </nav>
+    <div class="fnav__bar">
+      <a href="#hero" class="fnav__logo">Invest.Hauser</a>
+      <button class="fnav__toggle" id="fnavToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span class="fnav__burger"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -852,9 +937,10 @@ lenis.on('scroll', ({ progress }) => {
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) lenis.scrollTo(target, { offset: 0, duration: 1.6, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    const href = a.getAttribute('href');
+    if (!href || href === '#') { e.preventDefault(); lenis.scrollTo(0, { duration: 1.4 }); return; }
+    const target = document.querySelector(href);
+    if (target) { e.preventDefault(); lenis.scrollTo(target, { offset: 0, duration: 1.6, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) }); }
   });
 });
 
@@ -900,7 +986,7 @@ function splitChars(el, text) {
 }
 
 function boot() {
-  gsap.from('#nav', { y:-40, opacity:0, duration:.9, ease:'power3.out', delay:.1 });
+  gsap.from('#fnav', { y:60, opacity:0, duration:.9, ease:'power3.out', delay:.2 });
 
   const l1 = splitChars(document.getElementById('titleL1'), 'Da obra');
   const l2 = splitChars(document.getElementById('titleL2'), 'ao');
@@ -1022,13 +1108,46 @@ function boot() {
   });
 }
 
-ScrollTrigger.create({
-  start: 'top -80', end: 99999,
-  onUpdate: self => {
-    document.getElementById('nav').style.background =
-      self.direction===1 ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.88)';
+
+/* ── FNAV — menu pílula inferior ── */
+(function () {
+  const fnav   = document.getElementById('fnav');
+  const panel  = document.getElementById('fnavPanel');
+  const menu   = document.getElementById('fnavMenu');
+  const toggle = document.getElementById('fnavToggle');
+  const items  = menu.querySelectorAll('.fnav__mask > *');
+  const barH   = 56;
+  let open = false, animating = false;
+
+  gsap.set(panel, { height: barH });
+  gsap.set(items, { yPercent: 130 });
+
+  function openMenu() {
+    if (animating) return; animating = true; open = true;
+    fnav.classList.add('fnav--open');
+    toggle.setAttribute('aria-expanded', 'true');
+    menu.setAttribute('aria-hidden', 'false');
+    const full = menu.scrollHeight + barH;
+    gsap.timeline({ onComplete: () => animating = false })
+      .to(panel, { height: full, duration: .65, ease: 'expo.inOut' })
+      .to(items, { yPercent: 0, duration: .7, ease: 'power4.out', stagger: .06 }, '-=.25');
   }
-});
+
+  function closeMenu(fast) {
+    if (animating && !fast) return; animating = true; open = false;
+    fnav.classList.remove('fnav--open');
+    toggle.setAttribute('aria-expanded', 'false');
+    menu.setAttribute('aria-hidden', 'true');
+    gsap.timeline({ onComplete: () => animating = false })
+      .to(items, { yPercent: 130, duration: .35, ease: 'power3.in', stagger: .03 })
+      .to(panel, { height: barH, duration: .5, ease: 'expo.inOut' }, '-=.15');
+  }
+
+  toggle.addEventListener('click', () => open ? closeMenu() : openMenu());
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => closeMenu(true)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) closeMenu(); });
+  document.addEventListener('click', e => { if (open && !fnav.contains(e.target)) closeMenu(); });
+})();
 
 /* RECÁLCULO — imagens/vídeos carregados e mudanças de viewport */
 window.addEventListener('load', () => ScrollTrigger.refresh());
