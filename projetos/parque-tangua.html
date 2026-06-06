@@ -6,7 +6,7 @@
 <title>Vialaggio · Parque Tanguá — Invest Hauser</title>
 <meta name="description" content="Vialaggio — empreendimento de hospedagem premium em frente ao Parque Tanguá, Curitiba.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
@@ -25,7 +25,6 @@ html { scroll-behavior: auto; font-size: 16px; }
   --radius:    24px;
   --radius-lg: 32px;
   --sans:  'Nunito', sans-serif;
-  --serif: 'Cormorant Garamond', Georgia, serif;
   --pad-x: clamp(20px, 5vw, 72px);
 }
 
@@ -63,6 +62,7 @@ body {
 .hero__media {
   position: relative;
   height: calc(100vh - 24px);
+  height: calc(100svh - 24px);
   margin: 12px;
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -89,9 +89,9 @@ body {
 .hero__eyebrow::before { content: ''; width: 28px; height: 1px; background: rgba(255,255,255,.5); }
 .hero__title {
   font-family: var(--sans);
-  font-weight: 300; font-style: italic;
-  font-size: clamp(3.4rem, 11vw, 10.5rem);
-  line-height: .92; letter-spacing: -.02em;
+  font-weight: 400;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: .95; letter-spacing: -.03em;
 }
 .hero__title .word { display: inline-block; overflow: hidden; vertical-align: bottom; }
 .hero__title .word span { display: inline-block; }
@@ -122,11 +122,12 @@ body {
 }
 .label::before { content: ''; width: 22px; height: 1px; background: var(--muted); }
 .display {
-  font-family: var(--sans); font-weight: 300;
-  font-size: clamp(2.6rem, 6vw, 5.8rem);
-  line-height: 1; letter-spacing: -.02em; color: var(--ink);
+  overflow-wrap: break-word;
+  font-family: var(--sans); font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 1.05; letter-spacing: -.03em; color: var(--ink);
 }
-.display em { font-style: italic; }
+.display em { font-style: italic; font-weight: 300; }
 .reveal-line { display: block; overflow: hidden; }
 .reveal-line > span { display: block; }
 
@@ -134,19 +135,19 @@ body {
 .intro { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(40px, 7vw, 120px); align-items: start; }
 .intro__lead {
   font-family: var(--sans); font-weight: 300;
-  font-size: clamp(1.5rem, 2.6vw, 2.3rem);
-  line-height: 1.35; letter-spacing: -.01em;
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  line-height: 1.45; letter-spacing: -.01em;
   color: var(--ink); max-width: 26ch; margin-top: 8px;
 }
 .intro__lead em { font-style: italic; color: var(--muted); }
 .facts { display: flex; flex-direction: column; }
 .fact {
-  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
   padding: 20px 0; border-bottom: 1px solid var(--line);
 }
 .fact:first-child { border-top: 1px solid var(--line); }
 .fact__key { font-size: .72rem; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); }
-.fact__val { font-family: var(--sans); font-size: 1.4rem; font-weight: 400; text-align: right; }
+.fact__val { font-family: var(--sans); font-size: 1.2rem; font-weight: 400; text-align: right; }
 .fact__val em { font-style: italic; color: var(--muted); font-size: 1rem; }
 .intro__desc { font-size: 1rem; line-height: 2; color: var(--muted); margin-top: 32px; }
 
@@ -179,8 +180,8 @@ body {
   transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s;
 }
 .concept-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px -28px rgba(19,19,19,.22); }
-.concept-card__num { font-family: var(--sans); font-style: italic; font-size: 1.1rem; color: var(--muted); }
-.concept-card h3 { font-family: var(--sans); font-weight: 400; font-size: clamp(1.5rem, 2vw, 1.9rem); line-height: 1.15; letter-spacing: -.01em; margin-bottom: 14px; }
+.concept-card__num { font-family: var(--sans); font-size: .9rem; letter-spacing: .15em; color: var(--muted); }
+.concept-card h3 { font-family: var(--sans); font-weight: 600; font-size: clamp(1.5rem, 2vw, 1.9rem); line-height: 1.15; letter-spacing: -.01em; margin-bottom: 14px; }
 .concept-card p { font-size: .95rem; line-height: 1.95; color: var(--muted); }
 
 /* ── INDICADORES ── */
@@ -195,7 +196,7 @@ body {
   margin-top: clamp(48px, 6vw, 80px);
 }
 .num-cell { background: var(--ink); padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 44px); }
-.num-cell__val { font-family: var(--sans); font-weight: 300; font-size: clamp(2.4rem, 4.2vw, 4rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 14px; }
+.num-cell__val { font-family: var(--sans); font-weight: 300; font-size: clamp(2.2rem, 3.8vw, 3.4rem); line-height: 1; letter-spacing: -.02em; margin-bottom: 14px; }
 .num-cell__val em { font-style: italic; font-size: .55em; color: rgba(244,242,238,.55); }
 .num-cell__key { font-size: .72rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(244,242,238,.5); }
 .numbers__note { margin-top: 28px; font-size: .8rem; color: rgba(244,242,238,.45); font-style: italic; }
@@ -233,7 +234,7 @@ body {
   padding: 10px 0; border-bottom: 1px solid var(--line);
 }
 .legend li:last-child { border-bottom: none; }
-.legend-num { font-family: var(--sans); font-style: italic; color: var(--ink); flex-shrink: 0; width: 24px; }
+.legend-num { font-family: var(--sans); font-weight: 600; color: var(--ink); flex-shrink: 0; width: 24px; }
 
 /* ── DADOS TÉCNICOS ── */
 .data { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: clamp(48px, 6vw, 80px); }
@@ -254,7 +255,7 @@ body {
 .tagline {
   margin-top: auto; padding-top: 22px; border-top: 1px solid var(--line);
   font-family: var(--sans); font-style: italic; font-weight: 300;
-  font-size: 1.25rem; line-height: 1.45; color: var(--ink); letter-spacing: -.01em;
+  font-size: 1.1rem; line-height: 1.45; color: var(--ink); letter-spacing: -.01em;
 }
 
 /* ── PARQUE / DESTINO ── */
@@ -321,14 +322,28 @@ body {
   .park__sticky { position: static; }
 }
 @media (max-width: 768px) {
-  .hero__media { margin: 8px; height: calc(100svh - 16px); border-radius: 20px; }
-  .hero__title { font-size: clamp(2.8rem, 16vw, 4.2rem); }
+  .hero__media { margin: 8px; height: calc(100vh - 16px); height: calc(100svh - 16px); border-radius: 20px; }
+  .hero__title { font-size: clamp(2.4rem, 13vw, 3.6rem); }
+  .hero__content { padding: 24px 20px 28px; gap: 14px; }
+  .hero__sub { font-size: .88rem; line-height: 1.7; }
   .hero__scroll { display: none; }
+  .nav { padding: 18px 20px; }
+  .display { font-size: clamp(1.9rem, 8.5vw, 2.6rem); }
+  .label { font-size: .62rem; letter-spacing: .28em; }
   .banner { padding: 0 8px; }
-  .banner__media { border-radius: 20px; }
+  .banner__media { border-radius: 20px; height: clamp(260px, 52vh, 420px); }
+  .banner__caption { font-size: .6rem; padding: 8px 14px; }
   .numbers { margin: 0 8px; border-radius: 20px; }
+  .num-cell__val { font-size: clamp(1.9rem, 9vw, 2.4rem); }
   .expand { opacity: 1; transform: scale(1); }
-  .fact__val { font-size: 1.15rem; }
+  .fact__val { font-size: 1.05rem; }
+  .plant__media img { padding: 10px; }
+  .plants__note { max-width: 100%; }
+  .intro__lead { font-size: clamp(1.25rem, 5.5vw, 1.5rem); }
+  .data-table td:last-child { font-size: .85rem; }
+  .lightbox__img { max-height: 86svh; }
+  .lightbox__close { top: 14px; right: 14px; }
+  .cta__btn { width: 100%; max-width: 360px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -347,10 +362,11 @@ body {
 <!-- HERO -->
 <header class="hero">
   <div class="hero__media">
-    <img id="heroImg" src="https://res.cloudinary.com/db4pwya16/image/upload/v1780507932/capa_vialaggio.png" alt="Vialaggio — fachada em frente ao Parque Tanguá">
+    <img id="heroImg" fetchpriority="high" src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto,f_auto,w_1920/v1780507932/capa_vialaggio.png" alt="Vialaggio — fachada em frente ao Parque Tanguá">
     <div class="hero__shade"></div>
     <div class="hero__content">
       <div class="hero__eyebrow" id="heroEyebrow">Parque Tanguá · Curitiba, PR</div>
+      <h1 class="hero__title" id="heroTitle">Vialaggio</h1>
       <div class="hero__row" id="heroRow">
         <p class="hero__sub">Hospedagem temática em frente a um dos cartões-postais de Curitiba. Arquitetura, experiência e rentabilidade em um único endereço.</p>
         <div class="hero__scroll"><div class="hero__scroll-line"></div>Role para explorar</div>
@@ -380,7 +396,7 @@ body {
 <!-- BANNER PARALLAX -->
 <section class="banner">
   <div class="banner__media">
-    <img id="bannerImg" src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — viela central noturna">
+    <img id="bannerImg" loading="lazy" src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Vialaggio — viela central noturna">
     <div class="banner__caption">Viela central temática</div>
   </div>
 </section>
@@ -636,6 +652,14 @@ document.querySelectorAll('.plant__media').forEach(item => {
 document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* RECÁLCULO — imagens carregadas e mudanças de viewport */
+window.addEventListener('load', () => ScrollTrigger.refresh());
+let rszTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(rszTimer);
+  rszTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
+});
 </script>
 
 </body>
