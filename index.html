@@ -3,8 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invest Hauser — Construção & Incorporação</title>
-<meta name="description" content="Construção de alto padrão, vendas e gestão de Airbnb. Cada projeto é uma obra de valor.">
+<title>Invest Hauser — Construção e Gestão de Airbnb em Curitiba</title>
+<meta name="description" content="Construção de alto padrão, venda e gestão de Airbnb em Curitiba. Da obra à primeira reserva, transformamos seu imóvel em renda passiva — sem você mover um dedo.">
+<link rel="canonical" href="https://investhauser.co/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Invest Hauser">
+<meta property="og:title" content="Invest Hauser — Construção e Gestão de Airbnb em Curitiba">
+<meta property="og:description" content="Construção de alto padrão, venda e gestão de Airbnb em Curitiba. Da obra à primeira reserva, transformamos seu imóvel em renda passiva.">
+<meta property="og:url" content="https://investhauser.co/">
+<meta property="og:image" content="https://res.cloudinary.com/db4pwya16/image/upload/q_auto,f_auto,w_1200,h_630,c_fill/v1779484925/img3_bxbu5l.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Invest Hauser — Construção e Gestão de Airbnb em Curitiba">
+<meta name="twitter:description" content="Construção de alto padrão, venda e gestão de Airbnb em Curitiba. Da obra à primeira reserva, transformamos seu imóvel em renda passiva.">
+<meta name="twitter:image" content="https://res.cloudinary.com/db4pwya16/image/upload/q_auto,f_auto,w_1200,h_630,c_fill/v1779484925/img3_bxbu5l.png">
+
+<!-- Dados estruturados (JSON-LD). TODO Paulo: preencher "sameAs" com Instagram/Google Business e "logo" quando houver. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "GeneralContractor",
+      "@id": "https://investhauser.co/#business",
+      "name": "Invest Hauser",
+      "url": "https://investhauser.co/",
+      "description": "Construção de alto padrão, venda e gestão de Airbnb em Curitiba. Da obra à primeira reserva, transformamos imóveis em renda passiva.",
+      "telephone": "+5511955594437",
+      "areaServed": { "@type": "City", "name": "Curitiba" },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Curitiba",
+        "addressRegion": "PR",
+        "addressCountry": "BR"
+      },
+      "knowsAbout": ["Construção residencial", "Gestão de Airbnb", "Incorporação imobiliária", "Investimento imobiliário"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Serviços Invest Hauser",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Construção Residencial" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Empreitada Geral" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Venda de Imóveis" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestão de Airbnb" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reformas e Upgrades" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consultoria de Investimento Imobiliário" } }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://investhauser.co/#website",
+      "url": "https://investhauser.co/",
+      "name": "Invest Hauser",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://investhauser.co/#business" }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Archivo:wght@700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -681,9 +742,9 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
       Construção · Vendas · Airbnb — Curitiba
     </div>
     <h1 class="hero__title" id="heroTitle">
-      <span class="hero__title-line"><span id="titleL1"></span></span>
-      <span class="hero__title-line"><span id="titleL2"></span></span>
-      <span class="hero__title-line"><em id="titleL3"></em></span>
+      <span class="hero__title-line"><span id="titleL1">Da obra</span></span>
+      <span class="hero__title-line"><span id="titleL2">ao</span></span>
+      <span class="hero__title-line"><em id="titleL3">lucro.</em></span>
     </h1>
     <div class="hero__bottom">
       <p class="hero__desc" id="heroDesc">Seu terreno ou imóvel tem potencial para gerar renda passiva todo mês. A Invest Hauser cuida de tudo — da obra à primeira reserva confirmada.</p>
@@ -821,31 +882,31 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
   </div>
   <div class="projects__overflow">
     <div class="projects__track" id="projectsTrack">
-       <a href="projetos/parque-tangua.html" class="project-card">
+       <a href="/projetos/parque-tangua" class="project-card">
         <div class="project-card__media"><div class="project-card__media-inner"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486519/WhatsApp_Image_2026-05-18_at_11.42.24_ehueyp.jpg" alt="Residência Alphaville" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">01</span><div class="project-card__tag">Airbnb</div></div>
         <h3 class="project-card__title">Parque Tanguá</h3>
         <p class="project-card__meta">Parque Tanguá, Curitiba · 365m² · DEZ, 2027</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--progress">Em andamento</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-      <a href="/projetos/chale-campos-do-jordao" class="project-card">
+      <a class="project-card" aria-disabled="true" data-page-pending="chale-campos-do-jordao">
         <div class="project-card__media project-card__media--short"><div class="project-card__media-inner project-card__media-inner--2"><img src="https://res.cloudinary.com/db4pwya16/image/upload/q_auto/f_auto/v1779486531/Captura_de_tela_2026-05-22_184829_j5dmda.png" alt="Chalé Campos do Jordão" loading="lazy" decoding="async"></div><div class="project-card__overlay"></div><span class="project-card__num">02</span><div class="project-card__tag">Comercial</div></div>
         <h3 class="project-card__title">Medical & Studio</h3>
         <p class="project-card__meta">Curitiba, PR · 7.700m² · MAIO 2028</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--progress">Em andamento</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-      <a href="/projetos/comercial-granja-viana" class="project-card">
+      <a class="project-card" aria-disabled="true" data-page-pending="comercial-granja-viana">
         <div class="project-card__media project-card__media--tall"><div class="project-card__media-inner project-card__media-inner--3"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">03</span><div class="project-card__tag">Comercial</div></div>
         <h3 class="project-card__title">Comercial Granja Viana</h3>
         <p class="project-card__meta">Cotia, SP · 280m² · 2023</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--soon">Em breve</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-      <a href="/projetos/condominio-hills" class="project-card">
+      <a class="project-card" aria-disabled="true" data-page-pending="condominio-hills">
         <div class="project-card__media"><div class="project-card__media-inner project-card__media-inner--4"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">04</span><div class="project-card__tag">Incorporação</div></div>
         <h3 class="project-card__title">Condomínio Hills</h3>
         <p class="project-card__meta">Vila Mariana, SP · 12 unid. · 2022</p>
         <div class="project-card__footer"><span class="project-card__status project-card__status--done">Concluído</span><span class="project-card__access">Ver projeto</span></div>
       </a>
-      <a href="/projetos/casa-temporada-ibiuna" class="project-card project-card--soon">
+      <a class="project-card project-card--soon" aria-disabled="true" data-page-pending="casa-temporada-ibiuna">
         <div class="project-card__media project-card__media--mid"><div class="project-card__media-inner project-card__media-inner--5"><span class="project-card__placeholder">Foto do projeto</span></div><div class="project-card__overlay"></div><span class="project-card__num">05</span><div class="project-card__tag">Airbnb</div></div>
         <h3 class="project-card__title">Casa Temporada Ibiúna</h3>
         <p class="project-card__meta">Ibiúna, SP · Alta ocupação · 2024</p>
@@ -890,7 +951,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
         <div class="airbnb__media-inner"><span class="airbnb__media-placeholder">Foto do imóvel</span></div>
         <div class="airbnb__media-tag">
           <div class="airbnb__media-tag-label">Taxa de ocupação média</div>
-          <div class="airbnb__media-tag-value"><span class="js-count" data-target="87">0</span>%</div>
+          <div class="airbnb__media-tag-value"><span class="js-count" data-target="87">87</span>%</div>
         </div>
       </div>
     </div>
@@ -920,7 +981,7 @@ body:has(a:hover, button:hover) .cursor__ring { width: 64px; height: 64px; borde
       <li><a href="#cta"          class="footer__link">Contato</a></li>
     </ul>
   </nav>
-  <div class="footer__copy">© 2026 Invest Hauser · Curitiba, PR</div>
+  <div class="footer__copy">© 2026 Invest Hauser · Curitiba, PR · <a href="tel:+5511955594437" style="color:inherit;text-decoration:none;">+55 11 95559-4437</a></div>
 </footer>
 
 <script>
