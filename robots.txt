@@ -1,0 +1,33 @@
+# robots.txt — Invest Hauser
+# Permite indexação completa por buscadores e por crawlers de IA (visibilidade em
+# Google AI Overviews, ChatGPT, Perplexity, Claude).
+
+User-agent: *
+Allow: /
+
+# Crawlers de busca/IA explicitamente liberados
+User-agent: Googlebot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://investhauser.co/sitemap.xml
